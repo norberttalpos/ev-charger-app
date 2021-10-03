@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  db:
+    container_name: ev-charger-app-db
+    image: postgres:alpine
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ev-charger-app-db
+    build: .
