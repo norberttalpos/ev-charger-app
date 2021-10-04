@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Person (
 );
 CREATE TABLE IF NOT EXISTS ElectricCar   (
       ID   SERIAL    NOT NULL,
-      sicense_plate   varchar(200)   NOT NULL,
+      license_plate   varchar(200)   NOT NULL,
       battery_percentage   integer   NOT NULL,
       driver_ID   integer    NOT NULL,
       car_type_ID   integer   NOT NULL,
@@ -59,8 +59,8 @@ CREATE TABLE IF NOT EXISTS Charger   (
 );
 CREATE TABLE IF NOT EXISTS ChargingStation   (
       ID   SERIAL    NOT NULL,
-      max_number_of_charges   integer   NOT NULL,
-      owner_company_name   integer   NOT NULL,
+      max_number_of_chargers   integer   NOT NULL,
+      owner_company_name   varchar(200)   NOT NULL,
       location_ID   integer    NOT NULL,
     CONSTRAINT   pk_ChargingStation   PRIMARY KEY (
           ID
