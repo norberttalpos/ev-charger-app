@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS ElectricCarType   (
       ID   SERIAL    NOT NULL,
       name   varchar(200)   NOT NULL,
       battery_size   integer   NOT NULL,
+      max_charging_speed integer NOT NULL,
     CONSTRAINT   pk_ElectricCarType   PRIMARY KEY (
           ID
      )

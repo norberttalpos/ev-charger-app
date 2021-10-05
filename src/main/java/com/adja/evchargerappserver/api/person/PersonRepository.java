@@ -1,4 +1,6 @@
 package com.adja.evchargerappserver.api.person;
 
-public interface PersonRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PersonRepository extends JpaRepository<Person,Long> {
 }

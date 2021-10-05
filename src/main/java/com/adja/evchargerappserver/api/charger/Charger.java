@@ -6,6 +6,8 @@ import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 
 import javax.persistence.*;
 
+@Entity(name = "Charger")
+@Table(name = "charger")
 public class Charger {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +21,7 @@ public class Charger {
     @JoinColumn(name = "charger_type_ID", nullable = false)
     private ChargerType chargerType;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "station_ID", nullable = true)
     private ChargingStation chargingStation;
 
