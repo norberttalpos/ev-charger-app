@@ -2,8 +2,8 @@ package com.adja.evchargerappserver.api.chargertype;
 
 import javax.persistence.*;
 
-@Entity(name = "ChargingType")
-@Table(name = "chargerType")
+@Entity(name = "ChargerType")
+@Table(name = "chargertype")
 public class ChargerType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
