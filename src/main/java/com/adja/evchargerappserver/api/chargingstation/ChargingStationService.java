@@ -11,10 +11,12 @@ import java.util.Collection;
 public class ChargingStationService extends AbstractService<ChargingStation, ChargingStationRepository> {
 
     @Autowired
-    LocationRepository locationRepository;
+    private LocationRepository locationRepository;
+
+
 
     @Override
     protected boolean validateEntity(ChargingStation chargingStation) {
-        return locationRepository.findById(chargingStation.getLocation().getId()).isPresent();
+        return this.locationRepository.findById(chargingStation.getLocation().getId()).isPresent();
     }
 }

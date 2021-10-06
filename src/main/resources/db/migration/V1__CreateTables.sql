@@ -10,6 +10,8 @@ DROP TABLE IF EXISTS Location;
 CREATE TABLE IF NOT EXISTS Person (
       ID   SERIAL    NOT NULL,
       name   varchar(200)   NOT NULL,
+      email   varchar(200)   NOT NULL, --todo API-ba beírni
+      phone_number   varchar(200)   NOT NULL,
       car_ID   integer    NOT NULL,
     CONSTRAINT   pk_Person   PRIMARY KEY (
           ID
@@ -29,6 +31,7 @@ CREATE TABLE IF NOT EXISTS ElectricCarType   (
       ID   SERIAL    NOT NULL,
       name   varchar(200)   NOT NULL,
       battery_size   integer   NOT NULL,
+      max_charging_speed integer NOT NULL,
     CONSTRAINT   pk_ElectricCarType   PRIMARY KEY (
           ID
      )

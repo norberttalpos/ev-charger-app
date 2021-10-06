@@ -1,4 +1,6 @@
 package com.adja.evchargerappserver.api.charger;
 
-public interface ChargerRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ChargerRepository extends JpaRepository<Charger, Long> {
 }
