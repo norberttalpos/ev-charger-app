@@ -13,8 +13,6 @@ public class ChargingStationService extends AbstractService<ChargingStation, Cha
     @Autowired
     private LocationRepository locationRepository;
 
-
-
     @Override
     protected boolean validateEntity(ChargingStation chargingStation) {
         return this.locationRepository.findById(chargingStation.getLocation().getId()).isPresent();

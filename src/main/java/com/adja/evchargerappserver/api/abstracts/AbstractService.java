@@ -14,7 +14,6 @@ public abstract class AbstractService<ENTITY, REPOSITORY extends JpaRepository<E
     @Autowired
     protected REPOSITORY repository;
 
-
     public Collection<ENTITY> getAll() {
         return this.repository.findAll();
     }

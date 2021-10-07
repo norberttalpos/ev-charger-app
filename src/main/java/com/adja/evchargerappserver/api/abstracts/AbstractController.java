@@ -1,15 +1,12 @@
 package com.adja.evchargerappserver.api.abstracts;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
-import java.util.Optional;
 
 public abstract class AbstractController<ENTITY, SERVICE extends AbstractService<ENTITY, ?>> {
 
@@ -23,9 +20,8 @@ public abstract class AbstractController<ENTITY, SERVICE extends AbstractService
 
     @GetMapping("/{id}")
     public ResponseEntity<ENTITY> getById(@PathVariable("id") Long id) {
-        ENTITY entityById = null;
         try {
-            entityById = this.service.getById(id);
+            ENTITY entityById = this.service.getById(id);
 
             return new ResponseEntity<>(entityById, HttpStatus.OK);
         }
