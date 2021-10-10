@@ -47,7 +47,7 @@ public class JwtUtil {
     }
 
     public static long getAccesTokenExpiryTime() {
-        return 10 * 60 * 1000;
+        return 10 * 60 * 60 * 1000;
     }
 
     public static long getRefreshTokenExpiryTime() {

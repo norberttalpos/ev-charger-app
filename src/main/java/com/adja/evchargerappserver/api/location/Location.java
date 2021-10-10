@@ -1,6 +1,9 @@
 package com.adja.evchargerappserver.api.location;
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.postgresql.geometric.PGpoint;
 
 import javax.persistence.*;
 import java.awt.*;
@@ -8,15 +11,16 @@ import java.util.Objects;
 
 @Entity(name = "Location")
 @Table(name = "location")
+@TypeDef(name = "type", typeClass = PGPointType.class)
 public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
     @Column(name = "coordinates", nullable = false)
-    private Point coordinates;
+    @Type(type = "type")
+    private PGpoint coordinates;
 
     public Long getId() {
         return id;
@@ -26,11 +30,11 @@ public class Location {
         this.id = id;
     }
 
-    public Point getCoordinates() {
+    public PGpoint getCoordinates() {
         return coordinates;
     }
 
-    public void setCoordinates(Point coordinates) {
+    public void setCoordinates(PGpoint coordinates) {
         this.coordinates = coordinates;
     }
 

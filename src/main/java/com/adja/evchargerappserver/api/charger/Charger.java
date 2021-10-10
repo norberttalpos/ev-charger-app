@@ -3,6 +3,7 @@ package com.adja.evchargerappserver.api.charger;
 import com.adja.evchargerappserver.api.chargertype.ChargerType;
 import com.adja.evchargerappserver.api.chargingstation.ChargingStation;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -22,6 +23,7 @@ public class Charger {
     @JoinColumn(name = "charger_type_ID", nullable = false)
     private ChargerType chargerType;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "station_ID", nullable = true)
     private ChargingStation chargingStation;
