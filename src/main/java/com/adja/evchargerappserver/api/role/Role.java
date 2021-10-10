@@ -1,6 +1,7 @@
 package com.adja.evchargerappserver.api.role;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "Role")
 @Table(name = "role")
@@ -9,7 +10,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     public Long getId() {
@@ -29,18 +30,15 @@ public class Role {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (this.getClass() != obj.getClass())
-            return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Role)) return false;
+        Role role = (Role) o;
+        return getId().equals(role.getId()) && getName().equals(role.getName());
+    }
 
-        final Role other = (Role) obj;
-        if (this.getName() == null) {
-            return other.getName() == null;
-        }
-        else return getName().equals(other.getName());
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
     }
 }

@@ -84,8 +84,10 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
     public Person put(Long id, Person person) throws NotValidUpdateException {
         if(this.validateEntity(person)) {
 
-            if(!person.getPassword().equals(this.getById(id).getPassword())) {
-                person.setPassword(this.passwordEncoder.encode(person.getPassword()));
+            if(person.getPassword() != null) {
+                if(!person.getPassword().equals(this.getById(id).getPassword())) {
+                    person.setPassword(this.passwordEncoder.encode(person.getPassword()));
+                }
             }
             return this.repository.save(person);
         }
@@ -122,22 +124,5 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
         else {
             throw new EntityNotFoundException();
         }
-    }
-
-    @Override
-    public Collection<Person> getAll() {
-        Collection<Person> collection = super.getAll();
-        collection.forEach(person -> {
-            person.setPassword(null);
-        });
-
-        return collection;
-    }
-
-    @Override
-    public Person getById(Long id) throws EntityNotFoundException {
-        Person person = super.getById(id);
-        person.setPassword(null);
-        return person;
     }
 }

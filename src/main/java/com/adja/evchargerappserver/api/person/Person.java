@@ -7,6 +7,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity(name = "Person")
 @Table(name = "person")
@@ -17,17 +18,17 @@ public class Person {
     private Long id;
 
     @NotNull
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @NotNull
     @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
 
@@ -40,6 +41,10 @@ public class Person {
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+    @OneToOne
+    @JoinColumn(name="car_ID",nullable = true)
+    private ElectricCar car;
 
     public Person() {}
 
@@ -102,15 +107,24 @@ public class Person {
         this.username = username;
     }
 
-    @OneToOne
-    @JoinColumn(name="car_ID",nullable = true)
-    private ElectricCar car;
-
     public ElectricCar getCar() {
         return car;
     }
 
     public void setCar(ElectricCar car) {
         this.car = car;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return getId().equals(person.getId()) && getName().equals(person.getName()) && getUsername().equals(person.getUsername()) && getPassword().equals(person.getPassword()) && getEmail().equals(person.getEmail()) && Objects.equals(getPhoneNumber(), person.getPhoneNumber()) && Objects.equals(getRoles(), person.getRoles()) && getCar().equals(person.getCar());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getUsername(), getPassword(), getEmail(), getPhoneNumber(), getRoles(), getCar());
     }
 }

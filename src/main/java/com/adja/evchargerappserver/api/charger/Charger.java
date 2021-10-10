@@ -5,6 +5,7 @@ import com.adja.evchargerappserver.api.chargingstation.ChargingStation;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "Charger")
 @Table(name = "charger")
@@ -21,11 +22,9 @@ public class Charger {
     @JoinColumn(name = "charger_type_ID", nullable = false)
     private ChargerType chargerType;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "station_ID", nullable = true)
     private ChargingStation chargingStation;
-
-
 
     public long getId() {
         return id;
@@ -57,5 +56,18 @@ public class Charger {
 
     public void setCurrentlyChargingCar(ElectricCar currentlyChargingCar) {
         this.currentlyChargingCar = currentlyChargingCar;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Charger)) return false;
+        Charger charger = (Charger) o;
+        return getId() == charger.getId() && Objects.equals(getCurrentlyChargingCar(), charger.getCurrentlyChargingCar()) && getChargerType().equals(charger.getChargerType()) && Objects.equals(getChargingStation(), charger.getChargingStation());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getCurrentlyChargingCar(), getChargerType(), getChargingStation());
     }
 }
