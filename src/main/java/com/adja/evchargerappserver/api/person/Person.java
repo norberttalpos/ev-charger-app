@@ -32,7 +32,7 @@ public class Person {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "personrolejoin",
             joinColumns = @JoinColumn(name = "person_id"),

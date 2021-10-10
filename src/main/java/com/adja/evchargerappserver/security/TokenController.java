@@ -6,13 +6,13 @@ import com.adja.evchargerappserver.api.role.Role;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,14 +22,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/token")
-@Api(value = "/api/token", tags = "TokenHandler")
+@RequestMapping("/api")
+@Api(value = "/api", tags = "TokenHandler")
 public class TokenController {
 
     @Autowired
     private PersonService personService;
 
-    @GetMapping("/refresh")
+    @PostMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
@@ -68,5 +68,11 @@ public class TokenController {
         else {
             throw new RuntimeException("Refresh token is missing");
         }
+    }
+
+    @ApiOperation("Login")
+    @PostMapping("/login")
+    public void fakeLogin(@RequestBody AuthenticationRequest body) {
+        throw new IllegalStateException("This method shouldn't be called. It's implemented by Spring Security filters.");
     }
 }
