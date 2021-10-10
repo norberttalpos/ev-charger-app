@@ -27,4 +27,20 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (this.getClass() != obj.getClass())
+            return false;
+
+        final Role other = (Role) obj;
+        if (this.getName() == null) {
+            return other.getName() == null;
+        }
+        else return getName().equals(other.getName());
+    }
 }

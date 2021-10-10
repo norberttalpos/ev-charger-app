@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS Charger;
 DROP TABLE IF EXISTS ChargingStation;
 DROP TABLE IF EXISTS Location;
 
+
 CREATE TABLE IF NOT EXISTS Person (
       ID   SERIAL    NOT NULL,
       name   varchar(200)  NOT NULL,

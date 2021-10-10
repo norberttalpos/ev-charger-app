@@ -20,7 +20,8 @@ public class PersonController extends AbstractController<Person,PersonService> {
     public ResponseEntity<?> addRoleToUser(@RequestParam Long id, @RequestBody Role role) {
 
         try {
-            this.service.addRoleToUser(id, role.getName());
+            Person person = this.service.getById(id);
+            this.service.addRoleToUser(person.getUsername(), role.getName());
 
             return new ResponseEntity<>(null, HttpStatus.OK);
         }

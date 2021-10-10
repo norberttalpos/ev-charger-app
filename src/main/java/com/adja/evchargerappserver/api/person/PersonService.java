@@ -36,16 +36,20 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
 
     @Override
     protected boolean validateEntity(Person person) {
-        return true;//electricCarRepository.findById(person.getCar().getId()).isPresent() ;
+        return true;
+        //electricCarRepository.findById(person.getCar().getId()).isPresent() ;
     }
 
-    public void addRoleToUser(Long id, String roleName) throws NotValidUpdateException {
-        Optional<Person> personById = this.repository.findById(id);
-        if(personById.isPresent()) {
-            Person person = personById.get();
+    public void addRoleToUser(String username, String roleName) throws NotValidUpdateException {
+        Optional<Person> personByUsername = this.repository.findByUsername(username);
+        if(personByUsername.isPresent()) {
+            Person person = personByUsername.get();
             Optional<Role> roleByName = this.roleRepository.findByName(roleName);
 
-            if(roleByName.isPresent()) {
+            if(roleByName.isEmpty()) {
+                throw new NotValidUpdateException("");
+            }
+            if(!person.getRoles().contains(roleByName.get())) {
                 person.getRoles().add(roleByName.get());
                 this.put(person.getId(), person);
             }
@@ -61,8 +65,16 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
     @Override
     public Person post(Person person) throws NotValidUpdateException {
         if(this.validateEntity(person)) {
-            person.setPassword(this.passwordEncoder.encode(person.getPassword()));
-            return this.repository.save(person);
+            try {
+                if(this.getByUsername(person.getUsername()) != null) {
+                    throw new NotValidUpdateException("");
+                }
+                return null;
+            }
+            catch (EntityNotFoundException e) {
+                person.setPassword(this.passwordEncoder.encode(person.getPassword()));
+                return this.repository.save(person);
+            }
         }
         else
             throw new NotValidUpdateException("");
