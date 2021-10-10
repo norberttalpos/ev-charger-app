@@ -5,6 +5,7 @@ import com.adja.evchargerappserver.api.person.PersonService;
 import com.adja.evchargerappserver.api.role.Role;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/token")
+@Api(value = "/api/token", tags = "TokenHandler")
 public class TokenController {
 
     @Autowired
@@ -33,8 +35,7 @@ public class TokenController {
 
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
-                DecodedJWT decodedJWT = JwtUtil.getDecodedJWT(authorizationHeader);
-                Person person = this.personService.getByUsername(decodedJWT.getSubject());
+                Person person = this.personService.getByUsername(JwtUtil.getUsernameFromJwt(authorizationHeader));
 
                 String accessToken = JwtUtil.createAccessToken(
                         request.getRequestURL().toString(),

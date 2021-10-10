@@ -1,8 +1,9 @@
 package com.adja.evchargerappserver.configs;
 
-import com.adja.evchargerappserver.security.CustomAuthenticationFilter;
-import com.adja.evchargerappserver.security.CustomAuthorizationFilter;
+import com.adja.evchargerappserver.security.JwtAuthenticationFilter;
+import com.adja.evchargerappserver.security.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -58,11 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().anyRequest().authenticated();
 
-        CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean());
+        JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
 
         http.addFilter(customAuthenticationFilter);
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -72,14 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public static String getSecretKey() {
-        return "titok_adja";
-    }
-
-    public static long getAccesTokenExpiryTime() {
-        return 10 * 60 * 1000;
-    }
-
-    public static long getRefreshTokenExpiryTime() {
-        return 24 * 60 * 60 * 1000;
+        String secret = "titok_adja";
+        return secret;
     }
 }
