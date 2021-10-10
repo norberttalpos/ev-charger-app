@@ -30,13 +30,16 @@ public class EvChargerAppServerApplication {
 			catch(NotValidUpdateException e) {
 				e.printStackTrace();
 			}
-
-			/*try {
-				personService.put(personService.getByUsername("edemsz").getId(),new Person("Virág József Ádám", "edemsz", "1234", "asd@asd.com"));
+			try {
+				Person edemsz=personService.getByUsername("edemsz");
+				edemsz.setPassword("woozyface");
+				personService.put(edemsz.getId(),edemsz);
 			}
 			catch(NotValidUpdateException e) {
 				e.printStackTrace();
-			}*/
+			}
+
+
 
 			try {
 				personService.addRoleToUser("edemsz", "role_user");

@@ -1,6 +1,7 @@
 package com.adja.evchargerappserver.api.person;
 
 
+import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.role.Role;
 import com.sun.istack.NotNull;
 
@@ -28,6 +29,7 @@ public class Person {
 
     @Column(name = "email")
     private String email;
+
 
     @Column(name = "phone_number")
     private String phoneNumber;
@@ -99,7 +101,9 @@ public class Person {
     public void setUsername(String username) {
         this.username = username;
     }
-/*
+
+    @OneToOne
+    @JoinColumn(name="car_ID",nullable = true)
     private ElectricCar car;
 
     public ElectricCar getCar() {
@@ -108,5 +112,5 @@ public class Person {
 
     public void setCar(ElectricCar car) {
         this.car = car;
-    }*/
+    }
 }

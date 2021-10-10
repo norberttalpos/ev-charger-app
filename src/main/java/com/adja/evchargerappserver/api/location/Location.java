@@ -3,6 +3,7 @@ package com.adja.evchargerappserver.api.location;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.awt.*;
 
 @Entity(name = "Location")
 @Table(name = "location")
@@ -13,10 +14,8 @@ public class Location {
     private Long id;
 
     @NotNull
-    private Double x;
-
-    @NotNull
-    private Double y;
+    @Column(name = "coordinates")
+    private Point coordinates;
 
     public Long getId() {
         return id;
@@ -26,19 +25,11 @@ public class Location {
         this.id = id;
     }
 
-    public Double getX() {
-        return x;
+    public Point getCoordinates() {
+        return coordinates;
     }
 
-    public void setX(Double x) {
-        this.x = x;
-    }
-
-    public Double getY() {
-        return y;
-    }
-
-    public void setY(Double y) {
-        this.y = y;
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
     }
 }

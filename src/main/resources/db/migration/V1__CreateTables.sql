@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS Person (
       ID   SERIAL    NOT NULL,
       name   varchar(200)  NOT NULL,
       username varchar(200) UNIQUE NOT NULL,
-      password varchar(200) NOT NULL,
+      password varchar(200) ,
       email   varchar(200)   NOT NULL, --todo API-ba beírni
       phone_number   varchar(200),
       car_ID   integer,
@@ -137,13 +137,13 @@ insert into charger (currently_charging_car_id,charger_type_id,station_id) value
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (2,1,2);
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (3,2,1);
 
-insert into cartypejoin (type_id,charger_type_id) values(1,3);
-insert into cartypejoin (type_id,charger_type_id) values(2,1);
-insert into cartypejoin (type_id,charger_type_id) values(3,2);
-insert into cartypejoin (type_id,charger_type_id) values(3,3);
-insert into cartypejoin (type_id,charger_type_id) values(3,1);
-insert into cartypejoin (type_id,charger_type_id) values(2,3);
-insert into cartypejoin (type_id,charger_type_id) values(1,1);
+insert into cartypejoin (car_type_id,charger_type_id) values(1,3);
+insert into cartypejoin (car_type_id,charger_type_id) values(2,1);
+insert into cartypejoin (car_type_id,charger_type_id) values(3,2);
+insert into cartypejoin (car_type_id,charger_type_id) values(3,3);
+insert into cartypejoin (car_type_id,charger_type_id) values(3,1);
+insert into cartypejoin (car_type_id,charger_type_id) values(2,3);
+insert into cartypejoin (car_type_id,charger_type_id) values(1,1);
 
 
 
