@@ -9,27 +9,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
-
 @RestController
 @RequestMapping("/api/person")
 @Api(value = "/api/person", tags = "Persons")
 public class PersonController extends AbstractController<Person,PersonService> {
 
-    @PostMapping("/{id}/addrole")
-    public ResponseEntity<?> addRoleToUser(@RequestParam Long id, @RequestBody Role role) {
+    @PutMapping("/{id}/addrole")
+    public ResponseEntity<Person> addRoleToUser(@RequestParam Long id, @RequestBody Role role) {
 
         try {
             Person person = this.service.getById(id);
             this.service.addRoleToUser(person.getUsername(), role.getName());
 
-            return new ResponseEntity<>(null, HttpStatus.OK);
+            return new ResponseEntity<>(person, HttpStatus.OK);
         }
         catch (NotValidUpdateException e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
-
+/*
     @GetMapping("/{username}")
     public ResponseEntity<Person> getByUsername(@PathVariable String username) {
         try {
@@ -39,5 +37,5 @@ public class PersonController extends AbstractController<Person,PersonService> {
         catch(EntityNotFoundException e) {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 }
