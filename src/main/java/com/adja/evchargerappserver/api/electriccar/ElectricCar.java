@@ -2,6 +2,7 @@ package com.adja.evchargerappserver.api.electriccar;
 
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarType;
 import com.adja.evchargerappserver.api.person.Person;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -16,6 +17,7 @@ public class ElectricCar {
     @Column(name = "license_plate", nullable = false)
     private String licensePlate;
 
+    @JsonIgnore
     @OneToOne//(mappedBy = "driver_ID")
     private Person driver;
 

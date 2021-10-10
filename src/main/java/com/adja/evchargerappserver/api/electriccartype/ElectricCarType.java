@@ -23,10 +23,10 @@ public class ElectricCarType {
     @Column(name="max_charging_speed", nullable = false)
     private int maxChargingSpeed;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "cartypejoin",
-            joinColumns = @JoinColumn(name = "type_id"),
+            joinColumns = @JoinColumn(name = "car_type_id"),
             inverseJoinColumns = @JoinColumn(name = "charger_type_id"))
     private Collection<ChargerType> compatibleChargerTypes;
 
