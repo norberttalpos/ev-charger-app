@@ -123,4 +123,21 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
             throw new EntityNotFoundException();
         }
     }
+
+    @Override
+    public Collection<Person> getAll() {
+        Collection<Person> collection = super.getAll();
+        collection.forEach(person -> {
+            person.setPassword(null);
+        });
+
+        return collection;
+    }
+
+    @Override
+    public Person getById(Long id) throws EntityNotFoundException {
+        Person person = super.getById(id);
+        person.setPassword(null);
+        return person;
+    }
 }
