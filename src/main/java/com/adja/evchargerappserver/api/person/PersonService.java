@@ -97,11 +97,4 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
             throw new EntityNotFoundException();
         }
     }
-
-    public String getAccessToken(String requestUrl, Person person) {
-         return JwtUtil.createAccessToken(
-                person.getUsername(),
-                person.getRoles().stream().map(Role::getName).collect(Collectors.toList()),
-                requestUrl);
-    }
 }
