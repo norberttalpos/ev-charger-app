@@ -14,4 +14,15 @@ public class EvChargerAppServerApplication {
 		SpringApplication.run(EvChargerAppServerApplication.class, args);
 	}
 
+	/*@Bean
+	CommandLineRunner run(PersonService personService) {
+		return args -> {
+			personService.post(new Person("Talpos Norbert", "norbi", "1234", "asd@asd.com"));
+			personService.post(new Person("Virág József Ádám", "edemsz", "1234", "asd@asd.com"));
+
+			personService.addRoleToUser(1L, "role_user");
+			personService.addRoleToUser(2L, "role_admin");
+			personService.addRoleToUser(2L, "role_user");
+		};
+	}*/
 }

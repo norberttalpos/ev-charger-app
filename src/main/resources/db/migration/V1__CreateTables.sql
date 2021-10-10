@@ -9,20 +9,33 @@ DROP TABLE IF EXISTS Location;
 
 CREATE TABLE IF NOT EXISTS Person (
       ID   SERIAL    NOT NULL,
-      name   varchar(200)   NOT NULL,
+      name   varchar(200)  NOT NULL,
+      username varchar(200) UNIQUE NOT NULL,
+      password varchar(200) NOT NULL,
       email   varchar(200)   NOT NULL, --todo API-ba beírni
-      phone_number   varchar(200)   NOT NULL,
-      car_ID   integer    NOT NULL,
-    CONSTRAINT   pk_Person   PRIMARY KEY (
+      phone_number   varchar(200),
+/*      car_ID   integer    NOT NULL,
+*/    CONSTRAINT   pk_Person   PRIMARY KEY (
           ID
      )
+);
+CREATE TABLE IF NOT EXISTS Role (
+     ID   SERIAL    NOT NULL,
+     name   varchar(200)  UNIQUE NOT NULL,
+     CONSTRAINT   pk_Role   PRIMARY KEY (ID)
+);
+CREATE TABLE IF NOT EXISTS PersonRoleJoin   (
+     ID   SERIAL    NOT NULL,
+     person_id   integer    NOT NULL,
+     role_id   integer    NOT NULL,
+     CONSTRAINT   pk_PersonRoleJoin   PRIMARY KEY (ID)
 );
 CREATE TABLE IF NOT EXISTS ElectricCar   (
       ID   SERIAL    NOT NULL,
       license_plate   varchar(200)   NOT NULL,
       battery_percentage   integer   NOT NULL,
-      driver_ID   integer    NOT NULL,
-      car_type_ID   integer   NOT NULL,
+/*      driver_ID   integer    NOT NULL,
+*/      car_type_ID   integer   NOT NULL,
     CONSTRAINT   pk_ElectricCar   PRIMARY KEY (
           ID
      )
@@ -77,10 +90,10 @@ CREATE TABLE IF NOT EXISTS Location   (
           ID
      )
 );
-ALTER TABLE   Person   ADD CONSTRAINT fk_Person_car_ID   FOREIGN KEY(  car_ID  )
-REFERENCES   ElectricCar   (  ID  );
-ALTER TABLE   ElectricCar   ADD CONSTRAINT fk_ElectricCar_driver_ID   FOREIGN KEY(  driver_ID  )
-REFERENCES   Person   (  ID  );
+/*ALTER TABLE   Person   ADD CONSTRAINT fk_Person_car_ID   FOREIGN KEY(  car_ID  )
+REFERENCES   ElectricCar   (  ID  );*/
+/*ALTER TABLE   ElectricCar   ADD CONSTRAINT fk_ElectricCar_driver_ID   FOREIGN KEY(  driver_ID  )
+REFERENCES   Person   (  ID  );*/
 ALTER TABLE   ElectricCar   ADD CONSTRAINT fk_ElectricCar_car_type_ID   FOREIGN KEY(  car_type_ID  )
 REFERENCES   ElectricCarType   (  ID  );
 ALTER TABLE   CarTypeJoin   ADD CONSTRAINT fk_CarTypeJoin_type_ID   FOREIGN KEY(  type_ID  )
