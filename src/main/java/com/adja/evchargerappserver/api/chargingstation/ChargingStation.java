@@ -20,8 +20,8 @@ public class ChargingStation {
     @Column(name = "owner_company_name")
     private String ownerCompanyName;
 
-    @OneToMany(mappedBy = "chargingStation")
-    private Collection<Charger> chargers;
+    @OneToOne(mappedBy = "chargingStation")
+    private Charger charger;
 
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)

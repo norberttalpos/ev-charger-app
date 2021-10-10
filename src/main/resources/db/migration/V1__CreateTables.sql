@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS flywayInitializer;
 DROP TABLE IF EXISTS Person;
 DROP TABLE IF EXISTS Electriccar;
 DROP TABLE IF EXISTS ElectricCarType;
@@ -7,6 +8,9 @@ DROP TABLE IF EXISTS Charger;
 DROP TABLE IF EXISTS ChargingStation;
 DROP TABLE IF EXISTS Location;
 DROP TABLE IF EXISTS flywayInitializer;
+DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS personrolejoin;
+
 
 
 CREATE TABLE IF NOT EXISTS Person (
@@ -53,7 +57,7 @@ CREATE TABLE IF NOT EXISTS ElectricCarType   (
 );
 CREATE TABLE IF NOT EXISTS CarTypeJoin   (
       ID   SERIAL    NOT NULL,
-      type_ID   integer    NOT NULL,
+      car_type_ID   integer    NOT NULL,
       charger_type_ID   integer    NOT NULL,
     CONSTRAINT   pk_CarTypeJoin   PRIMARY KEY (
           ID
@@ -123,9 +127,23 @@ insert into chargingstation (max_number_of_chargers, owner_company_name, locatio
 
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Talpos Norbert','norbi','proba','asd','123',1);
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám','edemsz','proba','asd','123',2);
+insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám2','edemsz2',null,'asd','123',3);
 
-insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id) VALUES ('ABC-123','90',1,1);
+insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id) VALUES ('ABC-123',90,1,1);
 insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id) VALUES ('ADJA-12',100,2,3);
+insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id) VALUES ('ADJA-13',100,3,3);
+
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (1,3,3);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (2,1,2);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (3,2,1);
+
+insert into cartypejoin (type_id,charger_type_id) values(1,3);
+insert into cartypejoin (type_id,charger_type_id) values(2,1);
+insert into cartypejoin (type_id,charger_type_id) values(3,2);
+insert into cartypejoin (type_id,charger_type_id) values(3,3);
+insert into cartypejoin (type_id,charger_type_id) values(3,1);
+insert into cartypejoin (type_id,charger_type_id) values(2,3);
+insert into cartypejoin (type_id,charger_type_id) values(1,1);
 
 
 

@@ -21,7 +21,7 @@ public class Charger {
     @JoinColumn(name = "charger_type_ID", nullable = false)
     private ChargerType chargerType;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "station_ID", nullable = true)
     private ChargingStation chargingStation;
 
