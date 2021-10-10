@@ -23,18 +23,20 @@ public class EvChargerAppServerApplication {
 	CommandLineRunner run(PersonService personService) {
 		return args -> {
 			try {
-				personService.post(new Person("Talpos Norbert", "norbi", "1234", "asd@asd.com"));
+				Person norbi=personService.getByUsername("norbi");
+				norbi.setPassword("1234");
+				personService.put(norbi.getId(),norbi);
 			}
 			catch(NotValidUpdateException e) {
 				e.printStackTrace();
 			}
 
-			try {
-				personService.post(new Person("Virág József Ádám", "edemsz", "1234", "asd@asd.com"));
+			/*try {
+				personService.put(personService.getByUsername("edemsz").getId(),new Person("Virág József Ádám", "edemsz", "1234", "asd@asd.com"));
 			}
 			catch(NotValidUpdateException e) {
 				e.printStackTrace();
-			}
+			}*/
 
 			try {
 				personService.addRoleToUser("edemsz", "role_user");

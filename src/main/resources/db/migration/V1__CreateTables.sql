@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS Person (
       password varchar(200) NOT NULL,
       email   varchar(200)   NOT NULL, --todo API-ba beírni
       phone_number   varchar(200),
-      car_ID   integer    NOT NULL,
+      car_ID   integer,
     CONSTRAINT   pk_Person   PRIMARY KEY (
           ID
      )

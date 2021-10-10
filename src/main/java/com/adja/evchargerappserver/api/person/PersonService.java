@@ -81,6 +81,17 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
     }
 
     @Override
+    public Person put(Long id, Person person) throws NotValidUpdateException {
+        if(this.validateEntity(person)) {
+            person.setPassword(this.passwordEncoder.encode(person.getPassword()));
+            return this.repository.save(person);
+        }
+        else
+            throw new NotValidUpdateException("");
+
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Person> personByUsername = this.repository.findByUsername(username);
 
