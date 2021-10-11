@@ -1,12 +1,10 @@
 package com.adja.evchargerappserver.api.location;
 
-import com.sun.istack.NotNull;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.postgresql.geometric.PGpoint;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.util.Objects;
 
 @Entity(name = "Location")
@@ -30,12 +28,14 @@ public class Location {
         this.id = id;
     }
 
-    public PGpoint getCoordinates() {
-        return coordinates;
+    public LatitudeLongitude getCoordinates() {
+        return new LatitudeLongitude(this.coordinates.x, this.coordinates.y);
     }
 
-    public void setCoordinates(PGpoint coordinates) {
-        this.coordinates = coordinates;
+    public void setCoordinates(LatitudeLongitude l) {
+        this.coordinates = new PGpoint();
+        this.coordinates.x = l.getLatitude();
+        this.coordinates.y = l.getLongitude();
     }
 
     @Override
