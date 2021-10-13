@@ -5,6 +5,7 @@ import com.adja.evchargerappserver.api.location.Location;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity(name = "ChargingStation")
 @Table(name = "chargingstation")
@@ -14,10 +15,10 @@ public class ChargingStation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "max_number_of_chargers")
+    @Column(name = "max_number_of_chargers", nullable = false)
     private Integer maxNumberOfChargers;
 
-    @Column(name = "owner_company_name")
+    @Column(name = "owner_company_name", nullable = false)
     private String ownerCompanyName;
 
     @OneToMany(mappedBy = "chargingStation")
@@ -57,5 +58,26 @@ public class ChargingStation {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Collection<Charger> getChargers() {
+        return chargers;
+    }
+
+    public void setChargers(Collection<Charger> chargers) {
+        this.chargers = chargers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ChargingStation)) return false;
+        ChargingStation that = (ChargingStation) o;
+        return getId().equals(that.getId()) && getMaxNumberOfChargers().equals(that.getMaxNumberOfChargers()) && getOwnerCompanyName().equals(that.getOwnerCompanyName()) && Objects.equals(getChargers(), that.getChargers()) && getLocation().equals(that.getLocation());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getMaxNumberOfChargers(), getOwnerCompanyName(), getChargers(), getLocation());
     }
 }

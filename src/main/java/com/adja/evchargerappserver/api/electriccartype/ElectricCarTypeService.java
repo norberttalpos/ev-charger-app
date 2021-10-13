@@ -5,9 +5,10 @@ import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ElectricCarTypeService extends AbstractService<ElectricCar,ElectricCarTypeRepository> {
+public class ElectricCarTypeService extends AbstractService<ElectricCarType,ElectricCarTypeRepository> {
+
     @Override
-    protected boolean validateEntity(ElectricCar electricCar) {
-        return true;//todo
+    protected boolean validateEntity(ElectricCarType electricCarType) {
+        return false;
     }
 }

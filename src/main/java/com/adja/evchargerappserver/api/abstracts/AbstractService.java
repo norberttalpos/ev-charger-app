@@ -1,6 +1,7 @@
 package com.adja.evchargerappserver.api.abstracts;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public abstract class AbstractService<ENTITY, REPOSITORY extends JpaRepository<E
     protected REPOSITORY repository;
 
     public Collection<ENTITY> getAll() {
-        return this.repository.findAll();
+        return this.repository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public ENTITY getById(Long id) throws EntityNotFoundException {
