@@ -23,6 +23,10 @@ public class ElectricCarType {
     @Column(name="max_charging_speed", nullable = false)
     private int maxChargingSpeed;
 
+    @Column(name = "discharging_speed", nullable = false)
+    private int dischargingSpeed;
+
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "cartypejoin",

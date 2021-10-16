@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS ElectricCarType   (
       name   varchar(200)   NOT NULL,
       battery_size   integer   NOT NULL,
       max_charging_speed integer NOT NULL,
+      discharging_speed integer NOT NULL,
+
     CONSTRAINT   pk_ElectricCarType   PRIMARY KEY (
           ID
      )
@@ -113,13 +115,13 @@ insert into location (coordinates) values( point(2.0, 4.0));
 insert into location (coordinates) values( point(5.0, 3.0));
 insert into location (coordinates) values( point(-9.0, -6.0));
 
-insert into electriccartype (name, battery_size, max_charging_speed) VALUES ('BMW i3',60,8);
-insert into electriccartype (name, battery_size, max_charging_speed) VALUES ('Renault Zoe',36,22);
-insert into electriccartype (name, battery_size, max_charging_speed) VALUES ('Tesla Model 3',80,211);
+insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('BMW i3',19,8,6);
+insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('Renault Zoe',36,50,5);
+insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('Tesla Model 3',80,211,8);
 
-insert into chargertype (name, max_charging_speed) values ('ChaDeMo',2);
-insert into chargertype (name, max_charging_speed) values ('Type 2',3);
-insert into chargertype (name, max_charging_speed) values ('Type 3',4);
+insert into chargertype (name, max_charging_speed) values ('ChaDeMo',63);
+insert into chargertype (name, max_charging_speed) values ('Type 2',22);
+insert into chargertype (name, max_charging_speed) values ('Type 3',100);
 
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (30,'Mobility',1);
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (10,'Mobility',2);

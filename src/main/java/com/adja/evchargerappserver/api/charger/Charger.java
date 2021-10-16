@@ -15,7 +15,7 @@ public class Charger {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "currently_charging_car_ID", nullable = true)
     private ElectricCar currentlyChargingCar;
 
