@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.api.electriccar;
 
+import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarType;
 import com.adja.evchargerappserver.api.person.Person;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -23,6 +24,12 @@ public class ElectricCar {
 
     @Column(name = "battery_percentage", nullable = false)
     private int batteryPercentage;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name="charger_id",nullable = true)
+    private Charger charger;
+
 
     @ManyToOne
     @JoinColumn(name="car_type_id",nullable = false)
@@ -79,5 +86,13 @@ public class ElectricCar {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getLicensePlate(), getDriver(), getBatteryPercentage(), getCarType());
+    }
+
+    public Charger getCharger() {
+        return charger;
+    }
+
+    public void setCharger(Charger charger) {
+        this.charger = charger;
     }
 }
