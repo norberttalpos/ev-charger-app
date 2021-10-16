@@ -74,6 +74,15 @@ public class ElectricCarType {
         this.compatibleChargerTypes = compatibleChargerTypes;
     }
 
+
+    public int getDischargingSpeed() {
+        return dischargingSpeed;
+    }
+
+    public void setDischargingSpeed(int dischargingSpeed) {
+        this.dischargingSpeed = dischargingSpeed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
