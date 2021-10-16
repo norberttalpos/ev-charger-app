@@ -8,6 +8,7 @@ public class ChargerTypeService extends AbstractService<ChargerType,ChargerTypeR
 
     @Override
     protected boolean validateEntity(ChargerType chargerType) {
+
         return true;
     }
 }

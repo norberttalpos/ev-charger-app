@@ -36,8 +36,7 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
 
     @Override
     protected boolean validateEntity(Person person) {
-        return true;
-        //electricCarRepository.findById(person.getCar().getId()).isPresent() ;
+        return electricCarRepository.findById(person.getCar().getId()).isPresent() || person.getCar() == null ;
     }
 
     public void addRoleToUser(String username, String roleName) throws NotValidUpdateException {

@@ -9,4 +9,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/chargerType")
 @Api(value = "/api/chargerType", tags = "ChargerType")
 public class ChargerTypeController extends AbstractController<ChargerType,ChargerTypeService> {
+
 }
