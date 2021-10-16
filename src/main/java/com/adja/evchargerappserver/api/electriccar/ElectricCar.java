@@ -19,7 +19,7 @@ public class ElectricCar {
     private String licensePlate;
 
     @JsonIgnore
-    @OneToOne//(mappedBy = "driver_ID")
+    @OneToOne(mappedBy = "car")
     private Person driver;
 
     @Column(name = "battery_percentage", nullable = false)
@@ -28,7 +28,6 @@ public class ElectricCar {
     @JsonIgnore
     @OneToOne(mappedBy = "currentlyChargingCar")
     private Charger charger;
-
 
     @ManyToOne
     @JoinColumn(name="car_type_id",nullable = false)

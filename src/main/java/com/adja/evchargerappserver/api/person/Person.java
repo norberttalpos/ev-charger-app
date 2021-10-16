@@ -43,7 +43,7 @@ public class Person {
     private Collection<Role> roles;
 
     @OneToOne
-    @JoinColumn(name="car_ID",nullable = true)
+    @JoinColumn(name="car_ID", referencedColumnName = "id")
     private ElectricCar car;
 
     public Person() {}
