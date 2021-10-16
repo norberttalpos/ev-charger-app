@@ -6,8 +6,6 @@ ALTER TABLE   ElectricCar   ADD CONSTRAINT fk_ElectricCar_driver_ID   FOREIGN KE
     REFERENCES   Person   (  ID  );
 ALTER TABLE   ElectricCar   ADD CONSTRAINT fk_ElectricCar_car_type_ID   FOREIGN KEY(  car_type_ID  )
     REFERENCES   ElectricCarType   (  ID  );
-ALTER TABLE   ElectricCar   ADD CONSTRAINT fk_ElectricCar_charger_id   FOREIGN KEY(  charger_id  )
-    REFERENCES   charger   (  ID  );
 ALTER TABLE   CarTypeJoin   ADD CONSTRAINT fk_CarTypeJoin_type_ID   FOREIGN KEY(  car_type_ID  )
     REFERENCES   ElectricCarType   (  ID  );
 ALTER TABLE   CarTypeJoin   ADD CONSTRAINT fk_CarTypeJoin_charger_type_ID   FOREIGN KEY(  charger_type_ID  )

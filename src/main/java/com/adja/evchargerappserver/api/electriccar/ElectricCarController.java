@@ -1,13 +1,11 @@
 package com.adja.evchargerappserver.api.electriccar;
 
 import com.adja.evchargerappserver.api.abstracts.AbstractController;
+import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/electricCar")
@@ -15,16 +13,38 @@ import org.springframework.web.bind.annotation.RestController;
 public class ElectricCarController extends AbstractController<ElectricCar,ElectricCarService> {
 
     @PostMapping("/{id}/startCharging")
-    public ResponseEntity<?> startCharging(@PathVariable("id") Long id) {
-        this.service.startCharging(id);
+    public ResponseEntity<?> startCharging(@PathVariable("id") Long id, @RequestBody StartChargingRequest requestBody) {
+        boolean success = false;
+        try {
+            success = this.service.startCharging(id, requestBody.getChargerId());
+        }
+        catch(NotValidUpdateException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
 
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        if(success) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping("/{id}/endCharging")
     public ResponseEntity<?> endCharging(@PathVariable("id") Long id) {
-        this.service.endCharging(id);
+        boolean success = false;
+        try {
+            success = this.service.endCharging(id);
+        }
+        catch(NotValidUpdateException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
 
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        if(success) {
+            return new ResponseEntity<>(null, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS ElectricCar   (
       battery_percentage   integer   NOT NULL,
       driver_ID   integer    NOT NULL,
       car_type_ID   integer   NOT NULL,
-      charger_ID integer,
     CONSTRAINT   pk_ElectricCar   PRIMARY KEY (
           ID
      )
@@ -76,7 +75,7 @@ CREATE TABLE IF NOT EXISTS ChargerType   (
 );
 CREATE TABLE IF NOT EXISTS Charger   (
       ID    SERIAL    NOT NULL,
-      currently_charging_car_ID   integer,
+      currently_charging_car_ID   integer UNIQUE,
       charger_type_ID   integer    NOT NULL,
       station_ID   integer    NOT NULL,
     CONSTRAINT   pk_Charger   PRIMARY KEY (
@@ -132,9 +131,9 @@ insert into person (name, username, password, email, phone_number, car_id) VALUE
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám','edemsz','proba','asd','123',2);
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám2','edemsz2',null,'asd','123',3);
 
-insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id,charger_id) VALUES ('ABC-123',50,1,1,1);
-insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id,charger_id) VALUES ('ADJA-12',40,2,3,1);
-insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id,charger_id) VALUES ('ADJA-13',60,3,3,1);
+insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id) VALUES ('ABC-123',50,1,1);
+insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id) VALUES ('ADJA-12',40,2,3);
+insert into electriccar ( license_plate, battery_percentage, driver_id, car_type_id) VALUES ('ADJA-13',60,3,3);
 
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (1,3,3);
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (2,1,2);

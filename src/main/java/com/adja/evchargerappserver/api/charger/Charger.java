@@ -16,7 +16,7 @@ public class Charger {
     private long id;
 
     @OneToOne
-    @JoinColumn(name = "currently_charging_car_ID", nullable = true)
+    @JoinColumn(name = "currently_charging_car_ID", referencedColumnName = "id")
     private ElectricCar currentlyChargingCar;
 
     @ManyToOne

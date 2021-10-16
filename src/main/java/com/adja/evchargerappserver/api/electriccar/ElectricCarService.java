@@ -1,6 +1,9 @@
 package com.adja.evchargerappserver.api.electriccar;
 
 import com.adja.evchargerappserver.api.abstracts.AbstractService;
+import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
+import com.adja.evchargerappserver.api.charger.Charger;
+import com.adja.evchargerappserver.api.charger.ChargerService;
 import com.adja.evchargerappserver.api.electriccar.mock.MockElectricCarHandler;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarTypeRepository;
 import com.adja.evchargerappserver.api.person.PersonRepository;
@@ -12,12 +15,13 @@ import java.util.Optional;
 @Service
 public class ElectricCarService extends AbstractService<ElectricCar,ElectricCarRepository> {
     @Autowired
-    ElectricCarTypeRepository electricCarTypeRepository;
+    private ElectricCarTypeRepository electricCarTypeRepository;
     @Autowired
-    PersonRepository personRepository;
-
+    private PersonRepository personRepository;
     @Autowired
     private MockElectricCarHandler mockElectricCarHandler;
+    @Autowired
+    private ChargerService chargerService;
 
     @Override
     protected boolean validateEntity(ElectricCar electricCar) {
@@ -25,13 +29,42 @@ public class ElectricCarService extends AbstractService<ElectricCar,ElectricCarR
                 ( personRepository.findById(electricCar.getDriver().getId()).isPresent() || electricCar.getDriver()==null);
     }
 
-    public boolean startCharging(Long carId) {
-        mockElectricCarHandler.startCharging(carId);
-        return true;
+    public boolean startCharging(Long carId, Long chargerId) throws NotValidUpdateException {
+        Optional<ElectricCar> carById = this.repository.findById(carId);
+        if(carById.isEmpty()) {
+            throw new NotValidUpdateException("");
+        }
+        ElectricCar car = carById.get();
+
+        if(car.getCharger() != null) {
+            return false;
+        }
+        boolean successfulAttempt = chargerService.carAttemptsCharging(chargerId, carId);
+
+        if(successfulAttempt)
+            mockElectricCarHandler.startCharging(car);
+
+        return successfulAttempt;
     }
 
-    public boolean endCharging(Long carId) {
-        mockElectricCarHandler.endCharging(carId);
+    public boolean endCharging(Long carId) throws NotValidUpdateException {
+        Optional<ElectricCar> carById = this.repository.findById(carId);
+        if(carById.isEmpty()) {
+            throw new NotValidUpdateException("");
+        }
+        ElectricCar car = carById.get();
+
+        if(car.getCharger() != null) {
+            Charger charger = this.chargerService.getById(car.getCharger().getId());
+            charger.setCurrentlyChargingCar(null);
+
+            car.setCharger(null);
+
+            this.chargerService.put(charger.getId(), charger);
+            this.put(carId, car);
+
+            mockElectricCarHandler.endCharging(carId);
+        }
 
         return true;
     }

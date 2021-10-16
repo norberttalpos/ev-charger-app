@@ -26,8 +26,7 @@ public class ElectricCar {
     private int batteryPercentage;
 
     @JsonIgnore
-    @OneToOne
-    @JoinColumn(name="charger_id",nullable = true)
+    @OneToOne(mappedBy = "currentlyChargingCar")
     private Charger charger;
 
 
