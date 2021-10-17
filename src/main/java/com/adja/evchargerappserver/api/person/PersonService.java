@@ -3,9 +3,12 @@ package com.adja.evchargerappserver.api.person;
 import com.adja.evchargerappserver.api.abstracts.AbstractService;
 import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarRepository;
+import com.adja.evchargerappserver.api.electriccartype.ElectricCarType;
+import com.adja.evchargerappserver.api.electriccartype.QElectricCarType;
 import com.adja.evchargerappserver.api.role.Role;
 import com.adja.evchargerappserver.api.role.RoleRepository;
 import com.adja.evchargerappserver.security.JwtUtil;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,8 +38,30 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
     private RoleRepository roleRepository;
 
     @Override
-    public Collection<Person> search(PersonFilter personFilter) {
-        return null;
+    public Collection<Person> search(PersonFilter filter) {
+        QPerson person = QPerson.person;
+        BooleanBuilder where = new BooleanBuilder();
+
+        if(filter.getName() != null) {
+            where.and(person.name.contains(filter.getName()));
+        }
+        if(filter.getUsername() != null) {
+            where.and(person.username.contains(filter.getUsername()));
+        }
+        if(filter.getEmail() != null) {
+            where.and(person.email.contains(filter.getEmail()));
+        }
+        if(filter.getPhoneNumber() != null) {
+            where.and(person.phoneNumber.contains(filter.getPhoneNumber()));
+        }
+        if(filter.getRoleName() != null) {
+            where.and(person.roles.any().name.contains(filter.getRoleName()));
+        }
+        if(filter.getCar() != null) {
+            where.and(person.car.id.eq(filter.getCar()));
+        }
+
+        return (Collection<Person>) this.repository.findAll(where);
     }
 
     @Override

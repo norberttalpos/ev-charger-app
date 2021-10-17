@@ -7,6 +7,7 @@ import com.adja.evchargerappserver.api.charger.ChargerService;
 import com.adja.evchargerappserver.api.electriccar.mock.MockElectricCarHandler;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarTypeRepository;
 import com.adja.evchargerappserver.api.person.PersonRepository;
+import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,30 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
     private ChargerService chargerService;
 
     @Override
-    public Collection<ElectricCar> search(ElectricCarFilter electricCarFilter) {
-        return null;
+    public Collection<ElectricCar> search(ElectricCarFilter filter) {
+        QElectricCar electricCar = QElectricCar.electricCar;
+        BooleanBuilder where = new BooleanBuilder();
+
+        if(filter.getLicensePlate() != null) {
+            where.and(electricCar.licensePlate.eq(filter.getLicensePlate()));
+        }
+        if(filter.getDriver() != null) {
+            where.and(electricCar.driver.id.eq(filter.getDriver()));
+        }
+        if(filter.getMinBatteryPercentage() != null) {
+            where.and(electricCar.batteryPercentage.gt(filter.getMinBatteryPercentage()));
+        }
+        if(filter.getMaxBatteryPercentage() != null) {
+            where.and(electricCar.batteryPercentage.lt(filter.getMaxBatteryPercentage()));
+        }
+        if(filter.getCharger() != null) {
+            where.and(electricCar.charger.id.eq(filter.getCharger()));
+        }
+        if(filter.getCarType() != null) {
+            where.and(electricCar.carType.name.contains(filter.getCarType()));
+        }
+
+        return (Collection<ElectricCar>) this.repository.findAll(where);
     }
 
     @Override
