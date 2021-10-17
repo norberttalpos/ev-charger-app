@@ -73,7 +73,7 @@ public class ElectricCar extends AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLicensePlate(), getDriver(), getBatteryPercentage(), getCarType());
+        return Objects.hash(getId(), getLicensePlate(), getBatteryPercentage(), getCarType());
     }
 
     public Charger getCharger() {

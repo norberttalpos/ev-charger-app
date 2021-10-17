@@ -43,6 +43,14 @@ public class ChargerService extends AbstractService<Charger, ChargerFilter, Char
         if(filter.getChargingStation() != null) {
             where.and(charger.chargingStation.id.eq(filter.getChargingStation()));
         }
+        if(filter.getReserved() != null) {
+            if(filter.getReserved()) {
+                where.and(charger.currentlyChargingCar.id.isNotNull());
+            }
+            else {
+                where.and(charger.currentlyChargingCar.id.isNull());
+            }
+        }
 
         return (Collection<Charger>) this.repository.findAll(where);
     }

@@ -46,17 +46,17 @@ public class MockElectricCarHandler extends Thread {
         }
     }
 
-    public void startCharging(ElectricCar model) {
+    public void startCharging(ElectricCar persistedCar) {
         this.cars.forEach(car -> {
-            if(Objects.equals(car.getID(), model.getId())){
-                car.chargingStarted(model.getCharger().getChargerType().getMaxChargingSpeed());
+            if(Objects.equals(car.getID(), persistedCar.getId())){
+                car.chargingStarted(persistedCar.getCharger().getChargerType().getMaxChargingSpeed());
             }
         });
     }
 
-    public void endCharging(Long id) {
+    public void endCharging(ElectricCar persistedCar) {
         this.cars.forEach(car -> {
-            if(Objects.equals(car.getID(), id))
+            if(Objects.equals(car.getID(), persistedCar.getId()))
                 car.chargingEnded();
         });
     }

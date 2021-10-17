@@ -23,7 +23,7 @@ public class ChargingStationService extends AbstractService<ChargingStation, Cha
             where.and(chargingStation.id.eq(chargingStationFilter.getId()));
 
         if(chargingStationFilter.getCharger()!=null) {
-            //where.and(chargingStation.chargers.contains(chargingStationFilter.getChargerObject()));
+            where.and(chargingStation.chargers.any().id.eq(chargingStationFilter.getCharger()));
         }
         if(chargingStationFilter.getOwnerCompanyName()!=null)
             where.and(chargingStation.ownerCompanyName.contains((chargingStationFilter.getOwnerCompanyName())));

@@ -8,12 +8,9 @@ import java.time.LocalDateTime;
 
 public class MockElectricCarRepresentationImpl implements MockElectricCarRepresentation {
 
-    private boolean charging;
-
-    private Integer batteryPercentage;
-
     private final Long id;
-
+    private boolean charging;
+    private Integer batteryPercentage;
     private Integer maxPerformanceOfCharger;
     private final Integer maxChargingSpeedOfCar;
     private final Integer disChargingSpeed;

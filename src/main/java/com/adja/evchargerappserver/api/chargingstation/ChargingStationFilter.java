@@ -43,12 +43,6 @@ public class ChargingStationFilter {
         return charger;
     }
 
-    /*@Autowired
-    private ChargerRepository chargerRepository;
-    public Charger getChargerObject(){
-        return chargerRepository.getById(getCharger());
-    }*/
-
     public void setCharger(Long charger) {
         this.charger = charger;
     }

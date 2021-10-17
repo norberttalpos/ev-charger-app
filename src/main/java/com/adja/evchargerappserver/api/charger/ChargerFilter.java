@@ -4,6 +4,7 @@ public class ChargerFilter {
     private Long currentlyChargingCar;
     private String chargerType;
     private Long chargingStation;
+    private Boolean reserved;
 
     public Long getCurrentlyChargingCar() {
         return currentlyChargingCar;
@@ -27,5 +28,13 @@ public class ChargerFilter {
 
     public void setChargingStation(Long chargingStation) {
         this.chargingStation = chargingStation;
+    }
+
+    public Boolean getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(Boolean reserved) {
+        this.reserved = reserved;
     }
 }
