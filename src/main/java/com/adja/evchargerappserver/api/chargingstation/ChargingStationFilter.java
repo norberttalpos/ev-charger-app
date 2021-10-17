@@ -11,7 +11,6 @@ public class ChargingStationFilter {
     private Long id;
     private Integer maxNumberOfChargers;
     private String ownerCompanyName;
-    private Long charger;
     private LatitudeLongitude point;
     private Double distance;
 
@@ -39,19 +38,6 @@ public class ChargingStationFilter {
         this.maxNumberOfChargers = maxNumberOfChargers;
     }
 
-    public Long getCharger() {
-        return charger;
-    }
-
-    /*@Autowired
-    private ChargerRepository chargerRepository;
-    public Charger getChargerObject(){
-        return chargerRepository.getById(getCharger());
-    }*/
-
-    public void setCharger(Long charger) {
-        this.charger = charger;
-    }
 
     public String getOwnerCompanyName() {
         return ownerCompanyName;
