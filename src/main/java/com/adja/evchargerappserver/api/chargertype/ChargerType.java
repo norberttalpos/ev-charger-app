@@ -1,28 +1,18 @@
 package com.adja.evchargerappserver.api.chargertype;
 
+import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "ChargerType")
 @Table(name = "chargertype")
-public class ChargerType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class ChargerType extends AbstractEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name="max_charging_speed", nullable = false)
     private int maxChargingSpeed;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public int getMaxChargingSpeed() {
         return maxChargingSpeed;

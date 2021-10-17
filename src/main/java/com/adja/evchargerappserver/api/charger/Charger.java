@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.api.charger;
 
+import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
 import com.adja.evchargerappserver.api.chargertype.ChargerType;
 import com.adja.evchargerappserver.api.chargingstation.ChargingStation;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
@@ -10,11 +11,7 @@ import java.util.Objects;
 
 @Entity(name = "Charger")
 @Table(name = "charger")
-public class Charger {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+public class Charger extends AbstractEntity {
     @OneToOne
     @JoinColumn(name = "currently_charging_car_ID", referencedColumnName = "id")
     private ElectricCar currentlyChargingCar;
@@ -27,14 +24,6 @@ public class Charger {
     @ManyToOne
     @JoinColumn(name = "station_ID", nullable = true)
     private ChargingStation chargingStation;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public ChargerType getChargerType() {
         return chargerType;

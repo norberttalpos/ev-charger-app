@@ -1,6 +1,7 @@
 package com.adja.evchargerappserver.api.person;
 
 
+import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.role.Role;
 import com.sun.istack.NotNull;
@@ -11,11 +12,7 @@ import java.util.Objects;
 
 @Entity(name = "Person")
 @Table(name = "person")
-
-public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Person extends AbstractEntity {
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -53,14 +50,6 @@ public class Person {
         this.username = username;
         this.password = password;
         this.email = email;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {return name;}

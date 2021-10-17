@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public abstract class AbstractService<ENTITY, REPOSITORY extends JpaRepository<ENTITY, Long>> {
+public abstract class AbstractService<ENTITY extends AbstractEntity, FILTER, REPOSITORY extends CustomRepository<ENTITY>> {
 
     @Autowired
     protected REPOSITORY repository;
@@ -18,6 +18,8 @@ public abstract class AbstractService<ENTITY, REPOSITORY extends JpaRepository<E
     public Collection<ENTITY> getAll() {
         return this.repository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
+
+    public abstract Collection<ENTITY> search(FILTER filter);
 
     public ENTITY getById(Long id) throws EntityNotFoundException {
         Optional<ENTITY> entityById = this.repository.findById(id);

@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.api.electriccar.mock;
 
+import com.adja.evchargerappserver.EvChargerAppServerApplication;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarService;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarType;
@@ -19,7 +20,7 @@ public class MockElectricCarHandler extends Thread {
 
     private List<MockElectricCarRepresentation> cars;
 
-    private final int pollInterval = 100;
+    private final int pollInterval = 400;
 
     @PostConstruct
     private void init() {
@@ -28,18 +29,20 @@ public class MockElectricCarHandler extends Thread {
 
     @Override
     public void run() {
-        while(true) {
-            try {
-                Thread.sleep(this.pollInterval);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if(!EvChargerAppServerApplication.testing) {
+            while(true) {
+                try {
+                    Thread.sleep(this.pollInterval);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-            this.cars.forEach(car -> {
-                boolean batteryPercentageChanged = car.adjustBatteryPercentage();
-                if(batteryPercentageChanged)
-                    this.electricCarService.updateAfterCharging(car.getID(), car.getBatteryPercentage());
-            });
+                this.cars.forEach(car -> {
+                    boolean batteryPercentageChanged = car.adjustBatteryPercentage();
+                    if(batteryPercentageChanged)
+                        this.electricCarService.updateAfterCharging(car.getID(), car.getBatteryPercentage());
+                });
+            }
         }
     }
 

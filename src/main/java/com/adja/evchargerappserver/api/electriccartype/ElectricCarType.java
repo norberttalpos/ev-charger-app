@@ -1,18 +1,15 @@
 package com.adja.evchargerappserver.api.electriccartype;
 
+import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
 import com.adja.evchargerappserver.api.chargertype.ChargerType;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
-@Entity(name = "electricCarType")
+@Entity(name = "ElectricCarType")
 @Table(name = "electriccartype")
-
-public class ElectricCarType {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ElectricCarType extends AbstractEntity {
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -33,14 +30,6 @@ public class ElectricCarType {
             joinColumns = @JoinColumn(name = "car_type_id"),
             inverseJoinColumns = @JoinColumn(name = "charger_type_id"))
     private Collection<ChargerType> compatibleChargerTypes;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

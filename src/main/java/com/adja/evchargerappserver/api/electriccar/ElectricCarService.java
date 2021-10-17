@@ -10,10 +10,11 @@ import com.adja.evchargerappserver.api.person.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public class ElectricCarService extends AbstractService<ElectricCar,ElectricCarRepository> {
+public class ElectricCarService extends AbstractService<ElectricCar, ElectricCarFilter, ElectricCarRepository> {
     @Autowired
     private ElectricCarTypeRepository electricCarTypeRepository;
     @Autowired
@@ -22,6 +23,11 @@ public class ElectricCarService extends AbstractService<ElectricCar,ElectricCarR
     private MockElectricCarHandler mockElectricCarHandler;
     @Autowired
     private ChargerService chargerService;
+
+    @Override
+    public Collection<ElectricCar> search(ElectricCarFilter electricCarFilter) {
+        return null;
+    }
 
     @Override
     protected boolean validateEntity(ElectricCar electricCar) {

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 
-public abstract class AbstractController<ENTITY, SERVICE extends AbstractService<ENTITY, ? extends JpaRepository<ENTITY, Long>>> {
+public abstract class AbstractController<ENTITY extends AbstractEntity, FILTER, SERVICE extends AbstractService<ENTITY, FILTER, ? extends CustomRepository<ENTITY>>> {
 
     @Autowired
     protected SERVICE service;
@@ -17,6 +17,13 @@ public abstract class AbstractController<ENTITY, SERVICE extends AbstractService
     @GetMapping
     public ResponseEntity<Collection<ENTITY>> getAll() {
         Collection<ENTITY> e = this.service.getAll();
+        return new ResponseEntity<>(e, HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<Collection<ENTITY>> search(@RequestBody FILTER filter) {
+        Collection<ENTITY> e = this.service.search(filter);
+
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
 

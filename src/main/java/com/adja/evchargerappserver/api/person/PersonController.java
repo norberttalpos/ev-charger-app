@@ -15,7 +15,7 @@ import java.util.Collection;
 @RestController
 @RequestMapping("/api/person")
 @Api(value = "/api/person", tags = "Persons")
-public class PersonController extends AbstractController<Person,PersonService> {
+public class PersonController extends AbstractController<Person, PersonFilter, PersonService> {
 
     @PutMapping("/{id}/addrole")
     public ResponseEntity<Person> addRoleToUser(@RequestParam Long id, @RequestBody Role role) {

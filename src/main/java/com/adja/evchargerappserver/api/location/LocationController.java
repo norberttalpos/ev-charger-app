@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/location")
 @Api(value = "/api/location", tags = "Locations")
-public class LocationController extends AbstractController<Location, LocationService> {
+public class LocationController extends AbstractController<Location, LocationFilter, LocationService> {
 }

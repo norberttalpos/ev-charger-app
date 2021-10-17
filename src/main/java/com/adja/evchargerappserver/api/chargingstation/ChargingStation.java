@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.api.chargingstation;
 
+import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
 import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.location.Location;
 
@@ -9,11 +10,7 @@ import java.util.Objects;
 
 @Entity(name = "ChargingStation")
 @Table(name = "chargingstation")
-public class ChargingStation {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ChargingStation extends AbstractEntity {
 
     @Column(name = "max_number_of_chargers", nullable = false)
     private Integer maxNumberOfChargers;
@@ -27,14 +24,6 @@ public class ChargingStation {
     @ManyToOne
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Integer getMaxNumberOfChargers() {
         return maxNumberOfChargers;

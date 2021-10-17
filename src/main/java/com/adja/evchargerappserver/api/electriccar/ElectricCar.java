@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.api.electriccar;
 
+import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
 import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarType;
 import com.adja.evchargerappserver.api.person.Person;
@@ -8,12 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "electricCar")
+@Entity(name = "ElectricCar")
 @Table(name = "electriccar")
-public class ElectricCar {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class ElectricCar extends AbstractEntity {
 
     @Column(name = "license_plate", nullable = false)
     private String licensePlate;
@@ -39,14 +37,6 @@ public class ElectricCar {
 
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getBatteryPercentage() {

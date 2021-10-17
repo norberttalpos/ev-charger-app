@@ -15,6 +15,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class EvChargerAppServerApplication {
 
+	public static final boolean testing = true;
+
 	public static void main(String[] args) {
 		SpringApplication.run(EvChargerAppServerApplication.class, args);
 	}

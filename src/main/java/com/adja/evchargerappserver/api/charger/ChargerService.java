@@ -7,13 +7,16 @@ import com.adja.evchargerappserver.api.chargingstation.ChargingStationRepository
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarRepository;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarService;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public class ChargerService extends AbstractService<Charger, ChargerRepository> {
+public class ChargerService extends AbstractService<Charger, ChargerFilter, ChargerRepository> {
     @Autowired
     private ChargerTypeRepository chargerTypeRepository;
 
@@ -25,6 +28,24 @@ public class ChargerService extends AbstractService<Charger, ChargerRepository> 
 
     @Autowired
     private ElectricCarRepository electricCarRepository;
+
+    @Override
+    public Collection<Charger> search(ChargerFilter filter) {
+        QCharger charger = QCharger.charger;
+        BooleanBuilder where = new BooleanBuilder();
+
+        if(filter.getCurrentlyChargingCar() != null) {
+            where.and(charger.currentlyChargingCar.id.eq(filter.getCurrentlyChargingCar()));
+        }
+        if(filter.getChargerType() != null) {
+            where.and(charger.chargerType.name.contains(filter.getChargerType()));
+        }
+        if(filter.getChargingStation() != null) {
+            where.and(charger.chargingStation.id.eq(filter.getChargingStation()));
+        }
+
+        return (Collection<Charger>) this.repository.findAll(where);
+    }
 
     @Override
     protected boolean validateEntity(Charger charger) {

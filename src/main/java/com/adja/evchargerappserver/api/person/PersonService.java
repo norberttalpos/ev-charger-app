@@ -23,7 +23,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class PersonService extends AbstractService<Person, PersonRepository> implements UserDetailsService {
+public class PersonService extends AbstractService<Person, PersonFilter, PersonRepository> implements UserDetailsService {
 
     @Autowired
     private ElectricCarRepository electricCarRepository;
@@ -33,6 +33,11 @@ public class PersonService extends AbstractService<Person, PersonRepository> imp
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Override
+    public Collection<Person> search(PersonFilter personFilter) {
+        return null;
+    }
 
     @Override
     protected boolean validateEntity(Person person) {

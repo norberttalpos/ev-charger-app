@@ -6,10 +6,17 @@ import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
-public class ElectricCarTypeService extends AbstractService<ElectricCarType,ElectricCarTypeRepository> {
+public class ElectricCarTypeService extends AbstractService<ElectricCarType, ElectricCarTypeFilter, ElectricCarTypeRepository> {
     @Autowired
     ChargerTypeRepository chargerTypeRepository;
+
+    @Override
+    public Collection<ElectricCarType> search(ElectricCarTypeFilter electricCarTypeFilter) {
+        return null;
+    }
 
     @Override
     protected boolean validateEntity(ElectricCarType electricCarType) {

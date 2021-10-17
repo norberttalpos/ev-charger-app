@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/electricCar")
 @Api(value = "/api/electricCar", tags = "ElectricCars")
-public class ElectricCarController extends AbstractController<ElectricCar,ElectricCarService> {
+public class ElectricCarController extends AbstractController<ElectricCar, ElectricCarFilter, ElectricCarService> {
 
     @PostMapping("/{id}/startCharging")
     public ResponseEntity<?> startCharging(@PathVariable("id") Long id, @RequestBody StartChargingRequest requestBody) {
