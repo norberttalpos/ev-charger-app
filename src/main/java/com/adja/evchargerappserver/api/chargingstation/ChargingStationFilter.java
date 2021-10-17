@@ -10,6 +10,7 @@ import java.util.Collection;
 public class ChargingStationFilter {
     private Integer maxNumberOfChargers;
     private String ownerCompanyName;
+    private Long charger;
     private LatitudeLongitude point;
     private Double distance;
 
@@ -30,6 +31,13 @@ public class ChargingStationFilter {
         this.maxNumberOfChargers = maxNumberOfChargers;
     }
 
+    public Long getCharger() {
+        return charger;
+    }
+
+    public void setCharger(Long charger) {
+        this.charger = charger;
+    }
 
     public String getOwnerCompanyName() {
         return ownerCompanyName;

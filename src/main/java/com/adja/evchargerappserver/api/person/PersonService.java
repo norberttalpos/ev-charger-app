@@ -3,11 +3,8 @@ package com.adja.evchargerappserver.api.person;
 import com.adja.evchargerappserver.api.abstracts.AbstractService;
 import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarRepository;
-import com.adja.evchargerappserver.api.electriccartype.ElectricCarType;
-import com.adja.evchargerappserver.api.electriccartype.QElectricCarType;
 import com.adja.evchargerappserver.api.role.Role;
 import com.adja.evchargerappserver.api.role.RoleRepository;
-import com.adja.evchargerappserver.security.JwtUtil;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,12 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class PersonService extends AbstractService<Person, PersonFilter, PersonRepository> implements UserDetailsService {

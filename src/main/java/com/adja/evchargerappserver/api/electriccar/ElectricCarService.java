@@ -4,6 +4,7 @@ import com.adja.evchargerappserver.api.abstracts.AbstractService;
 import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
 import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.charger.ChargerService;
+import com.adja.evchargerappserver.api.charger.QCharger;
 import com.adja.evchargerappserver.api.electriccar.mock.MockElectricCarHandler;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarTypeRepository;
 import com.adja.evchargerappserver.api.person.PersonRepository;
@@ -11,6 +12,7 @@ import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -25,9 +27,11 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
     @Autowired
     private ChargerService chargerService;
 
+
     @Override
     public Collection<ElectricCar> search(ElectricCarFilter filter) {
         QElectricCar electricCar = QElectricCar.electricCar;
+        QCharger charger = QCharger.charger;
         BooleanBuilder where = new BooleanBuilder();
 
         if(filter.getLicensePlate() != null) {
@@ -92,7 +96,7 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
             this.chargerService.put(charger.getId(), charger);
             this.put(carId, car);
 
-            mockElectricCarHandler.endCharging(carId);
+            mockElectricCarHandler.endCharging(car);
         }
 
         return true;
