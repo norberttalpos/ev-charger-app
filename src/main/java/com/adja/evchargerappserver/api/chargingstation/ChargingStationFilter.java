@@ -8,19 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Collection;
 
 public class ChargingStationFilter {
-    private Long id;
     private Integer maxNumberOfChargers;
     private String ownerCompanyName;
     private LatitudeLongitude point;
     private Double distance;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Double getDistance() {
         return distance;

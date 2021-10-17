@@ -1,7 +1,6 @@
 package com.adja.evchargerappserver.api.chargertype;
 
 public class ChargerTypeFilter {
-    private Long id;
     private String name;
     private Integer maxChargingSpeed;
 
@@ -21,11 +20,4 @@ public class ChargerTypeFilter {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

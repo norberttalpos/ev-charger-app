@@ -19,8 +19,6 @@ public class ChargingStationService extends AbstractService<ChargingStation, Cha
         BooleanBuilder where = new BooleanBuilder();
         QChargingStation chargingStation=QChargingStation.chargingStation;
 
-        if(chargingStationFilter.getId()!=null)
-            where.and(chargingStation.id.eq(chargingStationFilter.getId()));
 
         if(chargingStationFilter.getOwnerCompanyName()!=null)
             where.and(chargingStation.ownerCompanyName.contains((chargingStationFilter.getOwnerCompanyName())));

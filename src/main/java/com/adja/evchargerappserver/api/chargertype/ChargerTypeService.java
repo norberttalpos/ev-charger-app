@@ -14,8 +14,6 @@ public class ChargerTypeService extends AbstractService<ChargerType, ChargerType
     public Collection<ChargerType> search(ChargerTypeFilter chargerTypeFilter) {
         QChargerType chargerType=QChargerType.chargerType;
         BooleanBuilder where = new BooleanBuilder();
-        if(chargerTypeFilter.getId()!=null)
-            where.and(chargerType.id.eq(chargerTypeFilter.getId()));
         if(chargerTypeFilter.getMaxChargingSpeed()!=null){
             where.and(chargerType.maxChargingSpeed.eq(chargerTypeFilter.getMaxChargingSpeed()));
         }
