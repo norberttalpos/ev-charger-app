@@ -1,8 +1,6 @@
 package com.adja.evchargerappserver.api.location;
 
 import com.adja.evchargerappserver.api.abstracts.AbstractService;
-import com.adja.evchargerappserver.api.chargingstation.ChargingStation;
-import com.querydsl.core.BooleanBuilder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -19,14 +17,12 @@ public class LocationService extends AbstractService<Location, LocationFilter, L
     @Override
     public Collection<Location> search(LocationFilter filter) {
         StringBuilder queryString = new StringBuilder();
-        queryString.append("select * from location l ");
+        queryString.append("select l from Location l ");
         queryString.append("where 1 = 1 ");
 
         if(filter.getPoint() != null && filter.getRadius() != null) {
             queryString.append("and ST_DWithin(l.coordinates, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)\\:\\:\\geography, :radius) ");
         }
-
-        queryString.append(";");
 
         Query query = em.createNativeQuery(queryString.toString(), Location.class);
 
