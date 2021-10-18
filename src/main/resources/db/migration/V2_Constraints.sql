@@ -1,4 +1,4 @@
-insert into location (x, y) values (10.0, 5.0);
-insert into location (x, y) values (10.0, 5.0);
-insert into location (x, y) values (10.0, 5.0);
-insert into location (x, y) values (10.0, 5.0);
+insert into location (coordinates) values (point(47.5601654, 19.0525943));
+insert into location (coordinates) values (point(47.5601654, 19.0525943));
+insert into location (coordinates) values (point(47.5601654, 19.0525943));
+insert into location (coordinates) values (point(47.5601654, 19.0525943));

@@ -12,7 +12,6 @@ DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS personrolejoin;
 
 
-
 CREATE TABLE IF NOT EXISTS Person (
       ID   SERIAL    NOT NULL,
       name   varchar(200)  NOT NULL,
@@ -92,7 +91,7 @@ CREATE TABLE IF NOT EXISTS ChargingStation   (
 );
 CREATE TABLE IF NOT EXISTS location   (
       ID   SERIAL    NOT NULL,
-      coordinates point NOT NULL, --todo
+      coordinates geography NOT NULL,
     CONSTRAINT   pk_Location   PRIMARY KEY (
           ID
      )
@@ -108,11 +107,12 @@ delete from electriccartype where 1 = 1;
 delete from electriccar where 1 = 1;
 delete from chargingstation where 1 = 1;
 
-insert into location (coordinates) values( point(10.0, 5.0));
-insert into location (coordinates) values( point(-3.0, 5.0));
-insert into location (coordinates) values( point(2.0, 4.0));
-insert into location (coordinates) values( point(5.0, 3.0));
-insert into location (coordinates) values( point(-9.0, -6.0));
+insert into location (coordinates) values ('point(47.5601654 19.0525943)');
+insert into location (coordinates) values ('point(47.5601654 19.0525943)');
+insert into location (coordinates) values ('point(47.5601654 19.0525943)');
+insert into location (coordinates) values ('point(47.5601654 19.0525943)');
+insert into location (coordinates) values ('point(47.5601654 19.0525943)');
+
 
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('BMW i3',19,8,6);
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('Renault Zoe',36,50,5);

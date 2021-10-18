@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.api.location;
+package com.adja.evchargerappserver.api.location.util;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

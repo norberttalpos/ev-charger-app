@@ -1,35 +1,12 @@
 package com.adja.evchargerappserver.api.chargingstation;
 
-import com.adja.evchargerappserver.api.charger.Charger;
-import com.adja.evchargerappserver.api.charger.ChargerRepository;
-import com.adja.evchargerappserver.api.location.LatitudeLongitude;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Collection;
+import com.adja.evchargerappserver.api.location.util.LatitudeLongitude;
 
 public class ChargingStationFilter {
-    private Long id;
     private Integer maxNumberOfChargers;
     private String ownerCompanyName;
-    private Long charger;
     private LatitudeLongitude point;
-    private Double distance;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Double distance) {
-        this.distance = distance;
-    }
+    private Double radius;
 
     public Integer getMaxNumberOfChargers() {
         return maxNumberOfChargers;
@@ -37,14 +14,6 @@ public class ChargingStationFilter {
 
     public void setMaxNumberOfChargers(Integer maxNumberOfChargers) {
         this.maxNumberOfChargers = maxNumberOfChargers;
-    }
-
-    public Long getCharger() {
-        return charger;
-    }
-
-    public void setCharger(Long charger) {
-        this.charger = charger;
     }
 
     public String getOwnerCompanyName() {
@@ -61,5 +30,13 @@ public class ChargingStationFilter {
 
     public void setPoint(LatitudeLongitude point) {
         this.point = point;
+    }
+
+    public Double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(Double radius) {
+        this.radius = radius;
     }
 }

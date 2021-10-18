@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.api.location;
+package com.adja.evchargerappserver.api.location.util;
 
 import java.io.Serializable;
 

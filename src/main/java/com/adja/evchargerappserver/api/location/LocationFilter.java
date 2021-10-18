@@ -1,31 +1,24 @@
 package com.adja.evchargerappserver.api.location;
 
+import com.adja.evchargerappserver.api.location.util.LatitudeLongitude;
+
 public class LocationFilter {
-    private Long id;
-    private Double longitude;
-    private Double latitude;
+    private LatitudeLongitude point;
+    private Double radius;
 
-    public Double getLatitude() {
-        return latitude;
+    public LatitudeLongitude getPoint() {
+        return point;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public void setPoint(LatitudeLongitude point) {
+        this.point = point;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public Double getRadius() {
+        return radius;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setRadius(Double radius) {
+        this.radius = radius;
     }
 }
