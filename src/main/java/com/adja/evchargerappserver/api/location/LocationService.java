@@ -23,7 +23,7 @@ public class LocationService extends AbstractService<Location, LocationFilter, L
         queryString.append("where 1 = 1 ");
 
         if(filter.getPoint() != null && filter.getRadius() != null) {
-            queryString.append("and ST_DWithin(l.coordinates, ST_SetSRID(ST_MakePoint(:latitude, :longitude), 4326)\\:\\:\\geography, :radius) ");
+            queryString.append("and ST_DWithin(l.coordinates, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)\\:\\:\\geography, :radius) ");
         }
 
         queryString.append(";");

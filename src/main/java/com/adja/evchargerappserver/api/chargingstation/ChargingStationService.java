@@ -27,7 +27,7 @@ public class ChargingStationService extends AbstractService<ChargingStation, Cha
         queryString.append("where 1 = 1 ");
 
         if(filter.getPoint() != null && filter.getRadius() != null) {
-            queryString.append("and ST_DWithin(l.coordinates, ST_SetSRID(ST_MakePoint(:latitude, :longitude), 4326)\\:\\:\\geography, :radius) ");
+            queryString.append("and ST_DWithin(l.coordinates, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)\\:\\:\\geography, :radius) ");
         }
         if(filter.getMaxNumberOfChargers() != null) {
             queryString.append(String.format("and c.max_number_of_chargers > %d ", filter.getMaxNumberOfChargers()));

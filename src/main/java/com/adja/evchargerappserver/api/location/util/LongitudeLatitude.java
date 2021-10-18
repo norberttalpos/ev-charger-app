@@ -2,14 +2,14 @@ package com.adja.evchargerappserver.api.location.util;
 
 import java.io.Serializable;
 
-public class LatitudeLongitude implements Serializable {
+public class LongitudeLatitude implements Serializable {
     private double latitude;
 
     private double longitude;
 
-    public LatitudeLongitude(double lat, double lon) {
-        this.latitude = lat;
-        this.longitude = lon;
+    public LongitudeLatitude(double longitude, double latitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public double getLatitude() {

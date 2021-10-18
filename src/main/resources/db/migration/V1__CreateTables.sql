@@ -107,12 +107,11 @@ delete from electriccartype where 1 = 1;
 delete from electriccar where 1 = 1;
 delete from chargingstation where 1 = 1;
 
-insert into location (coordinates) values ('point(47.5601654 19.0525943)');
-insert into location (coordinates) values ('point(47.5601654 19.0525943)');
-insert into location (coordinates) values ('point(47.5601654 19.0525943)');
-insert into location (coordinates) values ('point(47.5601654 19.0525943)');
-insert into location (coordinates) values ('point(47.5601654 19.0525943)');
-
+insert into location (coordinates) values ('point(19.0525943 47.5601654)');
+insert into location (coordinates) values ('point(19.0525943 47.5601654)');
+insert into location (coordinates) values ('point(19.0525943 47.5601654)');
+insert into location (coordinates) values ('point(19.0525943 47.5601654)');
+insert into location (coordinates) values ('point(19.0525943 47.5601654)');
 
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('BMW i3',19,8,6);
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('Renault Zoe',36,50,5);

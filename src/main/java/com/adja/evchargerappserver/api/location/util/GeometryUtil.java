@@ -18,12 +18,11 @@ public class GeometryUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println("###geometry :"+geometry);
         return geometry;
     }
 
-    public static Point parseLocation(double x,double y) {
-        Geometry geometry = GeometryUtil.wktToGeometry(String.format("POINT (%s %s)",x,y));
+    public static Point parseLocation(double longitude, double latitude) {
+        Geometry geometry = GeometryUtil.wktToGeometry(String.format("POINT (%s %s)", longitude, latitude));
         Point p =(Point)geometry;
         p.setSRID(4326);
         return p;

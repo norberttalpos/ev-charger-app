@@ -1,11 +1,11 @@
 package com.adja.evchargerappserver.api.chargingstation;
 
-import com.adja.evchargerappserver.api.location.util.LatitudeLongitude;
+import com.adja.evchargerappserver.api.location.util.LongitudeLatitude;
 
 public class ChargingStationFilter {
     private Integer maxNumberOfChargers;
     private String ownerCompanyName;
-    private LatitudeLongitude point;
+    private LongitudeLatitude point;
     private Double radius;
 
     public Integer getMaxNumberOfChargers() {
@@ -24,11 +24,11 @@ public class ChargingStationFilter {
         this.ownerCompanyName = ownerCompanyName;
     }
 
-    public LatitudeLongitude getPoint() {
+    public LongitudeLatitude getPoint() {
         return point;
     }
 
-    public void setPoint(LatitudeLongitude point) {
+    public void setPoint(LongitudeLatitude point) {
         this.point = point;
     }
 
