@@ -39,8 +39,11 @@ public abstract class AbstractService<ENTITY extends AbstractEntity, FILTER, REP
     }
 
     public ENTITY post(ENTITY entity) throws NotValidUpdateException {
-        if(this.validateEntity(entity))
+        if(this.validateEntity(entity)) {
+            entity.setId(null);
+
             return this.repository.save(entity);
+        }
         else
             throw new NotValidUpdateException("");
     }

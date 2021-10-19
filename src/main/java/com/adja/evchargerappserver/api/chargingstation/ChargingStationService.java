@@ -37,7 +37,7 @@ public class ChargingStationService extends AbstractService<ChargingStation, Cha
         }
         if(filter.getChargerTypes() != null && filter.getChargerTypes().size() != 0) {
             queryString.append(
-                    "and exists (select * from charger ch " +
+                            "and exists (select * from charger ch " +
                             "join chargertype ct on ch.charger_type_id = ct.id " +
                             "where c.id = ch.station_id and (ct.name LIKE '%")
                     .append(filter.getChargerTypes().get(0)).append("%' ");
