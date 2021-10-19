@@ -3,7 +3,6 @@ package com.adja.evchargerappserver.api.electriccar.mock;
 import com.adja.evchargerappserver.EvChargerAppServerApplication;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarService;
-import com.adja.evchargerappserver.api.electriccartype.ElectricCarType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -40,7 +39,7 @@ public class MockElectricCarHandler extends Thread {
                 this.cars.forEach(car -> {
                     boolean batteryPercentageChanged = car.adjustBatteryPercentage();
                     if(batteryPercentageChanged)
-                        this.electricCarService.updateAfterCharging(car.getID(), car.getBatteryPercentage());
+                        this.electricCarService.persistBatteryPercentageChanges(car.getID(), car.getBatteryPercentage());
                 });
             }
         }

@@ -21,7 +21,7 @@ Vue.use(VueGoogleMaps, {
 
 Vue.use(VueAxios, axios)
 
-Vue.component('google-map', VueGoogleMaps.Map);
+export const serverprefix = "http://localhost:8080/";
 
 new Vue({
 	router,

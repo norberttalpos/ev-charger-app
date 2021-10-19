@@ -97,7 +97,6 @@ CREATE TABLE IF NOT EXISTS location   (
      )
 );
 
-
 delete from person where 1 = 1;
 delete from location where 1 = 1;
 delete from role where 1 = 1;
@@ -108,10 +107,7 @@ delete from electriccar where 1 = 1;
 delete from chargingstation where 1 = 1;
 
 insert into location (coordinates) values ('point(19.0525943 47.5601654)');
-insert into location (coordinates) values ('point(19.0525943 47.5601654)');
-insert into location (coordinates) values ('point(19.0525943 47.5601654)');
-insert into location (coordinates) values ('point(19.0525943 47.5601654)');
-insert into location (coordinates) values ('point(19.0525943 47.5601654)');
+insert into location (coordinates) values ('point(18.9964085 47.5970892)');
 
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('BMW i3',19,8,6);
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('Renault Zoe',36,50,5);
@@ -123,7 +119,6 @@ insert into chargertype (name, max_charging_speed) values ('Type 3',100);
 
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (30,'Mobility',1);
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (10,'Mobility',2);
-insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (12,'Mobility',3);
 
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Talpos Norbert','norbi','proba','asd','123',1);
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám','edemsz','proba','asd','123',2);
@@ -133,7 +128,7 @@ insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-12',40,3);
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-13',60,3);
 
-insert into charger (currently_charging_car_id,charger_type_id,station_id) values (1,3,3);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (1,3,2);
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (2,1,2);
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (3,2,1);
 

@@ -23,32 +23,38 @@ public class ChargingStationService extends AbstractService<ChargingStation, Cha
     public Collection<ChargingStation> search(ChargingStationFilter filter) {
 
         StringBuilder queryString = new StringBuilder();
-        queryString.append("select c from ChargingStation c ");
+        queryString.append("select * from chargingstation c left join location l on c.location_id = l.id ");
         queryString.append("where 1 = 1 ");
 
         if(filter.getPoint() != null && filter.getRadius() != null) {
-            queryString.append("and ST_DWithin(c.location.coordinates, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)\\:\\:\\geography, :radius) ");
+            queryString.append("and ST_DWithin(l.coordinates, ST_SetSRID(ST_MakePoint(:longitude, :latitude), 4326)\\:\\:\\geography, :radius) ");
         }
         if(filter.getMaxNumberOfChargers() != null) {
-            queryString.append(String.format("and c.maxNumberOfChargers > %d ", filter.getMaxNumberOfChargers()));
+            queryString.append(String.format("and c.max_number_of_chargers > %d ", filter.getMaxNumberOfChargers()));
         }
         if(filter.getOwnerCompanyName() != null) {
-            queryString.append("and c.ownerCompanyName LIKE '%").append(filter.getOwnerCompanyName()).append("%' ");
+            queryString.append("and c.owner_company_name LIKE '%").append(filter.getOwnerCompanyName()).append("%' ");
         }
         if(filter.getChargerTypes() != null && filter.getChargerTypes().size() != 0) {
-            queryString.append("and exists (select ch from Charger ch where ch.chargingStation = c and ch.chargerType.name LIKE '%")
+            queryString.append(
+                    "and exists (select * from charger ch " +
+                            "join chargertype ct on ch.charger_type_id = ct.id " +
+                            "where c.id = ch.station_id and (ct.name LIKE '%")
                     .append(filter.getChargerTypes().get(0)).append("%' ");
 
             if(filter.getChargerTypes().size() > 0) {
                 for(int i = 1; i < filter.getChargerTypes().size(); ++i) {
-                    queryString.append("or ch.chargerType.name LIKE '%")
+                    queryString.append("or ct.name LIKE '%")
                             .append(filter.getChargerTypes().get(i)).append("%' ");
                 }
+                queryString.append(")");
             }
             queryString.append(")");
         }
 
-        Query query = em.createQuery(queryString.toString(), ChargingStation.class);
+        queryString.append(";");
+
+        Query query = em.createNativeQuery(queryString.toString(), ChargingStation.class);
 
         if(filter.getPoint() != null && filter.getRadius() != null) {
             query.setParameter("radius", filter.getRadius());

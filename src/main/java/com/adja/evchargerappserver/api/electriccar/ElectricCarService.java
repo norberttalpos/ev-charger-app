@@ -102,7 +102,7 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
         return true;
     }
 
-    public void updateAfterCharging(Long carId, Integer batteryPercentage) {
+    public void persistBatteryPercentageChanges(Long carId, Integer batteryPercentage) {
         Optional<ElectricCar> electricCar = this.repository.findById(carId);
         electricCar.get().setBatteryPercentage(batteryPercentage);
 

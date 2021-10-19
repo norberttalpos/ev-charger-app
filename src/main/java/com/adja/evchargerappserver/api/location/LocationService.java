@@ -17,7 +17,7 @@ public class LocationService extends AbstractService<Location, LocationFilter, L
     @Override
     public Collection<Location> search(LocationFilter filter) {
         StringBuilder queryString = new StringBuilder();
-        queryString.append("select l from Location l ");
+        queryString.append("select * from Location l ");
         queryString.append("where 1 = 1 ");
 
         if(filter.getPoint() != null && filter.getRadius() != null) {
