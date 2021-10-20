@@ -2,7 +2,6 @@
     <div id="wrapper">
 
         <div id="over-map">
-            <img src="../assets/woozy.png" style="margin-left: 50px;"/>
             <div>
                 <h1>Your coordinates</h1>
                 <p>{{ coordinates.lat }}, {{ coordinates.lng }}</p>
@@ -27,6 +26,7 @@
                 :position="{lat: c.location.coordinates.latitude, lng: c.location.coordinates.longitude}"
                 :clickable="true"
                 :icon="icon"
+                @click="markerClickedHandler(c)"
             />
         </gmap-map>
     </div>
@@ -65,6 +65,11 @@ export default {
         },
         google: VueGoogleMaps.gmapApi
     },
+    methods: {
+        markerClickedHandler(chargingStation) {
+            console.log(chargingStation);
+        }
+    },
     created() {
         this.$getLocation({})
             .then(resp => {
@@ -81,7 +86,7 @@ export default {
 
         this.$gmapApiPromiseLazy().then(() => {
             this.icon = {
-                url: require("../assets/markers/purple_marker.png"), // url
+                url: require("../assets/markers/orange_marker.png"), // url
                 scaledSize: new this.google.maps.Size(50, 50), // scaled size
                 origin: new this.google.maps.Point(0,0), // origin
                 anchor: new this.google.maps.Point(30, 30) // anchor
@@ -89,6 +94,10 @@ export default {
         });
 
         await this.$refs.mapRef.$mapPromise.then(map => this.map = map);
+
+        this.google.maps.event.addListener(this.map, 'mousemove', () => {
+            this.map.setOptions({ draggableCursor: 'default' });
+        });
     }
 }
 </script>
@@ -104,6 +113,7 @@ export default {
         top: 10px;
         right: 150px;
         width: 700px;
+        background: green !important;
         z-index: 99;
         display: flex;
         align-items: center;
