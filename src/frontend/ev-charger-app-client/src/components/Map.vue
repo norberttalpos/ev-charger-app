@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <div style="display: flex; align-items: center; justify-content: space-between">
+    <div id="wrapper">
+
+        <div id="over-map">
+            <img src="../assets/woozy.png" style="margin-left: 50px;"/>
             <div>
                 <h1>Your coordinates</h1>
                 <p>{{ coordinates.lat }}, {{ coordinates.lng }}</p>
@@ -12,10 +14,10 @@
         </div>
 
         <gmap-map
+            id="google-map"
             v-if="chargingStations"
             :center="coordinates"
             :zoom="13"
-            style="width: 1500px; height: 700px; margin: 32px auto;"
             ref="mapRef"
         >
             <gmap-marker
@@ -90,3 +92,26 @@ export default {
     }
 }
 </script>
+
+<style>
+    #wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    #over-map {
+        position: absolute;
+        top: 10px;
+        right: 150px;
+        width: 700px;
+        z-index: 99;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    #google-map {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+</style>
