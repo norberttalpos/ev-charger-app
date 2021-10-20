@@ -30,7 +30,7 @@ public class JwtUtil {
 
          return JWT.create()
                 .withSubject(username)
-                .withExpiresAt(new Date(System.currentTimeMillis() + getAccesTokenExpiryTime()))
+                .withExpiresAt(new Date(System.currentTimeMillis() + getAccessTokenExpiryTime()))
                 .withIssuer(requestUrl)
                 .withClaim("roles", roles)
                 .sign(algorithm);
@@ -46,7 +46,7 @@ public class JwtUtil {
                 .sign(algorithm);
     }
 
-    public static long getAccesTokenExpiryTime() {
+    public static long getAccessTokenExpiryTime() {
         return 10 * 60 * 60 * 1000;
     }
 

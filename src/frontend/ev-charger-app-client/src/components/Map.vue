@@ -15,8 +15,9 @@
         <gmap-map
             id="google-map"
             v-if="chargingStations"
-            :center="coordinates"
-            :zoom="13"
+            :center="center"
+            :mapTypeControl="false"
+            :zoom="12"
             ref="mapRef"
         >
             <gmap-marker
@@ -41,6 +42,10 @@ export default {
 
     data() {
         return {
+            center: {
+                lat: 47.5181,
+                lng: 19.0829
+            },
             coordinates: {
                 lat: 0,
                 lng: 0
@@ -93,7 +98,9 @@ export default {
             }
         });
 
-        await this.$refs.mapRef.$mapPromise.then(map => this.map = map);
+        await this.$refs.mapRef.$mapPromise.then(map => {
+            this.map = map
+        })
 
         this.google.maps.event.addListener(this.map, 'mousemove', () => {
             this.map.setOptions({ draggableCursor: 'default' });
@@ -124,4 +131,14 @@ export default {
         width: 100%;
         height: 100%;
     }
+    .gm-style-mtc {
+        display: none;
+    }
+    .gm-svpc {
+        display: none;
+    }
+    .gm-fullscreen-control {
+        display: none;
+    }
+
 </style>

@@ -94,7 +94,7 @@ public class MockElectricCarRepresentationImpl implements MockElectricCarReprese
         double fullToZeroDischargeTime = (double) this.batteryCapacity / (double) this.disChargingSpeed * 3600 * 1000;
         double interval = fullToZeroDischargeTime / 100.0;
 
-        if(EvChargerAppServerApplication.testing) {
+        if(EvChargerAppServerApplication.charging) {
             interval /= 10;
         }
         return (long) interval;
@@ -105,7 +105,7 @@ public class MockElectricCarRepresentationImpl implements MockElectricCarReprese
         double zeroToFullChargeTime = (double) this.batteryCapacity / (double) speed * 3600 * 1000;
         double interval = zeroToFullChargeTime / 100.0;
 
-        if(EvChargerAppServerApplication.testing) {
+        if(EvChargerAppServerApplication.charging) {
             interval /= 10;
         }
         return (long) interval;

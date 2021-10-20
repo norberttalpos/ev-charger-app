@@ -28,7 +28,7 @@ public class MockElectricCarHandler extends Thread {
 
     @Override
     public void run() {
-        if(!EvChargerAppServerApplication.testing) {
+        if(EvChargerAppServerApplication.charging) {
             while(true) {
                 try {
                     Thread.sleep(this.pollInterval);

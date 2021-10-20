@@ -18,16 +18,6 @@
                 <span style="margin-left: 15px; font-size: 40px; font-family: 'Georama', sans-serif !important;">Töltősch</span>
             </div>
 
-            <v-spacer></v-spacer>
-
-            <v-btn
-                href="https://github.com/vuetifyjs/vuetify/releases/latest"
-                target="_blank"
-                text
-            >
-                <span class="mr-2">Latest Release</span>
-                <v-icon>mdi-open-in-new</v-icon>
-            </v-btn>
         </v-app-bar>
 
         <v-main>
@@ -49,4 +39,9 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Georama:ital,wght@1,800&display=swap');
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 </style>

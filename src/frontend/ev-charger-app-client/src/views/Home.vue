@@ -1,15 +1,14 @@
 <template>
-    <Map/>
+    <login/>
 </template>
 
 <script>
-import Map from '../components/Map'
-
+import Login from '../components/Login.vue'
 export default {
     name: 'Home',
 
     components: {
-        Map,
+        Login
     },
 }
 </script>

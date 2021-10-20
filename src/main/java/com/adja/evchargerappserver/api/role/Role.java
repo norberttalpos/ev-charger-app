@@ -1,25 +1,15 @@
 package com.adja.evchargerappserver.api.role;
 
+import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "Role")
 @Table(name = "role")
-public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Role extends AbstractEntity {
     @Column(name = "name", nullable = false)
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

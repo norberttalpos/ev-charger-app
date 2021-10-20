@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.configs;
 
+import com.adja.evchargerappserver.EvChargerAppServerApplication;
 import com.adja.evchargerappserver.security.JwtAuthenticationFilter;
 import com.adja.evchargerappserver.security.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,27 +47,29 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-/*
-        http.cors().and().authorizeRequests().antMatchers(
-                "/api/login/**",
-                "/api/token/refresh",
 
-                "/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/webjars/**"
-                ).permitAll();
+        if(EvChargerAppServerApplication.jwtEnabled) {
+            http.cors().and().authorizeRequests().antMatchers(
+                    "/api/login/**",
+                    "/api/token/refresh",
+
+                    "/v2/api-docs",
+                    "/configuration/ui",
+                    "/swagger-resources/**",
+                    "/configuration/security",
+                    "/swagger-ui.html",
+                    "/webjars/**"
+            ).permitAll();
 
 
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/**").hasAnyAuthority("role_user");
-        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("role_admin");
-        http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/**").hasAnyAuthority("role_admin");
-        http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/**").hasAnyAuthority("role_admin");
-*/
-
-        http.cors().and().authorizeRequests().anyRequest().permitAll();
+            http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/**").hasAnyAuthority("role_user");
+            http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("role_admin");
+            http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/**").hasAnyAuthority("role_admin");
+            http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/**").hasAnyAuthority("role_admin");
+        }
+        else {
+            http.cors().and().authorizeRequests().anyRequest().permitAll();
+        }
 
         JwtAuthenticationFilter customAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean());
         customAuthenticationFilter.setFilterProcessesUrl("/api/login");
