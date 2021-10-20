@@ -2,8 +2,6 @@ package com.adja.evchargerappserver.api.electriccartype;
 
 import com.adja.evchargerappserver.api.abstracts.AbstractService;
 import com.adja.evchargerappserver.api.chargertype.ChargerTypeRepository;
-import com.adja.evchargerappserver.api.electriccar.ElectricCar;
-import com.adja.evchargerappserver.api.electriccar.QElectricCar;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

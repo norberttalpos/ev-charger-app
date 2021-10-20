@@ -24,6 +24,7 @@
                 :ref="`marker${index}`"
                 :position="{lat: c.location.coordinates.latitude, lng: c.location.coordinates.longitude}"
                 :clickable="true"
+                :icon="icon"
             />
         </gmap-map>
     </div>
@@ -31,6 +32,7 @@
 
 <script>
 import {serverprefix} from "@/main";
+import * as VueGoogleMaps from 'vue2-google-maps';
 
 export default {
     name: 'map',
@@ -42,7 +44,8 @@ export default {
                 lng: 0
             },
             chargingStations: null,
-            map: null
+            map: null,
+            icon: null,
         }
     },
     computed: {
@@ -57,7 +60,8 @@ export default {
                 lat: this.map.getCenter().lat().toFixed(4),
                 lng: this.map.getCenter().lng().toFixed(4),
             }
-        }
+        },
+        google: VueGoogleMaps.gmapApi
     },
     created() {
         this.$getLocation({})
@@ -72,6 +76,16 @@ export default {
         await this.axios.get(`${serverprefix}api/chargingStation`).then(resp => {
             this.chargingStations = resp.data;
         });
+
+        this.$gmapApiPromiseLazy().then(() => {
+            this.icon = {
+                url: require("../assets/markers/purple_marker.png"), // url
+                scaledSize: new this.google.maps.Size(50, 50), // scaled size
+                origin: new this.google.maps.Point(0,0), // origin
+                anchor: new this.google.maps.Point(30, 30) // anchor
+            }
+        });
+
         await this.$refs.mapRef.$mapPromise.then(map => this.map = map);
     }
 }

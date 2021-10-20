@@ -16,6 +16,7 @@ public abstract class AbstractController<ENTITY extends AbstractEntity, FILTER, 
     @GetMapping
     public ResponseEntity<Collection<ENTITY>> getAll() {
         Collection<ENTITY> e = this.service.getAll();
+
         return new ResponseEntity<>(e, HttpStatus.OK);
     }
 
