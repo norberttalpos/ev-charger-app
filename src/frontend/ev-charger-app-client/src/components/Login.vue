@@ -1,7 +1,9 @@
 <template>
-    <div class="home" style="position: absolute; height: 100%; width: 100%; background-color: #6abd80;">
-        <v-card class="mx-auto" max-width="400" height="400" style="margin-top: 150px;">
-            <v-card-title class="justify-center">LOGIN</v-card-title>
+    <div class="login" style="position: absolute; height: 100%; width: 100%;">
+        <v-card class="mx-auto rounded-card" max-width="400" height="420" style="margin-top: 150px;">
+            <v-card-title class="justify-center py-8">
+                <span style="font-size: 35px;">Login</span>
+            </v-card-title>
             <v-card-text>
                 <v-container>
                     <v-row>
@@ -49,7 +51,7 @@
         </v-card>
         <v-snackbar v-model="loginSnackbar" :timeout="2000" top
                     height="70px" width="450px" color="#7d181c">
-            <span style="font-size: 16px;">Please enter your username and password</span>
+            <span style="font-size: 16px;">Please enter your valid username and password</span>
             <template #action="{ attrs }">
                 <v-btn
                     color="blue"
@@ -79,9 +81,15 @@ export default {
     },
     name: 'login',
     components: {},
+    computed: {
+        emptyFields() {
+            return this.username === "" || this.username === null || this.password === "" || this.password === null;
+        }
+    },
     methods: {
         async login() {
-
+            if(this.emptyFields)
+                return;
             try {
                 const response = await this.axios.post(`${serverprefix}api/login`,{
                     password:this.password,
@@ -101,3 +109,16 @@ export default {
     },
 };
 </script>
+
+<style>
+    .login {
+        background: rgb(106,189,128);
+        background: linear-gradient(155deg, rgba(106,189,128,1) 0%, rgba(58,239,255,1) 100%);
+    }
+    .rounded-card{
+        border-radius: 15px !important;
+    }
+    .v-input {
+        font-size: 1.6em;
+    }
+</style>
