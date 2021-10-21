@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import {serverprefix} from "@/main";
 
 Vue.use(VueRouter)
 
@@ -7,13 +8,14 @@ const routes = [
 	{
 		path: '/',
 		name: 'Login',
-		component: () => import('../components/Login.vue')
-
+		props: true,
+		component: () => import('../components/Login.vue'),
 	},
 	{
 		path: '/map',
 		name: 'Map',
-		component: () => import('../components/Map.vue')
+		props: true,
+		component: () => import('../components/Map.vue'),
 	}
 ]
 
@@ -22,5 +24,28 @@ const router = new VueRouter({
 	base: process.env.BASE_URL,
 	routes
 })
+
+const hasRightForPage = async (to) => {
+	const response = await Vue.prototype.axios.post(`${serverprefix}api/hasRightForPage`,{
+		route: to.path
+	});
+
+	return response.data;
+}
+
+router.beforeEach(async (to, from, next) => {
+	const resp = await hasRightForPage(to);
+
+	console.log(resp);
+
+	if (resp === 'hasRight')
+		next();
+	else if(resp === 'tokenExpired')
+		next({
+			path: '/',
+		});
+	else
+		next(false);
+});
 
 export default router

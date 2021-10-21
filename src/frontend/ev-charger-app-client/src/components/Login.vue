@@ -50,8 +50,8 @@
             </v-card-actions>
         </v-card>
         <v-snackbar v-model="loginSnackbar" :timeout="2000" top
-                    height="70px" width="450px" color="#7d181c">
-            <span style="font-size: 16px;">Please enter your valid username and password</span>
+                    height="70px" width="450px" color="error">
+            <span style="font-size: 16px;">{{ snackbarText }}</span>
             <template #action="{ attrs }">
                 <v-btn
                     color="blue"
@@ -71,16 +71,20 @@ import router from '../router'
 import {serverprefix} from "@/main";
 
 export default {
+    name: 'login',
+    components: {},
+    props: {
+        redirectionReason: {String, default: null}
+    },
     data() {
         return {
             username:"",
             password:"",
             show: false,
             loginSnackbar: false,
+            snackbarText: "",
         }
     },
-    name: 'login',
-    components: {},
     computed: {
         emptyFields() {
             return this.username === "" || this.username === null || this.password === "" || this.password === null;
@@ -104,6 +108,7 @@ export default {
             }
             catch(error) {
                 this.loginSnackbar = true;
+                this.snackbarText = 'Please enter your valid username and password';
             }
         }
     },

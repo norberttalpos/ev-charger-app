@@ -52,7 +52,8 @@ public class SwaggerConfig {
         return SecurityContext
                 .builder()
                 .securityReferences(List.of(
-                        bearerAuthReference())).forPaths(path -> !Objects.equals(path, "/api/token/refresh") && !Objects.equals(path, "/api/login")).build();
+                        bearerAuthReference())).forPaths(path -> !Objects.equals(path, "/api/token/refresh") &&
+                        !Objects.equals(path, "/api/login") && !Objects.equals(path, "/api/hasRightForPage")).build();
     }
 
     private SecurityReference bearerAuthReference() {

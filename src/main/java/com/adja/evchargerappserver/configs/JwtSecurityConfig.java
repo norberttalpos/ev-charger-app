@@ -52,6 +52,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
             http.cors().and().authorizeRequests().antMatchers(
                     "/api/login/**",
                     "/api/token/refresh",
+                    "/api/hasRightForPage",
 
                     "/v2/api-docs",
                     "/configuration/ui",

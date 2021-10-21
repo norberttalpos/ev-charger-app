@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.security;
+package com.adja.evchargerappserver.security.pojos;
 
 public class AuthenticationRequest {
     private String username;
