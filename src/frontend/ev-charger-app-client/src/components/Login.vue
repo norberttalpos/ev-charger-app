@@ -11,6 +11,7 @@
                             <v-text-field
                                 v-model="username"
                                 label="Username"
+                                @keyup.enter="login"
                                 outlined
                                 name="username"
                                 persistent-placeholder
@@ -25,6 +26,7 @@
                                 label="Password"
                                 outlined
                                 :type="show ? 'text' : 'password'"
+                                @keyup.enter="login"
                                 @click:append="show = !show"
                                 name="password"
                                 persistent-placeholder
