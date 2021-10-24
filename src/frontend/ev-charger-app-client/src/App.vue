@@ -7,15 +7,15 @@
         >
             <div class="d-flex align-center" style="margin-left: 15px;">
                 <v-img
-                    alt="Vuetify Logo"
+                    alt="Woozy"
                     class="shrink mr-2"
                     contain
                     src="../src/assets/woozy.png"
                     transition="scale-transition"
-                    width="40"
+                    max-width="50"
                 />
 
-                <span style="margin-left: 15px; font-size: 40px; font-family: 'Georama', sans-serif !important;">Töltősch</span>
+                <span style="margin-left: 10px; font-size: 40px; font-family: 'Georama', sans-serif !important;">Töltősch</span>
             </div>
 
         </v-app-bar>
@@ -34,6 +34,29 @@ export default {
     data: () => ({
         //
     }),
+    mounted() {
+        const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+
+        function success(pos) {
+            const crd = pos.coords;
+
+            console.log('Your current position is:');
+            console.log(`Latitude : ${crd.latitude}`);
+            console.log(`Longitude: ${crd.longitude}`);
+            console.log(`More or less ${crd.accuracy} meters.`);
+        }
+
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+
+        navigator.geolocation.getCurrentPosition(success, error, options);
+
+    }
 };
 </script>
 

@@ -8,42 +8,23 @@
                 <v-container>
                     <v-row>
                         <v-col cols="12">
-                            <v-text-field
-                                v-model="username"
-                                label="Username"
-                                outlined
-                                name="username"
-                                persistent-placeholder
-                            ></v-text-field>
+                            <v-text-field v-model="username" label="Username" outlined name="username"
+                                            persistent-placeholder style="font-size: 22px;"/>
                         </v-col>
                     </v-row>
                     <v-row>
                         <v-col cols="12">
                             <v-text-field
-                                v-model="password"
-                                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                                label="Password"
-                                outlined
-                                :type="show ? 'text' : 'password'"
-                                @click:append="show = !show"
-                                name="password"
-                                persistent-placeholder
-                            ></v-text-field>
+                                v-model="password" :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" label="Password"
+                                outlined :type="show ? 'text' : 'password'" @click:append="show = !show" name="password"
+                                persistent-placeholder style="font-size: 22px;"/>
                         </v-col>
                     </v-row>
                 </v-container>
             </v-card-text>
             <v-card-actions class="justify-center">
-                <v-btn
-                    color="primary"
-                    elevation="2"
-                    raised
-                    rounded
-                    text
-                    @click="login"
-                    style="background-color: green;"
-                    width="100px"
-                    height="40px"
+                <v-btn color="primary" elevation="2" raised rounded text @click="login" width="100px"
+                       height="40px" style="background-color: green;"
                 >
                     <span style="color: white">SIGN IN</span>
                 </v-btn>
@@ -53,12 +34,7 @@
                     height="70px" width="450px" color="error">
             <span style="font-size: 16px;">{{ snackbarText }}</span>
             <template #action="{ attrs }">
-                <v-btn
-                    color="blue"
-                    text
-                    v-bind="attrs"
-                    @click="loginSnackbar = false"
-                >
+                <v-btn color="blue" text v-bind="attrs" @click="loginSnackbar = false">
                     Close
                 </v-btn>
             </template>
@@ -122,8 +98,5 @@ export default {
     }
     .rounded-card{
         border-radius: 15px !important;
-    }
-    .v-input {
-        font-size: 1.6em;
     }
 </style>
