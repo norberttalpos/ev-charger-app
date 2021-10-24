@@ -9,13 +9,13 @@ const routes = [
 		path: '/',
 		name: 'Login',
 		props: true,
-		component: () => import('../components/Login.vue'),
+		component: () => import('../pages/Login.vue'),
 	},
 	{
 		path: '/map',
 		name: 'Map',
 		props: true,
-		component: () => import('../components/Map.vue'),
+		component: () => import('../pages/Map.vue'),
 	}
 ]
 

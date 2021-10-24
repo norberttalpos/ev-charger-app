@@ -13,6 +13,12 @@ Vue.config.productionTip = false
 
 export const serverprefix = "http://localhost:8080/";
 
+Vue.directive('blur', {
+	inserted: function (el) {
+		el.onfocus = (ev) => ev.target.blur()
+	}
+});
+
 Vue.use(VueAxios, axios)
 
 axios.interceptors.request.use(config => {

@@ -1,25 +1,8 @@
 <template>
     <div id="wrapper">
 
-        <div id="over-map">
-            <div>
-                <h1>Your coordinates</h1>
-                <p>{{ coordinates.lat }}, {{ coordinates.lng }}</p>
-            </div>
-            <div>
-                <h1>Map coordinates</h1>
-                <p>{{ mapCoordinates.lat }}, {{ mapCoordinates.lng }}</p>
-            </div>
-        </div>
-
-        <gmap-map
-            id="google-map"
-            v-if="chargingStations"
-            :center="center"
-            :mapTypeControl="false"
-            :zoom="12"
-            ref="mapRef"
-        >
+        <gmap-map id="google-map" v-if="chargingStations" :center="center" :mapTypeControl="false" :zoom="12"
+                  ref="mapRef">
             <gmap-marker
                 v-for="(c, index) in chargingStations"
                 :key="index"
@@ -29,30 +12,56 @@
                 :icon="icon"
                 @click="markerClickedHandler(c)"
             />
+            <gmap-marker
+                :ref="`markerCurr`"
+                :position="{lat: userCoordinates.lat, lng: userCoordinates.lng}"
+                :icon="{url: require('../assets/carIcon.jpg'),
+                        scaledSize: new google.maps.Size(50, 50),
+                        origin: new google.maps.Point(0,0),
+                        anchor: new google.maps.Point(30, 30)}"
+            />
         </gmap-map>
+
+        <div class="over-map" style="top: 30px; left: 30px;">
+            <v-btn fab color="white" ripple @click="toggleFilter" v-blur
+            >
+                <v-icon size="30px">
+                    mdi-magnify
+                </v-icon>
+            </v-btn>
+
+            <v-scroll-y-reverse-transition>
+                <v-card v-show="filterShown" class="mt-3" height="500px" width="300px">
+                    <filter-card/>
+                </v-card>
+            </v-scroll-y-reverse-transition>
+
+        </div>
     </div>
 </template>
 
 <script>
 import {serverprefix} from "@/main";
 import * as VueGoogleMaps from 'vue2-google-maps';
+import FilterCard from "@/components/FilterCard";
 
 export default {
     name: 'map',
-
+    components: {FilterCard},
     data() {
         return {
             center: {
                 lat: 47.5181,
                 lng: 19.0829
             },
-            coordinates: {
+            userCoordinates: {
                 lat: 0,
                 lng: 0
             },
             chargingStations: null,
             map: null,
             icon: null,
+            filterShown: false,
         }
     },
     computed: {
@@ -73,12 +82,15 @@ export default {
     methods: {
         markerClickedHandler(chargingStation) {
             console.log(chargingStation);
+        },
+        toggleFilter() {
+            this.filterShown = !this.filterShown;
         }
     },
     created() {
         this.$getLocation({})
             .then(resp => {
-                this.coordinates = resp;
+                this.userCoordinates = resp;
             })
             .catch(error => {
                 alert(error);
@@ -115,16 +127,9 @@ export default {
         width: 100%;
         height: 100%;
     }
-    #over-map {
+    .over-map {
         position: absolute;
-        top: 10px;
-        right: 150px;
-        width: 700px;
-        background: green !important;
         z-index: 99;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
     }
     #google-map {
         position: absolute;
@@ -139,6 +144,9 @@ export default {
     }
     .gm-fullscreen-control {
         display: none;
+    }
+    .slide-fade-enter-active {
+        transition: all 2s ease;
     }
 
 </style>
