@@ -1,7 +1,7 @@
 <template>
     <div id="wrapper">
 
-        <gmap-map id="google-map" v-if="chargingStations" :center="center" :mapTypeControl="false" :zoom="12"
+        <gmap-map id="google-map" v-if="chargingStations" :center="userCoordinates" :mapTypeControl="false" :zoom="12"
                   ref="mapRef">
             <gmap-marker
                 v-for="(c, index) in chargingStations"

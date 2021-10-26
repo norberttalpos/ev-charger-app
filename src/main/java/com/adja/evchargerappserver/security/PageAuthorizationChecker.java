@@ -2,6 +2,7 @@ package com.adja.evchargerappserver.security;
 
 import com.adja.evchargerappserver.api.role.Role;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -17,5 +18,9 @@ public class PageAuthorizationChecker {
             //TODO route alapjan eldönteni van-e joga role_user
             return false;
         }
+    }
+
+    public static Collection<String> noRightPages() {
+        return Arrays.asList("/", "/signUp");
     }
 }

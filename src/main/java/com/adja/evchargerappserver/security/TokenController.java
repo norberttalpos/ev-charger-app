@@ -87,7 +87,7 @@ public class TokenController {
         String authHeader = headers.getFirst(HttpHeaders.AUTHORIZATION);
         String route = body.getRoute();
 
-        if(Objects.equals(route, "/")) {
+        if(PageAuthorizationChecker.noRightPages().contains(route)) {
             return new ResponseEntity<>(PageAuthorizationResponse.hasRight, HttpStatus.OK);
         }
 
