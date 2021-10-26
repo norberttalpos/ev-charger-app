@@ -21,6 +21,6 @@ public class PageAuthorizationChecker {
     }
 
     public static Collection<String> noRightPages() {
-        return Arrays.asList("/", "/signUp");
+        return Arrays.asList("/", "/sign-up");
     }
 }

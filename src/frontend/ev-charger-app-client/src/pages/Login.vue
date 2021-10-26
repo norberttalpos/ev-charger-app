@@ -1,5 +1,5 @@
 <template>
-    <div class="login" style="position: absolute; height: 100%; width: 100%;">
+    <div class="background" style="position: absolute; height: 100%; width: 100%;">
         <v-card class="mx-auto rounded-card" max-width="400" height="420" style="margin-top: 150px;">
             <v-card-title class="justify-center py-8">
                 <span style="font-size: 35px;">Login</span>
@@ -103,7 +103,8 @@ export default {
                 });
 
                 if(response.data?.accessToken) {
-                    localStorage.setItem('accessToken', response.data.accessToken);
+
+                  localStorage.setItem('accessToken', response.data.accessToken);
 
                     router.push('/map')
                 }
@@ -118,10 +119,6 @@ export default {
 </script>
 
 <style>
-    .login {
-        background: rgb(106,189,128);
-        background: linear-gradient(155deg, rgba(106,189,128,1) 0%, rgba(58,239,255,1) 100%);
-    }
     .rounded-card{
         border-radius: 15px !important;
     }
