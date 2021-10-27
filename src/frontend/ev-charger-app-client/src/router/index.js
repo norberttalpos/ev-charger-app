@@ -39,7 +39,7 @@ const router = new VueRouter({
 })
 
 const hasRightForPage = async (to) => {
-	const response = await Vue.prototype.axios.post(`${serverprefix}api/hasRightForPage`,{
+	const response = await Vue.prototype.axios.post(`${serverprefix}/api/hasRightForPage`,{
 		route: to.path
 	});
 

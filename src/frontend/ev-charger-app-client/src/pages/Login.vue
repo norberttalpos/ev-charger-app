@@ -54,19 +54,6 @@
             </v-card-actions>
 
             <v-card-actions class="justify-center">
-<!--                <v-btn
-                    color="secondary"
-                    elevation="2"
-                    raised
-                    rounded
-                    text
-                    @click="navigate_to_sign_up"
-                    style="background-color: green;"
-                    width="240px"
-                    height="40px"
-                >
-                    <span style="color: white">Create your account</span>
-                </v-btn>-->
                 <v-card-text>
                     <v-card-title class="justify-center pt-2">
                         <template><span style="font-size: 16px; margin-right: 20px;">Don't have an account?</span></template>
@@ -123,7 +110,7 @@ export default {
             if(this.emptyFields)
                 return;
             try {
-                const response = await this.axios.post(`${serverprefix}api/login`,{
+                const response = await this.axios.post(`${serverprefix}/api/login`,{
                     password:this.password,
                     username:this.username
                 });

@@ -198,7 +198,7 @@ export default {
 
 
             try {
-                const response = await this.axios.post(`${serverprefix}api/person/register`, {
+                const response = await this.axios.post(`${serverprefix}/api/person/register`, {
                     password: this.password,
                     username: this.username,
                     name:this.name,
@@ -207,7 +207,7 @@ export default {
                 });
 
                 if(response.status===201){
-                    const login_response = await this.axios.post(`${serverprefix}api/login`,{
+                    const login_response = await this.axios.post(`${serverprefix}/api/login`,{
                         password:this.password,
                         username:this.username
                     });

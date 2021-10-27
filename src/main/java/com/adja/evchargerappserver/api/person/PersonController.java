@@ -56,7 +56,8 @@ public class PersonController extends AbstractController<Person, PersonFilter, P
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Person entity) {
+    @Override
+    public ResponseEntity<?> post(@RequestBody Person entity) {
         return super.post(entity);
     }
 

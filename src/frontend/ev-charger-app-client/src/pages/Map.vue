@@ -1,5 +1,13 @@
 <template>
     <div id="wrapper">
+        <v-progress-linear
+            indeterminate
+            color="green"
+            v-show="progressbar"
+            height="5px"
+            absolute
+            dark
+        ></v-progress-linear>
 
         <gmap-map id="google-map" v-if="chargingStations" :center="userCoordinates" :mapTypeControl="false" :zoom="12"
                   ref="mapRef">
@@ -32,7 +40,7 @@
 
             <v-scroll-y-reverse-transition>
                 <v-card v-show="filterShown" class="mt-3" height="500px" width="300px">
-                    <filter-card/>
+                    <filter-card @filterChanged="filterChangedHandler"/>
                 </v-card>
             </v-scroll-y-reverse-transition>
 
@@ -62,6 +70,19 @@ export default {
             map: null,
             icon: null,
             filterShown: false,
+            progressbar: false,
+
+            chargingStationFilter: {
+                chargerTypes: [
+                ],
+                maxNumberOfChargers: null,
+                ownerCompanyName: null,
+                point: {
+                    latitude: null,
+                    longitude: null
+                },
+                radius: null,
+            }
         }
     },
     computed: {
@@ -85,6 +106,23 @@ export default {
         },
         toggleFilter() {
             this.filterShown = !this.filterShown;
+        },
+        filterChangedHandler(filter) {
+            this.chargingStationFilter.ownerCompanyName = filter.ownerCompanyName;
+            this.chargingStationFilter.point.latitude = this.userCoordinates.lat;
+            this.chargingStationFilter.point.longitude = this.userCoordinates.lng;
+
+            if(filter.radius)
+                this.chargingStationFilter.radius = filter.radius * 1000;
+
+            this.progressbar = true;
+            setTimeout(() => {this.progressbar = false}, 1000)
+            this.getChargingStations()
+        },
+        async getChargingStations() {
+            await this.axios.post(`${serverprefix}/api/chargingStation/search`, this.chargingStationFilter).then(resp => {
+                this.chargingStations = resp.data;
+            });
         }
     },
     created() {
@@ -97,9 +135,7 @@ export default {
             })
     },
     async mounted() {
-        await this.axios.get(`${serverprefix}api/chargingStation`).then(resp => {
-            this.chargingStations = resp.data;
-        });
+        await this.getChargingStations();
 
         this.$gmapApiPromiseLazy().then(() => {
             this.icon = {
