@@ -68,8 +68,7 @@ export default {
 }
 
 .background {
-  background: rgb(106,189,128);
-  background: linear-gradient(155deg, rgba(106,189,128,1) 0%, rgba(58,239,255,1) 100%);
+    background: rgb(106,189,128);
+    background: linear-gradient(155deg, rgba(106,189,128,1) 0%, rgba(58,239,255,1) 100%);
 }
-
 </style>

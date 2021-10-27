@@ -35,41 +35,47 @@
                     </v-row>
                 </v-container>
             </v-card-text>
-          <v-card-actions class="justify-center">
-            <v-btn
-                color="primary"
-                elevation="2"
-                raised
-                rounded
-                text
-                @click="login"
-                style="background-color: green;"
-                width="100px"
-                height="40px"
-            >
-              <span style="color: white">SIGN IN</span>
-            </v-btn>
+            <v-card-actions class="justify-center">
+                <v-btn
+                    color="primary"
+                    elevation="2"
+                    raised
+                    rounded
+                    text
+                    @click="login"
+                    style="background-color: green;"
+                    width="100px"
+                    height="40px"
+                >
+                    <span style="color: white">SIGN IN</span>
+                </v-btn>
 
 
-          </v-card-actions>
+            </v-card-actions>
 
-          <v-card-actions class="justify-center">
-          <v-btn
-              color="secondary"
-              elevation="2"
-              raised
-              rounded
-              text
-              @click="navigate_to_sign_up"
-              style="background-color: green;"
-              width="240px"
-              height="40px"
-          >
-            <span style="color: white">Create your account</span>
-          </v-btn>
+            <v-card-actions class="justify-center">
+<!--                <v-btn
+                    color="secondary"
+                    elevation="2"
+                    raised
+                    rounded
+                    text
+                    @click="navigate_to_sign_up"
+                    style="background-color: green;"
+                    width="240px"
+                    height="40px"
+                >
+                    <span style="color: white">Create your account</span>
+                </v-btn>-->
+                <v-card-text>
+                    <v-card-title class="justify-center pt-2">
+                        <template><span style="font-size: 16px; margin-right: 20px;">Don't have an account?</span></template>
+                        <a @click="navigate_to_sign_up"> <span style="font-size: 20px;">Sign Up</span></a>
+                    </v-card-title>
+                </v-card-text>
 
 
-        </v-card-actions>
+            </v-card-actions>
         </v-card>
         <v-snackbar v-model="loginSnackbar" :timeout="2000" top
                     height="70px" width="450px" color="error">
@@ -124,7 +130,7 @@ export default {
 
                 if(response.data?.accessToken) {
 
-                  localStorage.setItem('accessToken', response.data.accessToken);
+                    localStorage.setItem('accessToken', response.data.accessToken);
 
                     router.push('/map');
                 }
@@ -134,18 +140,18 @@ export default {
                 this.snackbarText = 'Please enter your valid username and password';
             }
         },
-      navigate_to_sign_up(){
-          router.push("/sign-up");
-      }
+        navigate_to_sign_up(){
+            router.push("/sign-up");
+        }
     },
 };
 </script>
 
 <style>
-    .rounded-card{
-        border-radius: 15px !important;
-    }
-    .v-input {
-        font-size: 1.6em;
-    }
+.rounded-card{
+    border-radius: 15px !important;
+}
+.v-input {
+    font-size: 1.6em;
+}
 </style>

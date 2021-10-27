@@ -1,9 +1,9 @@
 <template>
     <div class="background" style="position: absolute; height: 100%; width: 100%;">
-        <v-container>
+        <v-container style="overflow-y: scroll; height: 100%;">
             <v-row no-gutters justify="center">
                 <v-col cols="8" >
-                    <v-card class="mx-auto rounded-card" max-width="800" style="margin-top: 150px;">
+                    <v-card class="mx-auto my-3 rounded-card" max-width="800">
                         <v-card-title class="justify-center py-8">
                             <span style="font-size: 35px;">Sign up</span>
                         </v-card-title>
@@ -110,15 +110,11 @@
                         </v-card-actions>
                         <v-card-text>
                             <v-card-title class="justify-center py-8">
-                                <template><span style="font-size: 20px;"> Have an account?  </span></template>
-                                <a href="login"> <span style="font-size: 20px;"> Log in</span></a>
-                                <span style="font-size: 20px;"> . </span>
-
+                                <template><span style="font-size: 16px; margin-right: 20px;">Have an account?</span></template>
+                                <a href="login"> <span style="font-size: 20px;">Log in</span></a>
                             </v-card-title>
 
                         </v-card-text>
-
-
                     </v-card>
                 </v-col>
             </v-row>
@@ -240,7 +236,6 @@ export default {
 </script>
 
 <style>
-
 
 .rounded-card {
     border-radius: 15px !important;
