@@ -86,7 +86,6 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
         }
     }
 
-    @PostMapping("/person/register")
     @Override
     public Person post(Person person) throws NotValidUpdateException {
         if(this.validateEntity(person)) {

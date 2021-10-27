@@ -53,7 +53,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/api/login/**",
                     "/api/token/refresh",
                     "/api/hasRightForPage",
-                    "/person/register",
+                    "/api/person/register",
 
                     "/v2/api-docs",
                     "/configuration/ui",

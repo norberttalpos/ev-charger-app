@@ -54,7 +54,14 @@ public class PersonController extends AbstractController<Person, PersonFilter, P
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-/*
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody Person entity) {
+        return super.post(entity);
+    }
+
+
+    /*
     @GetMapping("/{username}")
     public ResponseEntity<Person> getByUsername(@PathVariable String username) {
         try {
