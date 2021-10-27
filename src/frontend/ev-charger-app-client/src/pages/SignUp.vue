@@ -176,7 +176,6 @@ export default {
             notEmptyRule:[
                 t=> !(t===null || t==="")
             ]
-
         }
     },
     computed: {
@@ -196,12 +195,10 @@ export default {
                 this.snackbarText="Please enter all your data";
                 return;
             }
-            if(this.passwordsAreSame){
+            if(!this.passwordsAreSame){
                 this.signUpSnackBar=true;
                 this.snackbarText="The passwords don't match"
             }
-            this.signUpSnackBar=true;
-            this.snackbarText="Meg kéne csinálni :(";
 
 
             try {
@@ -212,13 +209,26 @@ export default {
                     email:this.email,
                     phoneNumber:this.phoneNumber
                 });
-                console.log(response.data);
 
-                if (response.data?.accessToken) {
-                    localStorage.setItem('accessToken', response.data.accessToken);
+                if(response.status===201){
+                    const login_response = await this.axios.post(`${serverprefix}api/login`,{
+                        password:this.password,
+                        username:this.username
+                    });
 
-                    router.push('/map')
+                    if(login_response.data?.accessToken) {
+
+                        localStorage.setItem('accessToken', login_response.data.accessToken);
+
+                        router.push('/map');
+                    }
                 }
+
+                else{
+                    this.loginSnackbar = true;
+                    this.snackbarText = 'Not valid data!';
+                }
+
             } catch (error) {
                 this.loginSnackbar = true;
                 this.snackbarText = 'Not valid data!';

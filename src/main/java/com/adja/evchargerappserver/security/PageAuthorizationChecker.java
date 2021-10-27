@@ -17,6 +17,9 @@ public class PageAuthorizationChecker {
         else {
             //TODO route alapjan eldönteni van-e joga role_user
             //TODO ha be van lépve, akkor legyen letiltva login, sign-up?
+            if(roleNames.contains("role_user"))
+                if(route.equals("/map"))
+                    return true;
             return false;
         }
     }

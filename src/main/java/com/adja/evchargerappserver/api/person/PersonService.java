@@ -13,11 +13,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -97,7 +97,11 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
             }
             catch (EntityNotFoundException e) {
                 person.setPassword(this.passwordEncoder.encode(person.getPassword()));
-                return this.repository.save(person);
+                Person p = this.repository.save(person);
+                if(person.getRoles()==null)
+                    person.setRoles(new ArrayList<>());
+                addRoleToUser(person.getUsername(),"role_user");
+                return p;
             }
         }
         else

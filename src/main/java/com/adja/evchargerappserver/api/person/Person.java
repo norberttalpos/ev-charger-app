@@ -4,7 +4,9 @@ package com.adja.evchargerappserver.api.person;
 import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.role.Role;
+import com.adja.evchargerappserver.api.role.RoleRepository;
 import com.sun.istack.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Collection;
