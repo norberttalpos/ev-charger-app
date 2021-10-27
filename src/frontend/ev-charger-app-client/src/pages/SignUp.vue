@@ -26,17 +26,8 @@
               </v-row>
 
               <v-row>
-                <v-col cols="6">
-                  <v-text-field
-                      v-model="username"
-                      label="Username"
-                      :rules="notEmptyRule"
-                      outlined
-                      name="username"
-                      persistent-placeholder
-                  ></v-text-field>
-                </v-col>
-                <v-col cols="6">
+
+                <v-col cols="12">
                   <v-text-field
                       v-model="email"
                       :rules="emailRules"
@@ -48,6 +39,27 @@
                 </v-col>
 
               </v-row>
+<v-row>
+  <v-col cols="6">
+    <v-text-field
+        v-model="username"
+        label="Username"
+        :rules="notEmptyRule"
+        outlined
+        name="username"
+        persistent-placeholder
+    ></v-text-field>
+  </v-col> <v-col cols="6">
+  <v-text-field
+      v-model="phoneNumber"
+      label="Phone Number"
+      :rules="notEmptyRule"
+      outlined
+      name="phoneNumber"
+      persistent-placeholder
+  ></v-text-field>
+</v-col>
+</v-row>
               <v-row>
                 <v-col cols="6">
                   <v-text-field
@@ -96,6 +108,17 @@
               <span style="color: white">CREATE YOUR ACCOUNT</span>
             </v-btn>
           </v-card-actions>
+          <v-card-text>
+            <v-card-title class="justify-center py-8">
+              <template><span style="font-size: 20px;"> Have an account?  </span></template>
+              <a href="login"> <span style="font-size: 20px;"> Log in</span></a>
+              <span style="font-size: 20px;"> . </span>
+
+            </v-card-title>
+
+          </v-card-text>
+
+
         </v-card>
         </v-col>
       </v-row>
@@ -120,8 +143,8 @@
 </template>
 <script>
 
-/*import router from '../router'
-import {serverprefix} from "@/main";*/
+import router from '../router'
+import {serverprefix} from "@/main";
 
 
 export default {
@@ -136,6 +159,7 @@ export default {
       password: "",
       confirm_password: "",
       email: "",
+      phoneNumber:"",
       name:"",
       show: false,
       signUpSnackBar: false,
@@ -159,7 +183,7 @@ export default {
     emptyFields() {
       return this.username === "" || this.username === null || this.password === "" || this.password === null ||
       this.confirm_password === "" || this.confirm_password === null || this.email === "" || this.email === null ||
-      this.name === "" || this.name === null;
+      this.name === "" || this.name === null || this.phoneNumber==="" || this.phoneNumber===null;
     },
     passwordsAreSame(){
       return this.password===this.confirm_password;
@@ -181,19 +205,27 @@ export default {
 
 
       try {
-        /*const response = await this.axios.post(`${serverprefix}api/login`, {
+        const headers = {
+
+        }
+
+        const response = await this.axios.post(`${serverprefix}person/register`, {
           password: this.password,
-          username: this.username
-        });
+          username: this.username,
+          name:this.name,
+          email:this.email,
+          phoneNumber:this.phoneNumber
+        },{headers:{headers}});
+        console.log(response.data);
 
         if (response.data?.accessToken) {
           localStorage.setItem('accessToken', response.data.accessToken);
 
           router.push('/map')
-        }*/
+        }
       } catch (error) {
         this.loginSnackbar = true;
-        this.snackbarText = 'Please enter your valid username and password';
+        this.snackbarText = 'Not valid data!';
       }
 
     }

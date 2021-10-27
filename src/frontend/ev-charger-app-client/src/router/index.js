@@ -6,10 +6,16 @@ Vue.use(VueRouter)
 
 const routes = [
 	{
-		path: '/',
+		path: '/login',
 		name: 'Login',
 		props: true,
 		component: () => import('../pages/Login.vue'),
+	},
+	{
+		path: '/',
+		name: 'Map',
+		props: true,
+		component: () => import('../pages/Map.vue'),
 	},
 	{
 		path: '/map',
@@ -49,7 +55,7 @@ router.beforeEach(async (to, from, next) => {
 		next();
 	else if(resp === 'tokenExpired')
 		next({
-			path: '/',
+			path: '/login',
 		});
 	else
 		next(false);

@@ -53,6 +53,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/api/login/**",
                     "/api/token/refresh",
                     "/api/hasRightForPage",
+                    "/person/register",
 
                     "/v2/api-docs",
                     "/configuration/ui",
@@ -67,6 +68,9 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("role_admin");
             http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/**").hasAnyAuthority("role_admin");
             http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/**").hasAnyAuthority("role_admin");
+            /*http.cors().and().authorizeRequests()
+                    .antMatchers(HttpMethod.POST,"/api/person").permitAll();*/
+
         }
         else {
             http.cors().and().authorizeRequests().anyRequest().permitAll();

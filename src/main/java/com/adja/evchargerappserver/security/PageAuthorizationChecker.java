@@ -16,11 +16,12 @@ public class PageAuthorizationChecker {
         }
         else {
             //TODO route alapjan eldönteni van-e joga role_user
+            //TODO ha be van lépve, akkor legyen letiltva login, sign-up?
             return false;
         }
     }
 
     public static Collection<String> noRightPages() {
-        return Arrays.asList("/", "/sign-up");
+        return Arrays.asList("/sign-up","/login","/api/person");
     }
 }

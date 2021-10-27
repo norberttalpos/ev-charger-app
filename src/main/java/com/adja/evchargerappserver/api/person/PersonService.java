@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
@@ -85,6 +86,7 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
         }
     }
 
+    @PostMapping("/person/register")
     @Override
     public Person post(Person person) throws NotValidUpdateException {
         if(this.validateEntity(person)) {

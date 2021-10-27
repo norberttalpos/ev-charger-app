@@ -1,6 +1,6 @@
 <template>
     <div class="background" style="position: absolute; height: 100%; width: 100%;">
-        <v-card class="mx-auto rounded-card" max-width="400" height="420" style="margin-top: 150px;">
+        <v-card class="mx-auto rounded-card" max-width="400" height="480" style="margin-top: 150px;">
             <v-card-title class="justify-center py-8">
                 <span style="font-size: 35px;">Login</span>
             </v-card-title>
@@ -35,21 +35,41 @@
                     </v-row>
                 </v-container>
             </v-card-text>
-            <v-card-actions class="justify-center">
-                <v-btn
-                    color="primary"
-                    elevation="2"
-                    raised
-                    rounded
-                    text
-                    @click="login"
-                    style="background-color: green;"
-                    width="100px"
-                    height="40px"
-                >
-                    <span style="color: white">SIGN IN</span>
-                </v-btn>
-            </v-card-actions>
+          <v-card-actions class="justify-center">
+            <v-btn
+                color="primary"
+                elevation="2"
+                raised
+                rounded
+                text
+                @click="login"
+                style="background-color: green;"
+                width="100px"
+                height="40px"
+            >
+              <span style="color: white">SIGN IN</span>
+            </v-btn>
+
+
+          </v-card-actions>
+
+          <v-card-actions class="justify-center">
+          <v-btn
+              color="secondary"
+              elevation="2"
+              raised
+              rounded
+              text
+              @click="navigate_to_sign_up"
+              style="background-color: green;"
+              width="240px"
+              height="40px"
+          >
+            <span style="color: white">Create your account</span>
+          </v-btn>
+
+
+        </v-card-actions>
         </v-card>
         <v-snackbar v-model="loginSnackbar" :timeout="2000" top
                     height="70px" width="450px" color="error">
@@ -106,14 +126,17 @@ export default {
 
                   localStorage.setItem('accessToken', response.data.accessToken);
 
-                    router.push('/map')
+                    router.push('/map');
                 }
             }
             catch(error) {
                 this.loginSnackbar = true;
                 this.snackbarText = 'Please enter your valid username and password';
             }
-        }
+        },
+      navigate_to_sign_up(){
+          router.push("/sign-up");
+      }
     },
 };
 </script>
