@@ -7,9 +7,6 @@ info:
   termsOfService: Terms of service
   contact:
     name: Adja
-  license:
-    name: License of API
-    url: API license URL
 host: localhost:8080
 basePath: "/"
 tags:
@@ -1675,6 +1672,11 @@ paths:
           in: header
           required: false
           type: string
+        - name: id
+          in: path
+          required: true
+          type: integer
+          format: int64
         - name: id
           in: query
           description: id
