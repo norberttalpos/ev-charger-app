@@ -57,7 +57,7 @@
                 <v-card-text>
                     <v-card-title class="justify-center pt-2">
                         <template><span style="font-size: 16px; margin-right: 20px;">Don't have an account?</span></template>
-                        <a @click="navigate_to_sign_up"> <span style="font-size: 20px;">Sign Up</span></a>
+                        <a href="sign-up"> <span style="font-size: 20px;">Sign Up</span></a>
                     </v-card-title>
                 </v-card-text>
 

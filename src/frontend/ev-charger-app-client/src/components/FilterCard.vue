@@ -8,6 +8,7 @@
                     solo
                     persistent-placeholder
                     placeholder="company name"
+                    style="font-size: 20px;"
                     clearable
                     prepend-inner-icon="mdi-magnify"
                     @input="searchFieldHandler"
