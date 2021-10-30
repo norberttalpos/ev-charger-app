@@ -31,7 +31,8 @@
         </gmap-map>
 
         <div class="over-map" style="top: 30px; left: 30px;">
-            <v-btn fab color="white" ripple @click="toggleFilter" v-blur
+            <v-btn fab ripple :color="!$vuetify.theme.dark ? '#ffffff' : '#212121'" @click="toggleFilter" v-blur
+                   :dark="$vuetify.theme.dark"
             >
                 <v-icon size="30px">
                     mdi-magnify

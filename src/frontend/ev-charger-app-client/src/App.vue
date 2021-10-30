@@ -2,7 +2,7 @@
     <v-app>
         <v-app-bar
             app
-            color="primary"
+            color="#00008b"
             dark
         >
             <div class="d-flex align-center" style="margin-left: 15px;">
@@ -17,6 +17,9 @@
 
                 <span style="margin-left: 10px; font-size: 40px; font-family: 'Georama', sans-serif !important;">Töltősch</span>
             </div>
+            <v-spacer/>
+            <dark-mode-toggle></dark-mode-toggle>
+
 
         </v-app-bar>
 
@@ -28,9 +31,10 @@
 
 <script>
 
+import DarkModeToggle from "@/components/DarkModeToggle";
 export default {
     name: 'App',
-
+    components: {DarkModeToggle},
     data: () => ({
         //
     }),

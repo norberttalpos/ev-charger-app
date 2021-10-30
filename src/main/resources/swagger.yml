@@ -1677,12 +1677,6 @@ paths:
           required: true
           type: integer
           format: int64
-        - name: id
-          in: query
-          description: id
-          required: true
-          type: integer
-          format: int64
         - in: body
           name: role
           description: role
