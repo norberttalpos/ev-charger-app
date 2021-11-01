@@ -1,7 +1,7 @@
 
 <template>
-    <v-layout row wrap justify-end>
-        <v-icon class="mr-2" v-if="logOutAvailable()"
+    <v-layout row wrap justify-end v-if="logOutAvailable">
+        <v-icon class="mr-2"
         @click="log_out">
             mdi-logout
         </v-icon>
@@ -17,15 +17,18 @@ export default {
         return {
         }
     },
+    computed:{
+        logOutAvailable() {
+            console.log("lofasz");
+            const path=this.$route.name;
+            console.log(path);
+            return !( path==="Login" || path==="Sign Up");
+        }
+    },
     methods:{
         log_out(){
             localStorage.setItem('accessToken', null);
             router.push('/login');
-        },
-        logOutAvailable(){
-            const path=this.$router.history.current["path"];
-            console.log(path);
-            return !( path==="/login" || path==="/sign-up");
         }
     }
 }
