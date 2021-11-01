@@ -19,7 +19,8 @@
             </div>
             <v-spacer/>
             <dark-mode-toggle></dark-mode-toggle>
-            <logout></logout>
+
+            <logout-menu></logout-menu>
 
 
         </v-app-bar>
@@ -33,10 +34,10 @@
 <script>
 
 import DarkModeToggle from "@/components/DarkModeToggle";
-import Logout from "@/components/Logout";
+import LogoutMenu from "@/components/LogoutMenu";
 export default {
     name: 'App',
-    components: {DarkModeToggle, Logout},
+    components: {DarkModeToggle, LogoutMenu},
     data: () => ({
         //
     }),
