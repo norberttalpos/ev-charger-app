@@ -18,14 +18,19 @@
             <span style="font-size: 20px;">{{ chargingStation.maxNumberOfChargers }}</span>
         </div>
 
-        <v-layout class="my-5" justify-center row wrap>
+        <v-layout class="mt-2" justify-start row wrap>
+            <v-img style="margin-left: 10px;" v-for="charger in chargingStation.chargers" :key="charger" :src="require(`../assets/chargerTypes/${charger.chargerType.name}.png`)"
+                   max-width="50px"/>
+        </v-layout>
+
+        <v-layout class="my-5 mt-5" justify-center row wrap>
             <v-btn @click="minimalDetails = false">
                 details
             </v-btn>
         </v-layout>
     </v-card>
 
-    <v-card v-else class="details pa-5 background">
+    <v-card v-else class="details pa-12 background">
         <div>
             <strong style="font-size: 40px;">
                 {{ chargingStation.ownerCompanyName }}
@@ -44,7 +49,7 @@
             <span style="font-size: 20px;">{{ chargingStation.maxNumberOfChargers }}</span>
         </div>
 
-        <v-container class="mt-4" style="width: 1000px; height: 500px;">
+        <v-container class="mt-4" style="width: 500px;">
             <strong style="font-size: 35px;">Chargers</strong>
             <v-data-table
                 :headers="headers"
@@ -53,9 +58,26 @@
                 hide-default-footer
                 class="elevation-1 mt-5"
             >
+                <template #item.chargerType="{ item }">
+                    <v-img class="my-2 image" :src="require(`../assets/chargerTypes/${item.chargerType.name}.png`)" max-width="50px"
+                         @click="showCarDetails"/>
+                </template>
                 <template #item.reserved="{ item }">
-                    <v-img class="my-2 car-icon" v-if="item.currentlyChargingCar !== null" src="@/assets/carIcon.jpg" max-width="50px"
+                    <v-img class="my-2 image" v-if="item.currentlyChargingCar !== null" src="@/assets/reserved_carIcon.png" max-width="40px"
                             @click="showCarDetails"></v-img>
+
+                    <v-menu offset-x right v-else nudge-right="15">
+                        <template v-slot:activator="{ on }">
+                            <v-img class="my-2 image" src="@/assets/checkmark_green.png" max-width="40px"
+                                   v-on="on"></v-img>
+                        </template>
+                        <v-list>
+                            <v-list-item class="image" @click="reserveCharger(item)">
+                                <v-list-item-title>Reserve</v-list-item-title>
+                            </v-list-item>
+                        </v-list>
+
+                    </v-menu>
                 </template>
             </v-data-table>
 
@@ -85,15 +107,17 @@ export default {
             },
             headers: [
                 { text: "ID", value: "id", width: '20%', sortable: false },
-                { text: "Charger Types", value: "chargerTypes", sortable: false },
-                { text: "Reserved", value: "reserved", width: '20%', sortable: false },
+                { text: "Charger Type", value: "chargerType", sortable: false },
+                { text: "Available", value: "reserved", width: '20%', sortable: false },
             ],
         }
     },
     methods: {
         showCarDetails() {
-            console.log('asd');
             this.carDetailsShown = true;
+        },
+        reserveCharger(charger) {
+            console.log(charger);
         }
     },
     mounted() {
@@ -106,19 +130,19 @@ export default {
 <style scoped>
     .minimal-details{
         position: fixed;
-        top: 220px;
+        top: 250px;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
     }
     .details {
         position: fixed;
-        top: 50%;
+        top: 350px;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);
     }
-    .car-icon:hover {
+    .image:hover {
         cursor: pointer;
     }
 </style>
