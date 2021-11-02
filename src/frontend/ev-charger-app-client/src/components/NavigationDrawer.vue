@@ -14,6 +14,16 @@
             <v-list-item-group
                 active-class="deep-purple--text text--accent-4"
             >
+                <v-list-item class="mb-4" @click="log_out">
+                    <v-list-item-action>
+                        <v-icon class="mr-2"
+                        >
+                            mdi-logout
+                        </v-icon>
+                    </v-list-item-action>
+                    <v-list-item-title>Log out</v-list-item-title>
+                </v-list-item>
+
                 <v-list-item>
                     <v-list-item-title>Foo</v-list-item-title>
                 </v-list-item>
@@ -35,18 +45,19 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
     props: {
         value: {Boolean, default: false}
     },
     name: "navigation-drawer",
-    /*data() {
-        return {
-            items: {
-
-            }
-        }
-    }*/
+    methods: {
+        log_out(){
+            localStorage.setItem('accessToken', null);
+            router.push('/login');
+        },
+    }
 }
 </script>
 

@@ -13,8 +13,6 @@ export default new Vuex.Store({
 		async fetchRole({commit}) {
 			const resp = await Vue.prototype.axios.get(`${serverprefix}/api/role`);
 
-			console.log(resp.data);
-
 			commit('SET_ROLE', resp.data);
 		}
 	},
