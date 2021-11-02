@@ -12,11 +12,13 @@ export default new Vuetify({
 		themes: {
 			light: {
 				primary: colors.green.accent4,
+				darkgreen: colors.green.darken3,
 				secondary: colors.deepPurple.accent4,
 				error: colors.red.accent4,
 			},
 			dark: {
 				primary: colors.green.accent4,
+				darkgreen: colors.green.darken3,
 				secondary: colors.deepPurple.accent4,
 				error: colors.red.accent4,
 			}

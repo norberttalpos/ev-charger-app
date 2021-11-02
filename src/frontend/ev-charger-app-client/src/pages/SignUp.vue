@@ -110,7 +110,7 @@
                         </v-card-actions>
                         <v-card-text>
                             <v-card-title class="justify-center py-8">
-                                <span style="font-size: 16px; margin-right: 20px;">Have an account?</span>
+                                <span style="font-size: 16px; margin-right: 20px;">Already have an account?</span>
                                 <a href="login"> <span style="font-size: 20px;">Log in</span></a>
                             </v-card-title>
 

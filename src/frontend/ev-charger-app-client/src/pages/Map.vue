@@ -107,7 +107,7 @@ export default {
     methods: {
         markerClickedHandler(c) {
             this.clickedChargingStation = c;
-            console.log(this.clickedChargingStation)
+
             this.chargingStationDialog = !this.chargingStationDialog;
         },
         onClickOutsideDetails() {
@@ -117,8 +117,6 @@ export default {
             this.filterShown = !this.filterShown;
         },
         filterChangedHandler(filter) {
-
-            console.log(filter);
 
             this.chargingStationFilter.ownerCompanyName = filter.ownerCompanyName;
             this.chargingStationFilter.point.latitude = this.userCoordinates.lat;

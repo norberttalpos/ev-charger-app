@@ -126,7 +126,6 @@ export default {
         }
     },
     mounted() {
-        console.log(this.chargingStationProp)
         this.chargingStation = this.chargingStationProp;
     }
 }

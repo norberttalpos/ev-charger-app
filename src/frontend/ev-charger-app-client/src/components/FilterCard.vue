@@ -5,7 +5,7 @@
                 <v-col cols="12" class="pb-0">
                     <v-text-field
                         v-model="searchField"
-                        solo
+                        outlined
                         persistent-placeholder
                         placeholder="company name"
                         style="font-size: 20px;"
@@ -20,9 +20,9 @@
                         <v-slider
                             v-model="slider"
                             max="20"
-                            thumb-color="green"
-                            color="green"
-                            track-color="green"
+                            thumb-color="primary"
+                            color="primary"
+                            track-color="primary"
                             :thumb-label="true"
                             @input="rangeSliderHandler"
                         ></v-slider>
@@ -30,28 +30,34 @@
                 </v-col>
             </v-row>
             <v-row justify="center" no-gutters dense class="mt-5">
-                <v-card class="px-6 pt-6" style="max-width: 550px;" elevation="2" outlined>
+                <v-card class="px-6 pt-6" style="max-width: 450px; height: 100%;" elevation="2" outlined>
                     <v-layout row wrap justify-start>
                         <v-card-title style="font-size: 20px; margin-right: 10px; margin-bottom: 10px;">charger types:</v-card-title>
                         <v-spacer/>
-                        <v-btn class="mt-2" color="primary" @click="toggleAllChargerTypes">
+                        <v-btn class="mt-2" color="darkgreen" dark @click="toggleAllChargerTypes">
                             toggle all
                         </v-btn>
                     </v-layout>
-                    <v-col cols="12">
+                    <v-container style="position: relative; overflow-y: scroll; max-height: 400px;">
                         <v-row dense no-gutters>
-                            <v-col cols="6" class="mb-8" v-for="chargerType in chargerTypes" :key="chargerType">
+                            <v-col class="sm12 md12 lg6 xl6 mb-8" v-for="chargerType in chargerTypes" :key="chargerType">
                                 <v-layout justify-center align-center row wrap>
                                     <div class="image px-6" :style="chargerTypeStyle(chargerType)" @click="chargerTypeSelected(chargerType)">
-                                        <v-img :class="`${darkTheme ? 'darkChargerIcon' : ''}`" style="margin-left: 10px;"
-                                               :src="require(`../assets/chargerTypes/${chargerType}.png`)"
-                                               max-width="70px"/>
-                                        <span style="margin-left: 5px;">{{ chargerType }}</span>
+                                        <v-layout column>
+                                            <v-layout row wrap justify-center>
+                                                <v-img :class="`${darkTheme ? 'darkChargerIcon' : ''}`" style="margin-left: 10px;"
+                                                       :src="require(`../assets/chargerTypes/${chargerType}.png`)"
+                                                       max-width="70px"/>
+                                            </v-layout>
+                                            <v-layout class="mt-5" row wrap justify-center>
+                                                <span style="margin-left: 5px;">{{ chargerType }}</span>
+                                            </v-layout>
+                                        </v-layout>
                                     </div>
                                 </v-layout>
                             </v-col>
                         </v-row>
-                    </v-col>
+                    </v-container>
                 </v-card>
             </v-row>
         </v-container>
@@ -110,7 +116,7 @@ export default {
             }), 400);
         },
         chargerTypeStyle(chargerType) {
-            const base = 'display: flex; justify-content: center; align-items: center; height: 160px; border-radius: 5px; '
+            const base = 'display: flex; justify-content: center; align-items: center; height: 160px; min-width: 180px; border-radius: 5px; '
             return this.selectedChargerTypes.includes(chargerType) ?
                 base + 'border: solid 3px green;'
                 : base + 'border: solid 3px transparent;';
