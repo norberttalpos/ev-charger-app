@@ -31,12 +31,7 @@ const routes = [
 		component: () => import('../pages/SignUp.vue'),
 	},
 
-	{
-		path: '/profile',
-		name: 'Profile',
-		props: true,
-		component: () => import('../pages/Profile.vue'),
-	}
+
 ]
 
 const router = new VueRouter({
@@ -55,6 +50,8 @@ const hasRightForPage = async (to) => {
 
 router.beforeEach(async (to, from, next) => {
 	const resp = await hasRightForPage(to);
+
+	console.log(resp);
 
 	if (resp === 'hasRight')
 		next();

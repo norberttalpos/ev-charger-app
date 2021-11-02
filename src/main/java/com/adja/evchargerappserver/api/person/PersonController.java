@@ -4,7 +4,9 @@ package com.adja.evchargerappserver.api.person;
 import com.adja.evchargerappserver.api.abstracts.AbstractController;
 import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
 import com.adja.evchargerappserver.api.role.Role;
+import com.adja.evchargerappserver.security.JwtUtil;
 import io.swagger.annotations.Api;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +61,15 @@ public class PersonController extends AbstractController<Person, PersonFilter, P
     @Override
     public ResponseEntity<?> post(@RequestBody Person entity) {
         return super.post(entity);
+    }
+
+    @GetMapping("/current-person")
+    public ResponseEntity<Person> getByJwtToken(@RequestHeader HttpHeaders headers){
+        String username = JwtUtil.getUsernameFromJwt(headers.getFirst(headers.AUTHORIZATION));
+
+        Person entityByName= this.service.getByUsername(username);
+
+        return new ResponseEntity<>(entityByName, HttpStatus.OK);
     }
 
 

@@ -9,20 +9,29 @@
             <template v-slot:activator="{ on, attrs }">
                 <v-app-bar-nav-icon v-bind="attrs" v-on="on"></v-app-bar-nav-icon>
             </template>
-
+            <v-dialog
+                v-model="dialog"
+                width="500"
+            >
+            <profile-dialog></profile-dialog>
+                </v-dialog>
             <v-card>
                 <v-list>
                     <v-list-item @click="profile">
-                    <v-list-item-action>
-                        <v-icon
-                        >
-                            mdi-account
-                        </v-icon>
-                    </v-list-item-action>
-                    <v-list-item-title>Profile page</v-list-item-title>
+                        <v-list-item-action>
+                            <v-icon class="mr-2"
+                            >
+                                mdi-account
+                            </v-icon>
+                        </v-list-item-action>
+                        <v-list-item-title>Profile</v-list-item-title>
+
                     </v-list-item>
 
+
+
                     <v-list-item @click="log_out">
+
                         <v-list-item-action>
                             <v-icon class="mr-2"
                             >
@@ -44,11 +53,14 @@
 <script>
 import router from "@/router";
 import {LogoutAvailable} from "@/mixins/LogoutAvailable";
+import ProfileDialog from "@/components/ProfileDialog";
 
 export default {
     name: "logout-menu",
+    components: {ProfileDialog},
     mixins: [LogoutAvailable],
     data: () => ({
+        dialog:false
     }),
     methods:{
         log_out(){
@@ -56,7 +68,7 @@ export default {
             router.push('/login');
         },
         profile(){
-            router.push('/profile');
+            this.dialog=true;
         }
     }
 }
