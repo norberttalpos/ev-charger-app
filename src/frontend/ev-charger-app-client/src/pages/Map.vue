@@ -10,7 +10,7 @@
         ></v-progress-linear>
 
         <gmap-map id="google-map" v-if="chargingStations" :center="userCoordinates" :mapTypeControl="false" :zoom="12"
-                  ref="mapRef">
+                  ref="mapRef" @click="onClickOutsideDetails">
             <gmap-marker
                 v-for="(c, index) in chargingStations"
                 :key="index"
@@ -42,8 +42,9 @@
             <v-scroll-y-reverse-transition>
                 <filter-card v-show="filterShown" @filterChanged="filterChangedHandler"/>
             </v-scroll-y-reverse-transition>
-
         </div>
+
+        <charging-station-details v-if="chargingStationDialog" :chargingStationProp="clickedChargingStation"/>
     </div>
 </template>
 
@@ -51,10 +52,11 @@
 import {serverprefix} from "@/main";
 import * as VueGoogleMaps from 'vue2-google-maps';
 import FilterCard from "@/components/FilterCard";
+import ChargingStationDetails from "@/components/ChargingStationDetails";
 
 export default {
     name: 'map',
-    components: {FilterCard},
+    components: {ChargingStationDetails, FilterCard},
     data() {
         return {
             center: {
@@ -70,6 +72,9 @@ export default {
             icon: null,
             filterShown: false,
             progressbar: false,
+            chargingStationDialog: false,
+
+            clickedChargingStation: null,
 
             chargingStationFilter: {
                 chargerTypes: [
@@ -100,8 +105,13 @@ export default {
         google: VueGoogleMaps.gmapApi
     },
     methods: {
-        markerClickedHandler(chargingStation) {
-            console.log(chargingStation);
+        markerClickedHandler(c) {
+            this.clickedChargingStation = c;
+            console.log(this.clickedChargingStation)
+            this.chargingStationDialog = !this.chargingStationDialog;
+        },
+        onClickOutsideDetails() {
+            this.chargingStationDialog = false;
         },
         toggleFilter() {
             this.filterShown = !this.filterShown;

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mt-3" height="500px" max-width="500px;">
+    <v-card class="mt-3 pa-5" height="500px" max-width="400px;">
         <v-container>
             <v-row>
                 <v-col cols="12" class="pb-0">
@@ -8,7 +8,7 @@
                         solo
                         persistent-placeholder
                         placeholder="company name"
-                        style="font-size: 20px; max-width: 300px;"
+                        style="font-size: 20px; max-width: 280px;"
                         clearable
                         prepend-inner-icon="mdi-magnify"
                         @input="searchFieldHandler"

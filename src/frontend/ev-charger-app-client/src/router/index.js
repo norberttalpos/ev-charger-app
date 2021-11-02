@@ -51,8 +51,6 @@ const hasRightForPage = async (to) => {
 router.beforeEach(async (to, from, next) => {
 	const resp = await hasRightForPage(to);
 
-	console.log(resp);
-
 	if (resp === 'hasRight')
 		next();
 	else if(resp === 'tokenExpired')

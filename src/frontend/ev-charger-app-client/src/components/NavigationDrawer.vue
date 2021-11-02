@@ -14,6 +14,16 @@
             <v-list-item-group
                 active-class="deep-purple--text text--accent-4"
             >
+                <v-list-item class="mb-4" @click="log_out">
+                    <v-list-item-action>
+                        <v-icon class="mr-2"
+                        >
+                            mdi-logout
+                        </v-icon>
+                    </v-list-item-action>
+                    <v-list-item-title>Log out</v-list-item-title>
+                </v-list-item>
+
                 <v-list-item>
                     <v-list-item-title>Foo</v-list-item-title>
                 </v-list-item>
@@ -26,14 +36,8 @@
                     <v-list-item-title>Fizz</v-list-item-title>
                 </v-list-item>
 
-                <v-list-item @click="log_out">
-                    <v-list-item-action>
-                        <v-icon class="mr-2"
-                        >
-                            mdi-logout
-                        </v-icon>
-                    </v-list-item-action>
-                    <v-list-item-title>Log out</v-list-item-title>
+                <v-list-item>
+                    <v-list-item-title>Buzz</v-list-item-title>
                 </v-list-item>
             </v-list-item-group>
         </v-list>
@@ -48,21 +52,12 @@ export default {
         value: {Boolean, default: false}
     },
     name: "navigation-drawer",
-    methods:{
+    methods: {
         log_out(){
             localStorage.setItem('accessToken', null);
             router.push('/login');
         },
-
     }
-
-    /*data() {
-        return {
-            items: {
-
-            }
-        }
-    }*/
 }
 </script>
 
