@@ -40,9 +40,7 @@
             </v-btn>
 
             <v-scroll-y-reverse-transition>
-                <v-card v-show="filterShown" class="mt-3" height="500px" width="300px">
-                    <filter-card @filterChanged="filterChangedHandler"/>
-                </v-card>
+                <filter-card v-show="filterShown" @filterChanged="filterChangedHandler"/>
             </v-scroll-y-reverse-transition>
 
         </div>
@@ -113,8 +111,12 @@ export default {
             this.chargingStationFilter.point.latitude = this.userCoordinates.lat;
             this.chargingStationFilter.point.longitude = this.userCoordinates.lng;
 
-            if(filter.radius)
+            if(filter.radius !== null && filter.radius !== undefined) {
+                if(filter.radius === 0) {
+                    filter.radius = 1;
+                }
                 this.chargingStationFilter.radius = filter.radius * 1000;
+            }
 
             this.progressbar = true;
             setTimeout(() => {this.progressbar = false}, 1000)
@@ -138,6 +140,8 @@ export default {
     async mounted() {
         await this.getChargingStations();
 
+        await this.$store.dispatch('fetchRole');
+
         this.$gmapApiPromiseLazy().then(() => {
             this.icon = {
                 url: require("../assets/markers/orange_marker.png"), // url
@@ -145,11 +149,12 @@ export default {
                 origin: new this.google.maps.Point(0,0), // origin
                 anchor: new this.google.maps.Point(30, 30) // anchor
             }
-        });
+        })
+        .catch(error => {console.log(error)});
 
         await this.$refs.mapRef.$mapPromise.then(map => {
             this.map = map
-        })
+        }).catch(error => {console.log(error)});
 
         this.google.maps.event.addListener(this.map, 'mousemove', () => {
             this.map.setOptions({ draggableCursor: 'default' });

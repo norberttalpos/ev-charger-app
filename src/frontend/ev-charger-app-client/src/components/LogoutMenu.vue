@@ -1,35 +1,20 @@
 <template>
-    <div class="text-center ml-5">
+    <div class="text-center">
         <v-menu
-            top
             offset-y
+            bottom
             :close-on-content-click="false"
             v-if="logOutAvailable"
         >
             <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                    color="primary"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                    <v-icon class="mr-2">
-                        mdi-menu
-                    </v-icon>
-                </v-btn>
+                <v-app-bar-nav-icon v-bind="attrs" v-on="on"></v-app-bar-nav-icon>
             </template>
 
             <v-card>
-
-
-
                 <v-list>
-
-
-
                     <v-list-item @click="profile">
                     <v-list-item-action>
-                        <v-icon class="mr-2"
+                        <v-icon
                         >
                             mdi-account
                         </v-icon>
@@ -58,18 +43,13 @@
 
 <script>
 import router from "@/router";
+import {LogoutAvailable} from "@/mixins/LogoutAvailable";
 
 export default {
     name: "logout-menu",
+    mixins: [LogoutAvailable],
     data: () => ({
     }),
-    computed:{
-        logOutAvailable() {
-            const path=this.$route.name;
-            console.log(path);
-            return !( path==="Login" || path==="Sign Up");
-        }
-    },
     methods:{
         log_out(){
             localStorage.setItem('accessToken', null);

@@ -19,11 +19,12 @@
             </div>
             <v-spacer/>
             <dark-mode-toggle></dark-mode-toggle>
-
-            <logout-menu></logout-menu>
-
+            <v-app-bar-nav-icon v-if="adminNavDrawer" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <logout-menu v-else></logout-menu>
 
         </v-app-bar>
+
+        <navigation-drawer v-if="adminNavDrawer" :value="drawer"/>
 
         <v-main>
             <router-view/>
@@ -34,13 +35,23 @@
 <script>
 
 import DarkModeToggle from "@/components/DarkModeToggle";
+import NavigationDrawer from "@/components/NavigationDrawer";
 import LogoutMenu from "@/components/LogoutMenu";
+import {LogoutAvailable} from "@/mixins/LogoutAvailable";
 export default {
     name: 'App',
-    components: {DarkModeToggle, LogoutMenu},
-    data: () => ({
-        //
-    }),
+    components: {LogoutMenu, NavigationDrawer, DarkModeToggle},
+    mixins: [LogoutAvailable],
+    data() {
+        return {
+            drawer: false,
+        }
+    },
+    computed: {
+        adminNavDrawer() {
+            return this.$store.getters.getRole === 'admin' && this.logOutAvailable;
+        },
+    },
     mounted() {
         const options = {
             enableHighAccuracy: true,
@@ -62,7 +73,6 @@ export default {
         }
 
         navigator.geolocation.getCurrentPosition(success, error, options);
-
     }
 };
 </script>

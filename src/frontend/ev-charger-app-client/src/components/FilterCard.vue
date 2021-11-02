@@ -1,35 +1,36 @@
 <template>
-    <v-container>
-
-        <v-row>
-            <v-col cols="12" class="pb-0">
-                <v-text-field
-                    v-model="searchField"
-                    solo
-                    persistent-placeholder
-                    placeholder="company name"
-                    style="font-size: 20px;"
-                    clearable
-                    prepend-inner-icon="mdi-magnify"
-                    @input="searchFieldHandler"
-                ></v-text-field>
-            </v-col>
-            <v-col cols="12" class="py-0">
-                <v-layout>
-                    <span style="font-size: 20px; margin-right: 10px;">range:</span>
-                    <v-slider
-                        v-model="slider"
-                        max="20"
-                        thumb-color="green"
-                        color="green"
-                        track-color="green"
-                        :thumb-label="true"
-                        @input="rangeSliderHandler"
-                    ></v-slider>
-                </v-layout>
-            </v-col>
-        </v-row>
-    </v-container>
+    <v-card class="mt-3" height="500px" max-width="500px;">
+        <v-container>
+            <v-row>
+                <v-col cols="12" class="pb-0">
+                    <v-text-field
+                        v-model="searchField"
+                        solo
+                        persistent-placeholder
+                        placeholder="company name"
+                        style="font-size: 20px; max-width: 300px;"
+                        clearable
+                        prepend-inner-icon="mdi-magnify"
+                        @input="searchFieldHandler"
+                    ></v-text-field>
+                </v-col>
+                <v-col cols="12" class="py-0">
+                    <v-layout>
+                        <span style="font-size: 20px; margin-right: 10px;">range:</span>
+                        <v-slider
+                            v-model="slider"
+                            max="20"
+                            thumb-color="green"
+                            color="green"
+                            track-color="green"
+                            :thumb-label="true"
+                            @input="rangeSliderHandler"
+                        ></v-slider>
+                    </v-layout>
+                </v-col>
+            </v-row>
+        </v-container>
+    </v-card>
 </template>
 
 <script>

@@ -1,12 +1,10 @@
 package com.adja.evchargerappserver.security;
 
-import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
 import com.adja.evchargerappserver.api.person.Person;
 import com.adja.evchargerappserver.api.person.PersonService;
 import com.adja.evchargerappserver.api.role.Role;
 import com.adja.evchargerappserver.security.pojos.AuthenticationRequest;
 import com.adja.evchargerappserver.security.pojos.RouteAuthoriztationRequest;
-import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -18,11 +16,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -115,6 +115,38 @@ public class TokenController {
         }
         catch(Exception e) {
             return new ResponseEntity<>(PageAuthorizationResponse.tokenExpired, HttpStatus.OK);
+        }
+    }
+
+    @ApiOperation("RoleChecking")
+    @GetMapping("/role")
+    public ResponseEntity<RoleEnum> getRole(@RequestHeader HttpHeaders headers) {
+
+        String authHeader = headers.getFirst(HttpHeaders.AUTHORIZATION);
+
+        if(authHeader == null) {
+            return new ResponseEntity<>(RoleEnum.none, HttpStatus.OK);
+        }
+        else if(authHeader.startsWith("Bearer") && authHeader.length() < 7) {
+            return new ResponseEntity<>(RoleEnum.none, HttpStatus.OK);
+        }
+
+        try {
+            Collection<String> rolesOfUser = this.personService.getByUsername(JwtUtil.getUsernameFromJwt(authHeader)).getRoles().
+                stream().map(Role::getName).collect(Collectors.toList());
+
+            if(rolesOfUser.contains("role_admin")) {
+                return new ResponseEntity<>(RoleEnum.admin, HttpStatus.OK);
+            }
+            else if (rolesOfUser.contains("role_user")){
+                return new ResponseEntity<>(RoleEnum.user, HttpStatus.OK);
+            }
+            else {
+                return new ResponseEntity<>(RoleEnum.none, HttpStatus.OK);
+            }
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(RoleEnum.none, HttpStatus.OK);
         }
     }
 }

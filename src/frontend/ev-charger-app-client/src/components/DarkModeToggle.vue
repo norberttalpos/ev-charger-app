@@ -1,9 +1,8 @@
 <template>
     <v-layout row wrap justify-end>
-        <v-icon class="mr-2">
+        <v-icon class="mr-5" @click="toggleDarkMode" dark>
             mdi-brightness-4
         </v-icon>
-        <v-switch class="mt-5 ml-2" v-model="darkmode" dark/>
     </v-layout>
 </template>
 
@@ -36,6 +35,9 @@ export default {
                 this.$vuetify.theme.dark = false
                 localStorage.setItem('DarkMode', false)
             }
+        },
+        toggleDarkMode() {
+            this.darkmode = !this.darkmode;
         }
     }
 }
