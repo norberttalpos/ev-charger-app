@@ -1,131 +1,94 @@
 <template>
+    <dialog-base :save-button-action="save" :cancel-button-action="dialog = false" title="Profile">
+        <v-row>
+            <v-col cols="12">
+                <v-text-field
+                    v-model="name"
+                    label="Name"
+                    :rules="notEmptyRule"
+                    outlined
+                    name="confirm_password"
+                    persistent-placeholder
+                ></v-text-field>
+            </v-col>
+        </v-row>
 
+        <v-row>
 
+            <v-col cols="12">
+                <v-text-field
+                    v-model="email"
+                    :rules="emailRules"
+                    label="Email address"
+                    outlined
+                    name="email"
+                    persistent-placeholder
+                ></v-text-field>
+            </v-col>
 
+        </v-row>
+        <v-row>
+            <v-col cols="6">
+                <v-text-field
+                    v-model="username"
+                    label="Username"
+                    :rules="notEmptyRule"
+                    outlined
+                    name="username"
+                    persistent-placeholder
+                ></v-text-field>
+            </v-col> <v-col cols="6">
+            <v-text-field
+                v-model="phoneNumber"
+                label="Phone Number"
+                :rules="notEmptyRule"
+                outlined
+                name="phoneNumber"
+                persistent-placeholder
+            ></v-text-field>
+        </v-col>
+        </v-row>
+        <v-row>
+            <v-col cols="6">
+                <v-text-field
+                    v-model="password"
+                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                    label="Password"
+                    outlined
+                    :type="show ? 'text' : 'password'"
+                    :rules="passwordRule"
+                    @click:append="show = !show"
+                    name="password"
+                    persistent-placeholder
+                ></v-text-field>
+            </v-col>
+            <v-col cols="6">
+                <v-text-field
+                    v-model="confirm_password"
+                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                    label="Confirm password"
+                    outlined
+                    :rules="confirmPasswordRule"
+                    :type="show ? 'text' : 'password'"
+                    @click:append="show = !show"
+                    name="confirm_password"
+                    persistent-placeholder
+                ></v-text-field>
+            </v-col>
 
-        <v-card>
-            <v-card-title class="text-h5 grey lighten-2">
-                Profile
-            </v-card-title>
-
-            <v-card class="mx-auto my-3  elevation-0" max-width="800">
-                <v-card-text>
-                    <v-container>
-                        <v-row>
-                            <v-col cols="12">
-                                <v-text-field
-                                    v-model="name"
-                                    label="Name"
-                                    :rules="notEmptyRule"
-                                    outlined
-                                    name="confirm_password"
-                                    persistent-placeholder
-                                ></v-text-field>
-                            </v-col>
-                        </v-row>
-
-                        <v-row>
-
-                            <v-col cols="12">
-                                <v-text-field
-                                    v-model="email"
-                                    :rules="emailRules"
-                                    label="Email address"
-                                    outlined
-                                    name="email"
-                                    persistent-placeholder
-                                ></v-text-field>
-                            </v-col>
-
-                        </v-row>
-                        <v-row>
-                            <v-col cols="6">
-                                <v-text-field
-                                    v-model="username"
-                                    label="Username"
-                                    :rules="notEmptyRule"
-                                    outlined
-                                    name="username"
-                                    persistent-placeholder
-                                ></v-text-field>
-                            </v-col> <v-col cols="6">
-                            <v-text-field
-                                v-model="phoneNumber"
-                                label="Phone Number"
-                                :rules="notEmptyRule"
-                                outlined
-                                name="phoneNumber"
-                                persistent-placeholder
-                            ></v-text-field>
-                        </v-col>
-                        </v-row>
-                        <v-row>
-                            <v-col cols="6">
-                                <v-text-field
-                                    v-model="password"
-                                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                                    label="Password"
-                                    outlined
-                                    :type="show ? 'text' : 'password'"
-                                    :rules="passwordRule"
-                                    @click:append="show = !show"
-                                    name="password"
-                                    persistent-placeholder
-                                ></v-text-field>
-                            </v-col>
-                            <v-col cols="6">
-                                <v-text-field
-                                    v-model="confirm_password"
-                                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                                    label="Confirm password"
-                                    outlined
-                                    :rules="confirmPasswordRule"
-                                    :type="show ? 'text' : 'password'"
-                                    @click:append="show = !show"
-                                    name="confirm_password"
-                                    persistent-placeholder
-                                ></v-text-field>
-                            </v-col>
-
-                        </v-row>
-                        <v-row>
-                        </v-row>
-                    </v-container>
-                </v-card-text>
-            </v-card>
-
-
-            <v-divider></v-divider>
-
-            <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                    color="secondary"
-                    text
-                    @click="dialog = false"
-                >
-                    cancel
-                </v-btn>
-
-                <v-btn
-                    color="primary"
-                    text
-                    @click="save"
-                >
-                    save
-                </v-btn>
-            </v-card-actions>
-        </v-card>
+        </v-row>
+    </dialog-base>
 
 </template>
+
 <script>
 
 import {serverprefix} from "@/main";
-
+import DialogBase from "@/components/DialogBase.vue";
 
 export default {
     name: 'profile-dialog',
-    components: {},
+    components: {DialogBase},
     props: {
         redirectionReason: {String, default: null}
     },
