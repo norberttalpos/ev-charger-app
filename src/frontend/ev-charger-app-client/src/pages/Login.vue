@@ -108,7 +108,12 @@ export default {
     methods: {
         async login() {
             if(this.emptyFields)
+            {
+                this.loginSnackbar = true;
+                this.snackbarText = 'Please enter your valid username and password';
                 return;
+
+            }
             try {
                 const response = await this.axios.post(`${serverprefix}/api/login`,{
                     password:this.password,

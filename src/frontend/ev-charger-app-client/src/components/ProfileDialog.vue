@@ -142,7 +142,6 @@ export default {
             }
         },
         async save() {
-            console.log("lofasz");
             if(!this.passwordsAreSame){
                 this.signUpSnackBar=true;
                 this.snackbarText="The passwords don't match";
@@ -160,7 +159,8 @@ export default {
                     username: this.username,
                     name:this.name,
                     email:this.email,
-                    phoneNumber:this.phoneNumber
+                    phoneNumber:this.phoneNumber,
+                    id:id
                 });
                 console.log(response);
 

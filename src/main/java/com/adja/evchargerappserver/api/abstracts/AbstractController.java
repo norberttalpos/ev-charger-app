@@ -60,9 +60,10 @@ public abstract class AbstractController<ENTITY extends AbstractEntity, FILTER, 
     @PutMapping("/{id}")
     public ResponseEntity<?> put(@PathVariable("id") Long id, @RequestBody ENTITY entity, @RequestHeader HttpHeaders headers) {
         try{
-            ENTITY updatedEntity = this.service.put(id, entity);
 
             if(this.hasRightForUpdate(id, entity, headers)) {
+                ENTITY updatedEntity = this.service.put(id, entity);
+
                 return new ResponseEntity<>(updatedEntity, HttpStatus.OK);
             }
             else {
