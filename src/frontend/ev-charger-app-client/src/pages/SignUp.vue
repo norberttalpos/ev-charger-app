@@ -236,11 +236,6 @@ export default {
 </script>
 
 <style>
-
-.rounded-card {
-    border-radius: 15px !important;
-}
-
 .v-input {
     font-size: 1.6em;
 }
