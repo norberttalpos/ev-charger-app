@@ -117,9 +117,15 @@ export default {
             this.filterShown = !this.filterShown;
         },
         filterChangedHandler(filter) {
+
+            console.log(filter);
+
             this.chargingStationFilter.ownerCompanyName = filter.ownerCompanyName;
             this.chargingStationFilter.point.latitude = this.userCoordinates.lat;
             this.chargingStationFilter.point.longitude = this.userCoordinates.lng;
+            if(filter.chargerTypes) {
+                this.chargingStationFilter.chargerTypes = filter.chargerTypes;
+            }
 
             if(filter.radius !== null && filter.radius !== undefined) {
                 if(filter.radius === 0) {

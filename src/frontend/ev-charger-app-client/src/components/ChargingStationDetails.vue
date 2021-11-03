@@ -19,7 +19,7 @@
         </div>
 
         <v-layout class="mt-2" justify-start row wrap>
-            <v-img style="margin-left: 10px;" v-for="charger in chargingStation.chargers" :key="charger" :src="require(`../assets/chargerTypes/${charger.chargerType.name}.png`)"
+            <v-img class="chargerIcon" style="margin-left: 10px; border-radius: 5px; border: 1px solid black;" v-for="charger in chargingStation.chargers" :key="charger.id" :src="require(`../assets/chargerTypes/${charger.chargerType.name}.png`)"
                    max-width="50px"/>
         </v-layout>
 
@@ -59,8 +59,8 @@
                 class="elevation-1 mt-5"
             >
                 <template #item.chargerType="{ item }">
-                    <v-img class="my-2 image" :src="require(`../assets/chargerTypes/${item.chargerType.name}.png`)" max-width="50px"
-                         @click="showCarDetails"/>
+                    <v-img class="my-2 image chargerIcon" :src="require(`../assets/chargerTypes/${item.chargerType.name}.png`)" max-width="50px"
+                         @click="showCarDetails" style="border-radius: 5px; border: 1px solid black;"/>
                 </template>
                 <template #item.reserved="{ item }">
                     <v-img class="my-2 image" v-if="item.currentlyChargingCar !== null" src="@/assets/reserved_carIcon.png" max-width="40px"
@@ -127,7 +127,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     .minimal-details{
         position: fixed;
         top: 250px;
@@ -144,5 +144,10 @@ export default {
     }
     .image:hover {
         cursor: pointer;
+    }
+    @media (prefers-color-scheme: dark) {
+        .chargerIcon {
+            filter: invert(100%);
+        }
     }
 </style>
