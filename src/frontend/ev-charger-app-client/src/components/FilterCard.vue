@@ -8,7 +8,7 @@
                         solo
                         persistent-placeholder
                         placeholder="company name"
-                        style="font-size: 20px; max-width: 280px;"
+                        style="font-size: 20px;"
                         clearable
                         prepend-inner-icon="mdi-magnify"
                         @input="searchFieldHandler"
@@ -30,7 +30,7 @@
                 </v-col>
             </v-row>
             <v-row justify="center" no-gutters dense class="mt-5">
-                <v-card class="px-6 pt-6" elevation="2" outlined>
+                <v-card class="px-6 pt-6" style="max-width: 600px;" elevation="2" outlined>
                     <v-layout row wrap justify-start>
                         <v-card-title style="font-size: 20px; margin-right: 10px; margin-bottom: 10px;">charger types:</v-card-title>
                         <v-spacer/>
@@ -42,10 +42,10 @@
                         <v-row dense no-gutters>
                             <v-col cols="6" class="mb-8" v-for="chargerType in chargerTypes" :key="chargerType">
                                 <v-layout justify-center align-center row wrap>
-                                    <div class="image" :style="chargerTypeStyle(chargerType)">
-                                        <v-img :class="`pa-2 ${darkTheme ? 'darkChargerIcon' : ''}`" style="margin-left: 10px;"
+                                    <div class="image px-6" :style="chargerTypeStyle(chargerType)" @click="chargerTypeSelected(chargerType)">
+                                        <v-img :class="`${darkTheme ? 'darkChargerIcon' : ''}`" style="margin-left: 10px;"
                                                :src="require(`../assets/chargerTypes/${chargerType}.png`)"
-                                               max-width="70px" @click="chargerTypeSelected(chargerType)"/>
+                                               max-width="70px"/>
                                         <span style="margin-left: 5px;">{{ chargerType }}</span>
                                     </div>
                                 </v-layout>
@@ -110,7 +110,7 @@ export default {
             }), 400);
         },
         chargerTypeStyle(chargerType) {
-            const base = 'display: flex; justify-content: center; align-items: center; height: 160px; '
+            const base = 'display: flex; justify-content: center; align-items: center; height: 160px; border-radius: 5px; '
             return this.selectedChargerTypes.includes(chargerType) ?
                 base + 'border: solid 3px green;'
                 : base + 'border: solid 3px transparent;';
