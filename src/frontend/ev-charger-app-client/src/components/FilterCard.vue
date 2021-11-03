@@ -30,7 +30,7 @@
                 </v-col>
             </v-row>
             <v-row justify="center" no-gutters dense class="mt-5">
-                <v-card class="px-6 pt-6" style="max-width: 600px;" elevation="2" outlined>
+                <v-card class="px-6 pt-6" style="max-width: 550px;" elevation="2" outlined>
                     <v-layout row wrap justify-start>
                         <v-card-title style="font-size: 20px; margin-right: 10px; margin-bottom: 10px;">charger types:</v-card-title>
                         <v-spacer/>
