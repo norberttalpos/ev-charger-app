@@ -112,6 +112,8 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
     public Person put(Long id, Person person) throws NotValidUpdateException {
         if(this.validateEntity(person)) {
 
+            if(person.getPassword()=="")
+                throw new NotValidUpdateException("");
             if(person.getPassword() != null && person.getPassword()!="") {
                 if(!person.getPassword().equals(this.getById(id).getPassword())) {
                     person.setPassword(this.passwordEncoder.encode(person.getPassword()));

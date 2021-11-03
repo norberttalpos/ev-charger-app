@@ -165,6 +165,7 @@ export default {
                 console.log(response);
 
                 if(response.status===200){
+
                     this.snackBar=true;
                     this.snackbarText="Kész";
 
