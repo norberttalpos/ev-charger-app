@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/person")
@@ -72,16 +73,12 @@ public class PersonController extends AbstractController<Person, PersonFilter, P
         return new ResponseEntity<>(entityByName, HttpStatus.OK);
     }
 
+    @Override
+    public boolean hasRightForUpdate(Long id, Person entity, HttpHeaders headers) {
+        String username = JwtUtil.getUsernameFromJwt(headers.getFirst(HttpHeaders.AUTHORIZATION));
 
-    /*
-    @GetMapping("/{username}")
-    public ResponseEntity<Person> getByUsername(@PathVariable String username) {
-        try {
-            Person personByUsername = this.service.getByUsername(username);
-            return new ResponseEntity<>(personByUsername, HttpStatus.OK);
-        }
-        catch(EntityNotFoundException e) {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
-    }*/
+        Person personByName = this.service.getByUsername(username);
+
+        return Objects.equals(id, personByName.getId());
+    }
 }
