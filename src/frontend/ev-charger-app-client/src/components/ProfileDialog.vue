@@ -101,7 +101,7 @@ export default {
             phoneNumber:"",
             name:"",
             show: false,
-            signUpSnackBar: false,
+            snackBar: false,
             snackbarText: "",
             emailRules: [
                 v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
@@ -118,15 +118,7 @@ export default {
         }
     },
     async mounted() {
-        const person_response = await this.axios.get(`${serverprefix}/api/person/current-person`);
-        console.log(person_response);
-        if(person_response.status===200){
-            this.name=person_response.data.name;
-            this.email=person_response.data.email;
-            this.username=person_response.data.username;
-            this.phoneNumber=person_response.data.phoneNumber;
-
-        }
+        await this.load_data();
     },
     computed: {
         emptyFields() {
@@ -139,52 +131,56 @@ export default {
         }
     },
     methods: {
+        async load_data(){
+            const person_response = await this.axios.get(`${serverprefix}/api/person/current-person`);
+            console.log(person_response);
+            if(person_response.status===200){
+                this.name=person_response.data.name;
+                this.email=person_response.data.email;
+                this.username=person_response.data.username;
+                this.phoneNumber=person_response.data.phoneNumber;
+            }
+        },
         async save() {
             console.log("lofasz");
-            return;
-/*            if(this.emptyFields){
-                this.signUpSnackBar=true;
-                this.snackbarText="Please enter all your data";
-                return;
-            }
             if(!this.passwordsAreSame){
                 this.signUpSnackBar=true;
-                this.snackbarText="The passwords don't match"
+                this.snackbarText="The passwords don't match";
+                return;
             }
 
-
             try {
-                const response = await this.axios.post(`${serverprefix}/api/person/register`, {
+                await this.$store.dispatch("fetchId");
+
+                const id = this.$store.getters.getId;
+                console.log(id);
+
+                const response = await this.axios.put(`${serverprefix}/api/person/`+id, {
                     password: this.password,
                     username: this.username,
                     name:this.name,
                     email:this.email,
                     phoneNumber:this.phoneNumber
                 });
+                console.log(response);
 
-                if(response.status===201){
-                    const login_response = await this.axios.post(`${serverprefix}/api/login`,{
-                        password:this.password,
-                        username:this.username
-                    });
+                if(response.status===200){
+                    this.snackBar=true;
+                    this.snackbarText="Kész";
 
-                    if(login_response.data?.accessToken) {
-
-                        localStorage.setItem('accessToken', login_response.data.accessToken);
-
-                        router.push('/map');
-                    }
                 }
 
                 else{
-                    this.loginSnackbar = true;
+                    this.snackBar = true;
                     this.snackbarText = 'Not valid data!';
                 }
 
             } catch (error) {
-                this.loginSnackbar = true;
+                this.snackBar = true;
                 this.snackbarText = 'Not valid data!';
-            }*/
+                console.log("catch error")
+                console.log(error)
+            }
 
         }
     },
