@@ -120,7 +120,6 @@
 </template>
 <script>
 
-import router from '../router'
 import {serverprefix} from "@/main";
 
 
@@ -155,6 +154,17 @@ export default {
             ]
         }
     },
+    async mounted() {
+        const person_response = await this.axios.get(`${serverprefix}/api/person/current-person`);
+        console.log(person_response);
+        if(person_response.status===200){
+            this.name=person_response.data.name;
+            this.email=person_response.data.email;
+            this.username=person_response.data.username;
+            this.phoneNumber=person_response.data.phoneNumber;
+
+        }
+    },
     computed: {
         emptyFields() {
             return this.username === "" || this.username === null || this.password === "" || this.password === null ||
@@ -166,8 +176,10 @@ export default {
         }
     },
     methods: {
-        async sign_up() {
-            if(this.emptyFields){
+        async save() {
+            console.log("lofasz");
+            return;
+/*            if(this.emptyFields){
                 this.signUpSnackBar=true;
                 this.snackbarText="Please enter all your data";
                 return;
@@ -209,7 +221,7 @@ export default {
             } catch (error) {
                 this.loginSnackbar = true;
                 this.snackbarText = 'Not valid data!';
-            }
+            }*/
 
         }
     },
