@@ -29,8 +29,8 @@
                     </v-layout>
                 </v-col>
             </v-row>
-            <v-row justify="center">
-                <v-card class="px-6 pt-6" elevation="2">
+            <v-row justify="center" no-gutters dense class="mt-5">
+                <v-card class="px-6 pt-6" elevation="2" outlined>
                     <v-layout row wrap justify-start>
                         <v-card-title style="font-size: 20px; margin-right: 10px; margin-bottom: 10px;">charger types:</v-card-title>
                         <v-spacer/>
@@ -40,10 +40,10 @@
                     </v-layout>
                     <v-col cols="12">
                         <v-row dense no-gutters>
-                            <v-col cols="6" class="mb-10" v-for="chargerType in chargerTypes" :key="chargerType">
-                                <v-layout row wrap justify-center>
-                                    <div :style="chargerTypeStyle(chargerType)">
-                                        <v-img class="pa-2 image" style="margin-left: 10px;"
+                            <v-col cols="6" class="mb-8" v-for="chargerType in chargerTypes" :key="chargerType">
+                                <v-layout justify-center align-center row wrap>
+                                    <div class="image" :style="chargerTypeStyle(chargerType)">
+                                        <v-img :class="`pa-2 ${darkTheme ? 'darkChargerIcon' : ''}`" style="margin-left: 10px;"
                                                :src="require(`../assets/chargerTypes/${chargerType}.png`)"
                                                max-width="70px" @click="chargerTypeSelected(chargerType)"/>
                                         <span style="margin-left: 5px;">{{ chargerType }}</span>
@@ -78,6 +78,11 @@ export default {
             selectedChargerTypes: [],
         }
     },
+    computed: {
+        darkTheme() {
+            return this.$vuetify.theme.dark;
+        }
+    },
     methods: {
         searchFieldHandler() {
             this.debounceSearch(() => this.$emit("filterChanged", {
@@ -105,8 +110,10 @@ export default {
             }), 400);
         },
         chargerTypeStyle(chargerType) {
-            return this.selectedChargerTypes.includes(chargerType) ? "border: solid 3px green; padding: 10px; display: flex; justify-content: center; align-items: center"
-                : "padding: 10px; display: flex; justify-content: center; align-items: center"
+            const base = 'display: flex; justify-content: center; align-items: center; height: 160px; '
+            return this.selectedChargerTypes.includes(chargerType) ?
+                base + 'border: solid 3px green;'
+                : base + 'border: solid 3px transparent;';
         },
         toggleAllChargerTypes() {
             if(this.selectedChargerTypes.length !== this.chargerTypes.length) {

@@ -19,7 +19,7 @@
         </div>
 
         <v-layout class="mt-2" justify-start row wrap>
-            <v-img class="chargerIcon" style="margin-left: 10px; border-radius: 5px; border: 1px solid black;" v-for="charger in chargingStation.chargers" :key="charger.id" :src="require(`../assets/chargerTypes/${charger.chargerType.name}.png`)"
+            <v-img style="margin-left: 10px; border-radius: 5px; border: 1px solid black;" v-for="charger in chargingStation.chargers" :key="charger.id" :src="require(`../assets/chargerTypes/${charger.chargerType.name}.png`)"
                    max-width="50px"/>
         </v-layout>
 
@@ -59,7 +59,7 @@
                 class="elevation-1 mt-5"
             >
                 <template #item.chargerType="{ item }">
-                    <v-img class="my-2 image chargerIcon" :src="require(`../assets/chargerTypes/${item.chargerType.name}.png`)" max-width="50px"
+                    <v-img :class="`my-2 image ${darkTheme ? 'darkChargerIcon' : ''}`" :src="require(`../assets/chargerTypes/${item.chargerType.name}.png`)" max-width="50px"
                          @click="showCarDetails" style="border-radius: 5px; border: 1px solid black;"/>
                 </template>
                 <template #item.reserved="{ item }">
@@ -112,6 +112,11 @@ export default {
             ],
         }
     },
+    computed: {
+        darkTheme() {
+            return this.$vuetify.theme.dark;
+        }
+    },
     methods: {
         showCarDetails() {
             this.carDetailsShown = true;
@@ -145,9 +150,8 @@ export default {
     .image:hover {
         cursor: pointer;
     }
-    @media (prefers-color-scheme: dark) {
-        .chargerIcon {
-            filter: invert(100%);
-        }
+    .darkChargerIcon {
+        filter: invert(100%);
     }
+
 </style>

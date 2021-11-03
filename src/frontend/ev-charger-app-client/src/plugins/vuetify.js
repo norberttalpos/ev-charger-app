@@ -21,6 +21,5 @@ export default new Vuetify({
 				error: colors.red.accent4,
 			}
 		},
-
 	},
 });
