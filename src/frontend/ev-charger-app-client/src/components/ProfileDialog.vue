@@ -1,5 +1,5 @@
 <template>
-    <dialog-base :save-button-action="save" :cancel-button-action="dialog = false" title="Profile">
+    <dialog-base :save-button-action="save" :cancel-button-action="cancelAction" title="Profile">
         <v-row>
             <v-col cols="12">
                 <v-text-field
@@ -131,6 +131,12 @@ export default {
         }
     },
     methods: {
+        closeDialog() {
+            this.$emit('close-dialog');
+        },
+        cancelAction() {
+            this.closeDialog();
+        },
         async load_data(){
             const person_response = await this.axios.get(`${serverprefix}/api/person/current-person`);
             console.log(person_response);
@@ -169,6 +175,7 @@ export default {
                     this.snackBar=true;
                     this.snackbarText="Kész";
 
+                    this.closeDialog();
                 }
 
                 else{

@@ -13,8 +13,8 @@
                 v-model="dialog"
                 width="500"
             >
-            <profile-dialog></profile-dialog>
-                </v-dialog>
+                <profile-dialog @close-dialog="dialog=false" />
+            </v-dialog>
             <v-card>
                 <v-list>
                     <v-list-item @click="profile">
@@ -59,16 +59,18 @@ export default {
     name: "logout-menu",
     components: {ProfileDialog},
     mixins: [LogoutAvailable],
-    data: () => ({
-        dialog:false
-    }),
+    data(){
+        return {
+            dialog:false
+        }
+    },
     methods:{
         log_out(){
             localStorage.setItem('accessToken', null);
             router.push('/login');
         },
-        profile(){
-            this.dialog=true;
+        profile() {
+            this.dialog = true;
         }
     }
 }

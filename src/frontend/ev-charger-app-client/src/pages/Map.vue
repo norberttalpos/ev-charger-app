@@ -107,8 +107,9 @@ export default {
     methods: {
         markerClickedHandler(c) {
             this.clickedChargingStation = c;
-
             this.chargingStationDialog = !this.chargingStationDialog;
+
+            this.geocodeAddress({ lat: c.location.coordinates.latitude, lng: c.location.coordinates.longitude });
         },
         onClickOutsideDetails() {
             this.chargingStationDialog = false;
@@ -139,6 +140,15 @@ export default {
         async getChargingStations() {
             await this.axios.post(`${serverprefix}/api/chargingStation/search`, this.chargingStationFilter).then(resp => {
                 this.chargingStations = resp.data;
+            });
+        },
+        geocodeAddress(location) {
+            const geocoder = new this.google.maps.Geocoder();
+
+            geocoder.geocode({location: location}, (results, status) => {
+                if (status === 'OK') {
+                    console.log(results);
+                }
             });
         }
     },
