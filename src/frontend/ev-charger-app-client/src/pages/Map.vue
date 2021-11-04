@@ -162,6 +162,8 @@ export default {
             })
     },
     async mounted() {
+        await this.$store.dispatch("fetchId");
+
         await this.getChargingStations();
 
         await this.$store.dispatch('fetchRole');

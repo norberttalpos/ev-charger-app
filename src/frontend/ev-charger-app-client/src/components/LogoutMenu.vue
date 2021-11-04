@@ -15,6 +15,7 @@
             >
                 <profile-dialog @close-dialog="dialog=false" />
             </v-dialog>
+
             <v-card>
                 <v-list>
                     <v-list-item @click="profile">

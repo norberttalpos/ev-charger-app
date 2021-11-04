@@ -39,22 +39,20 @@
                         </v-btn>
                     </v-layout>
                     <v-container style="position: relative; overflow-y: scroll; max-height: 400px;">
-                        <v-row dense no-gutters>
-                            <v-col class="sm12 md12 lg6 xl6 mb-8" v-for="chargerType in chargerTypes" :key="chargerType">
-                                <v-layout justify-center align-center row wrap>
-                                    <div class="image px-6" :style="chargerTypeStyle(chargerType)" @click="chargerTypeSelected(chargerType)">
-                                        <v-layout column>
-                                            <v-layout row wrap justify-center>
-                                                <v-img :class="`${darkTheme ? 'darkChargerIcon' : ''}`" style="margin-left: 10px;"
-                                                       :src="require(`../assets/chargerTypes/${chargerType}.png`)"
-                                                       max-width="70px"/>
-                                            </v-layout>
-                                            <v-layout class="mt-5" row wrap justify-center>
-                                                <span style="margin-left: 5px;">{{ chargerType }}</span>
-                                            </v-layout>
+                        <v-row dense class="mb-5">
+                            <v-col class="sm12 md12 lg6 xl6 mb-1" v-for="chargerType in chargerTypes" :key="chargerType">
+                                <div class="image" :style="chargerTypeStyle(chargerType)" @click="chargerTypeSelected(chargerType)">
+                                    <v-layout column>
+                                        <v-layout row wrap justify-center>
+                                            <v-img :class="`${darkTheme ? 'darkChargerIcon' : ''}`" style="margin-left: 10px;"
+                                                   :src="require(`../assets/chargerTypes/${chargerType}.png`)"
+                                                   max-width="70px"/>
                                         </v-layout>
-                                    </div>
-                                </v-layout>
+                                        <v-layout class="mt-5" row wrap justify-center>
+                                            <span style="margin-left: 5px;">{{ chargerType }}</span>
+                                        </v-layout>
+                                    </v-layout>
+                                </div>
                             </v-col>
                         </v-row>
                     </v-container>
@@ -66,6 +64,7 @@
 
 <script>
 import {DebounceSearch} from "@/mixins/DebounceSearch";
+import {serverprefix} from "@/main";
 
 export default {
     name: "filter-card",
@@ -133,6 +132,14 @@ export default {
             this.debounceSearch(() => this.$emit("filterChanged", {
                 chargerTypes: this.selectedChargerTypes,
             }), 400);
+        }
+    },
+    async mounted() {
+        const resp = await this.axios.get(`${serverprefix}/api/person/current-person`);
+        const person = resp.data;
+
+        if(person.car) {
+            this.chargerTypes = person.car.carType.compatibleChargerTypes.map(i => i.name);
         }
     }
 }
