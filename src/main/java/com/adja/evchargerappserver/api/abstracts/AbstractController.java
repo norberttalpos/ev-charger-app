@@ -1,6 +1,5 @@
 package com.adja.evchargerappserver.api.abstracts;
 
-import com.adja.evchargerappserver.api.person.Person;
 import com.adja.evchargerappserver.security.JwtUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
+@RestController
 public abstract class AbstractController<ENTITY extends AbstractEntity, FILTER, SERVICE extends AbstractService<ENTITY, FILTER, ? extends CustomRepository<ENTITY>>> {
 
     @Autowired

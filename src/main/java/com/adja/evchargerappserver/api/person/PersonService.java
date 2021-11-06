@@ -15,10 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PersonService extends AbstractService<Person, PersonFilter, PersonRepository> implements UserDetailsService {
@@ -99,7 +96,7 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
                 person.setPassword(this.passwordEncoder.encode(person.getPassword()));
                 Person p = this.repository.save(person);
                 if(person.getRoles()==null)
-                    person.setRoles(new ArrayList<>());
+                    person.setRoles(new HashSet<>());
                 addRoleToUser(person.getUsername(),"role_user");
                 return p;
             }

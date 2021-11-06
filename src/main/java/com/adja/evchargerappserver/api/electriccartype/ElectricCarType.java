@@ -23,7 +23,6 @@ public class ElectricCarType extends AbstractEntity {
     @Column(name = "discharging_speed", nullable = false)
     private int dischargingSpeed;
 
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "cartypejoin",

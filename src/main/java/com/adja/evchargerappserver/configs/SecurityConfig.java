@@ -4,7 +4,6 @@ import com.adja.evchargerappserver.EvChargerAppServerApplication;
 import com.adja.evchargerappserver.security.JwtAuthenticationFilter;
 import com.adja.evchargerappserver.security.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -27,7 +26,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -54,6 +53,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/api/token/refresh",
                     "/api/hasRightForPage",
                     "/api/person/register",
+                    "/socket",
 
                     "/v2/api-docs",
                     "/configuration/ui",
@@ -62,6 +62,8 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/swagger-ui.html",
                     "/webjars/**"
             ).permitAll();
+
+            http.authorizeRequests().antMatchers("/socket").hasAnyAuthority("role_user");
 
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**/search").hasAnyAuthority("role_user");
 
@@ -90,7 +92,8 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        configuration.setAllowCredentials(true);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(List.of("x-auth-token"));
