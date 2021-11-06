@@ -9,7 +9,7 @@
         <div style="margin-top: -10px;">
             <br>
             <strong style="font-size: 25px;">{{ "Location: "}}</strong>
-            <span style="font-size: 20px;">{{ chargingStation.location.coordinates.latitude + ", " + chargingStation.location.coordinates.longitude }}</span>
+            <span style="font-size: 20px;">{{ chargingStation.address }}</span>
         </div>
 
         <div style="margin-top: -10px;">
@@ -40,7 +40,7 @@
         <div style="margin-top: -10px;">
             <br>
             <strong style="font-size: 25px;">{{ "Location: "}}</strong>
-            <span style="font-size: 20px;">{{ chargingStation.location.coordinates.latitude + ", " + chargingStation.location.coordinates.longitude }}</span>
+            <span style="font-size: 20px;">{{ chargingStation.address }}</span>
         </div>
 
         <div style="margin-top: -10px;">
@@ -95,6 +95,7 @@ export default {
         return {
             minimalDetails: true,
             chargingStation: {
+                address: "",
                 ownerCompanyName: "",
                 location: {
                     coordinates: {

@@ -75,6 +75,7 @@ export default {
             chargingStationDialog: false,
 
             clickedChargingStation: null,
+            clickedAddress: "",
 
             chargingStationFilter: {
                 chargerTypes: [
@@ -105,11 +106,15 @@ export default {
         google: VueGoogleMaps.gmapApi
     },
     methods: {
-        markerClickedHandler(c) {
+        async markerClickedHandler(c) {
             this.clickedChargingStation = c;
-            this.chargingStationDialog = !this.chargingStationDialog;
 
-            this.geocodeAddress({ lat: c.location.coordinates.latitude, lng: c.location.coordinates.longitude });
+            await this.geocodeAddress({ lat: c.location.coordinates.latitude, lng: c.location.coordinates.longitude }).then(addr => {
+                const address = addr[0].formatted_address;
+                this.clickedChargingStation = { ...this.clickedChargingStation, address };
+            });
+
+            this.chargingStationDialog = !this.chargingStationDialog;
         },
         onClickOutsideDetails() {
             this.chargingStationDialog = false;
@@ -142,14 +147,18 @@ export default {
                 this.chargingStations = resp.data;
             });
         },
-        geocodeAddress(location) {
+        async geocodeAddress(location) {
             const geocoder = new this.google.maps.Geocoder();
 
-            geocoder.geocode({location: location}, (results, status) => {
+            let res = null;
+
+            await geocoder.geocode({location: location}, (results, status) => {
                 if (status === 'OK') {
-                    console.log(results);
+                    res = results;
                 }
             });
+
+            return res;
         }
     },
     created() {
