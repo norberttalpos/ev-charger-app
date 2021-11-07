@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/api/hasRightForPage",
                     "/api/person/register",
                     "/socket",
+                    "/email/sendmail",
 
                     "/v2/api-docs",
                     "/configuration/ui",
