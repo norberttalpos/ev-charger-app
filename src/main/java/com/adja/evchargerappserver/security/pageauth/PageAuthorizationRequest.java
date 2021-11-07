@@ -1,6 +1,6 @@
-package com.adja.evchargerappserver.security.pojos;
+package com.adja.evchargerappserver.security.pageauth;
 
-public class RouteAuthoriztationRequest {
+public class PageAuthorizationRequest {
     private String route;
 
     public String getRoute() {

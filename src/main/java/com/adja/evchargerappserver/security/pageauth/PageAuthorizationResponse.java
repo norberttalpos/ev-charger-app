@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.security;
+package com.adja.evchargerappserver.security.pageauth;
 
 public enum PageAuthorizationResponse {
     hasRight, tokenExpired, noRight

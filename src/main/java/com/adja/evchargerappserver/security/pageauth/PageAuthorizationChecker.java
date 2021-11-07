@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.security;
+package com.adja.evchargerappserver.security.pageauth;
 
 import com.adja.evchargerappserver.api.role.Role;
 

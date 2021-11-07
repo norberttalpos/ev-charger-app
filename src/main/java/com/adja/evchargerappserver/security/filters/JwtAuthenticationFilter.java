@@ -1,6 +1,7 @@
-package com.adja.evchargerappserver.security;
+package com.adja.evchargerappserver.security.filters;
 
-import com.adja.evchargerappserver.security.pojos.AuthenticationRequest;
+import com.adja.evchargerappserver.security.JwtUtil;
+import com.adja.evchargerappserver.security.AuthenticationRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;

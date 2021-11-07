@@ -3,8 +3,10 @@ package com.adja.evchargerappserver.security;
 import com.adja.evchargerappserver.api.person.Person;
 import com.adja.evchargerappserver.api.person.PersonService;
 import com.adja.evchargerappserver.api.role.Role;
-import com.adja.evchargerappserver.security.pojos.AuthenticationRequest;
-import com.adja.evchargerappserver.security.pojos.RouteAuthoriztationRequest;
+import com.adja.evchargerappserver.security.pageauth.PageAuthorizationChecker;
+import com.adja.evchargerappserver.security.pageauth.PageAuthorizationResponse;
+import com.adja.evchargerappserver.security.pageauth.RoleEnum;
+import com.adja.evchargerappserver.security.pageauth.PageAuthorizationRequest;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -82,7 +84,7 @@ public class TokenController {
 
     @ApiOperation("AuthChecking")
     @PostMapping("/hasRightForPage")
-    public ResponseEntity<PageAuthorizationResponse> post(@RequestHeader HttpHeaders headers, @RequestBody RouteAuthoriztationRequest body) {
+    public ResponseEntity<PageAuthorizationResponse> post(@RequestHeader HttpHeaders headers, @RequestBody PageAuthorizationRequest body) {
 
         String authHeader = headers.getFirst(HttpHeaders.AUTHORIZATION);
         String route = body.getRoute();

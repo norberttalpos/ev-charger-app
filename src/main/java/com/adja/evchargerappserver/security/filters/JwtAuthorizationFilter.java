@@ -1,5 +1,6 @@
-package com.adja.evchargerappserver.security;
+package com.adja.evchargerappserver.security.filters;
 
+import com.adja.evchargerappserver.security.JwtUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpHeaders;

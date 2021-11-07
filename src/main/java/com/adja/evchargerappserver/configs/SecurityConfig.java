@@ -1,8 +1,8 @@
 package com.adja.evchargerappserver.configs;
 
 import com.adja.evchargerappserver.EvChargerAppServerApplication;
-import com.adja.evchargerappserver.security.JwtAuthenticationFilter;
-import com.adja.evchargerappserver.security.JwtAuthorizationFilter;
+import com.adja.evchargerappserver.security.filters.JwtAuthenticationFilter;
+import com.adja.evchargerappserver.security.filters.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
