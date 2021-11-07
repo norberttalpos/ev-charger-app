@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS flywayInitializer;
 DROP TABLE IF EXISTS Person;
 DROP TABLE IF EXISTS Electriccar;
 DROP TABLE IF EXISTS ElectricCarType;
+DROP TABLE IF EXISTS Notification;
 DROP TABLE IF EXISTS CarTypeJoin;
 DROP TABLE IF EXISTS ChargerType;
 DROP TABLE IF EXISTS Charger;
@@ -11,6 +12,7 @@ DROP TABLE IF EXISTS Notification;
 DROP TABLE IF EXISTS flywayInitializer;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS personrolejoin;
+DROP TABLE IF EXISTS Notification;
 
 
 CREATE TABLE IF NOT EXISTS Person (
@@ -129,8 +131,8 @@ insert into chargingstation (max_number_of_chargers, owner_company_name, locatio
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (10,'Mobility',2);
 
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Talpos Norbert','norbi','proba','norberttalpos@gmail.com','123',1);
-insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám','edemsz','proba','asd','123',2);
-insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám2','edemsz2',null,'asd','123',3);
+insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám','edemsz','proba','viragadam100@gmail.com','123',2);
+insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám2','edemsz2',null,'virag.adam100@gmail.com','123',3);
 
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ABC-123',50,1);
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-12',40,3);
