@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.configs;
+package com.adja.evchargerappserver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

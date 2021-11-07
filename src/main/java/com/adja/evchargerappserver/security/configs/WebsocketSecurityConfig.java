@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.configs;
+package com.adja.evchargerappserver.security.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessageType;
@@ -14,21 +14,12 @@ public class WebsocketSecurityConfig extends AbstractSecurityWebSocketMessageBro
                 .simpTypeMatchers(SimpMessageType.CONNECT, SimpMessageType.HEARTBEAT, SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT).permitAll()
                 .anyMessage().permitAll()
                 .simpDestMatchers("/**").permitAll();
-        /*
-          messages
-                .nullDestMatcher().authenticated()
-                .simpSubscribeDestMatchers("/user/queue/errors").permitAll()
-                .simpDestMatchers("/app/**").hasRole("USER")
-                .simpSubscribeDestMatchers("/user/**", "/topic/friends/*").hasRole("USER")
-                .simpTypeMatchers(SimpMessageType.MESSAGE, SimpMessageType.SUBSCRIBE).denyAll()
-                .anyMessage().denyAll();
-         */
 
+        //TODO websocketre is auth
     }
 
     @Override
     protected boolean sameOriginDisabled() {
         return true;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.configs;
+package com.adja.evchargerappserver.security.configs;
 
 import com.adja.evchargerappserver.EvChargerAppServerApplication;
 import com.adja.evchargerappserver.security.filters.JwtAuthenticationFilter;
@@ -62,6 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/webjars/**"
             ).permitAll();
 
+            http.authorizeRequests().antMatchers("/socket").hasAnyAuthority("role_user");
             http.authorizeRequests().antMatchers("/socket").hasAnyAuthority("role_user");
 
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**/search").hasAnyAuthority("role_user");

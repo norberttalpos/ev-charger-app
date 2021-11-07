@@ -1,6 +1,6 @@
 package com.adja.evchargerappserver.security;
 
-import com.adja.evchargerappserver.configs.SecurityConfig;
+import com.adja.evchargerappserver.security.configs.SecurityConfig;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
