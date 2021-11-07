@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.email;
 
+import com.adja.evchargerappserver.EvChargerAppServerApplication;
 import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.person.Person;
@@ -16,7 +17,10 @@ public class EmailSendingService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+
     private void sendMail(SimpleMailMessage mailMessage) {
+        if(!EvChargerAppServerApplication.sendMails)
+            return;
         javaMailSender.send(mailMessage);
     }
 
