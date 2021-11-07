@@ -16,3 +16,7 @@ ALTER TABLE   Charger   ADD CONSTRAINT fk_Charger_station_ID   FOREIGN KEY(  sta
     REFERENCES   ChargingStation   (  ID  );
 ALTER TABLE   ChargingStation   ADD CONSTRAINT fk_ChargingStation_location_ID   FOREIGN KEY(  location_ID  )
     REFERENCES   Location   (  ID  );
+ALTER TABLE   Notification   ADD CONSTRAINT fk_Notification_person_ID   FOREIGN KEY(  person_ID  )
+    REFERENCES   Person   (  ID  );
+ALTER TABLE   Notification   ADD CONSTRAINT fk_Notification_charger_ID   FOREIGN KEY(  charger_ID  )
+    REFERENCES   Charger   (  ID  );

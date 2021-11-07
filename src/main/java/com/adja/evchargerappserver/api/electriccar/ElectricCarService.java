@@ -7,6 +7,7 @@ import com.adja.evchargerappserver.api.charger.ChargerService;
 import com.adja.evchargerappserver.api.charger.QCharger;
 import com.adja.evchargerappserver.api.electriccar.mock.MockElectricCarHandler;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarTypeRepository;
+import com.adja.evchargerappserver.api.notification.NotificationService;
 import com.adja.evchargerappserver.api.person.PersonRepository;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,18 @@ import java.util.Optional;
 public class ElectricCarService extends AbstractService<ElectricCar, ElectricCarFilter, ElectricCarRepository> {
     @Autowired
     private ElectricCarTypeRepository electricCarTypeRepository;
+
     @Autowired
     private PersonRepository personRepository;
+
     @Autowired
     private MockElectricCarHandler mockElectricCarHandler;
+
     @Autowired
     private ChargerService chargerService;
+
+    @Autowired
+    private NotificationService notificationService;
 
 
     @Override
@@ -97,6 +104,8 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
             this.put(carId, car);
 
             mockElectricCarHandler.endCharging(car);
+
+            this.notificationService.chargingEnded(charger.getId());
         }
 
         return true;

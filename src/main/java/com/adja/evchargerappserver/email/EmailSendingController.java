@@ -20,7 +20,7 @@ public class EmailSendingController {
     @PostMapping(value = "/sendmail")
     public ResponseEntity<String> sendmail(@RequestBody EmailRequest request) {
         try {
-            emailSendingService.sendMail(request.getTo(), request.getSubject(), request.getText());
+            emailSendingService.sendDefaultEmail(request.getTo(), request.getSubject(), request.getText());
 
             return new ResponseEntity<>("email sent", HttpStatus.OK);
         }

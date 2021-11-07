@@ -87,10 +87,11 @@
                                     <v-container>
                                         <v-row>
                                             <v-col cols="12">
-                                                <span class="mr-3 mb-2" style="font-size: 18px;">
+                                                <span class="mr-3" style="font-size: 18px;">
                                                     - battery
                                                 </span>
                                                 <v-progress-linear
+                                                    class="mb-n4"
                                                     v-model="carDetails.batteryPercentage"
                                                     color="primary"
                                                     striped
@@ -105,7 +106,7 @@
                                         </v-row>
                                         <v-row>
                                             <v-col cols="12">
-                                                <p class="mr-3 mb-2" style="font-size: 18px;">
+                                                <p class="mr-3 mb-n3" style="font-size: 18px;">
                                                     {{ `- license plate:  ${carDetails.licensePlate}` }}
                                                 </p>
                                             </v-col>
@@ -175,23 +176,25 @@ export default {
     methods: {
         showCarDetails(car) {
             this.carDetails = car;
-
-            this.subscribeForBatteryChange(car);
         },
         reserveCharger(charger) {
             console.log(charger);
         },
 
-        subscribeForBatteryChange(car) {
+        async subscribeForLeaving(car) {
             const carId = car.id;
-            console.log(carId);
 
-            //TODO feliratkozni websocket battery
-        },
-        subscribeForLeaving(car) {
-            const carId = car.id;
-            console.log(carId);
-            //TODO email ertesites
+            const personResp = await this.axios.get(`${serverprefix}/api/person/current-person`);
+            const person = personResp.data;
+
+            const chargerId = this.chargingStation.chargers.filter(i => i.currentlyChargingCar?.id === carId).map(i => i.id)[0];
+
+            console.log(chargerId);
+
+            await this.axios.post(`${serverprefix}/api/notification`, {
+                observedChargerId: chargerId,
+                personToNotifyId: person.id
+            });
         },
         onWebsocketEvent(message) {
             this.updateChargingStation(message.chargingStationId);
@@ -236,7 +239,7 @@ export default {
     },
     async mounted() {
         await this.getChargingStation(this.chargingStationId);
-        this.connect();
+        this.connect(this.chargingStationId);
     }
 }
 </script>

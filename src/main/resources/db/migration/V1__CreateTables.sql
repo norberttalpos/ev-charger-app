@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS ChargerType;
 DROP TABLE IF EXISTS Charger;
 DROP TABLE IF EXISTS ChargingStation;
 DROP TABLE IF EXISTS Location;
+DROP TABLE IF EXISTS Notification;
 DROP TABLE IF EXISTS flywayInitializer;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS personrolejoin;
@@ -96,6 +97,12 @@ CREATE TABLE IF NOT EXISTS location   (
           ID
      )
 );
+CREATE TABLE IF NOT EXISTS Notification   (
+     ID   SERIAL    NOT NULL,
+     person_ID   integer    NOT NULL,
+     charger_ID   integer    NOT NULL,
+     CONSTRAINT   pk_Notification   PRIMARY KEY (ID)
+);
 
 delete from person where 1 = 1;
 delete from location where 1 = 1;
@@ -105,6 +112,7 @@ delete from chargertype where 1 = 1;
 delete from electriccartype where 1 = 1;
 delete from electriccar where 1 = 1;
 delete from chargingstation where 1 = 1;
+delete from notification where 1 = 1;
 
 insert into location (coordinates) values ('point(19.0525943 47.5601654)');
 insert into location (coordinates) values ('point(18.9964085 47.5970892)');
@@ -120,7 +128,7 @@ insert into chargertype (name, max_charging_speed) values ('Type 3',100);
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (30,'Mobility',1);
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (10,'Mobility',2);
 
-insert into person (name, username, password, email, phone_number, car_id) VALUES ('Talpos Norbert','norbi','proba','asd','123',1);
+insert into person (name, username, password, email, phone_number, car_id) VALUES ('Talpos Norbert','norbi','proba','norberttalpos@gmail.com','123',1);
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám','edemsz','proba','asd','123',2);
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám2','edemsz2',null,'asd','123',3);
 
@@ -139,10 +147,6 @@ insert into cartypejoin (car_type_id,charger_type_id) values(3,3);
 insert into cartypejoin (car_type_id,charger_type_id) values(3,1);
 insert into cartypejoin (car_type_id,charger_type_id) values(2,3);
 insert into cartypejoin (car_type_id,charger_type_id) values(1,1);
-
-
-
-
 
 insert into role (name) values ('role_user');
 insert into role (name) values ('role_admin');

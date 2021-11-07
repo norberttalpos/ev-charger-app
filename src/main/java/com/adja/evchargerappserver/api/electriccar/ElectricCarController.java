@@ -16,7 +16,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/electricCar")
-@Api(value = "/api/electricCar", tags = "ElectricCars")
+@Api(value = "/api/electricCar", tags = "ElectricCar")
 public class ElectricCarController extends AbstractController<ElectricCar, ElectricCarFilter, ElectricCarService> {
 
     @Autowired

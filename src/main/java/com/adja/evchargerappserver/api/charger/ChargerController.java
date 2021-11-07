@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/charger")
-@Api(value = "/api/charger", tags = "Chargers")
+@Api(value = "/api/charger", tags = "Charger")
 public class ChargerController extends AbstractController<Charger, ChargerFilter, ChargerService> {
 
 }

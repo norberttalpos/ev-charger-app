@@ -4,7 +4,7 @@ import {serverprefix} from "@/main";
 
 export const WebsocketClient = {
 	methods: {
-		connect() {
+		connect(room) {
 			this.socket = new SockJS(`${serverprefix}/socket`);
 			this.stompClient = Stomp.over(this.socket);
 
@@ -13,7 +13,7 @@ export const WebsocketClient = {
 					this.connected = true;
 					console.log(frame);
 
-					this.stompClient.subscribe("/topic/chargingStationToServer", tick => {
+					this.stompClient.subscribe(`/topic/changes/${room}`, tick => {
 						const receivedMessageBody = JSON.parse(tick.body);
 						this.onWebsocketEvent(receivedMessageBody);
 					});

@@ -17,7 +17,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/person")
-@Api(value = "/api/person", tags = "Persons")
+@Api(value = "/api/person", tags = "Person")
 public class PersonController extends AbstractController<Person, PersonFilter, PersonService> {
 
     @PutMapping("/{id}/addrole")

@@ -66,12 +66,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**/search").hasAnyAuthority("role_user");
 
+            http.authorizeRequests().antMatchers("/api/notification/**").hasAnyAuthority("role_admin");
+
+            http.authorizeRequests().antMatchers("/email/sendmail").hasAnyAuthority("role_admin");
+
             http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/**").hasAnyAuthority("role_user");
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("role_admin");
             http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/**").hasAnyAuthority("role_user");
             http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/**").hasAnyAuthority("role_admin");
-
-            http.authorizeRequests().antMatchers("/email/sendmail").hasAnyAuthority("role_admin");
         }
         else {
             http.cors().and().authorizeRequests().anyRequest().permitAll();

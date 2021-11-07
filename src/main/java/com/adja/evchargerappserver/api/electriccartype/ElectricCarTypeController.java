@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/electricCarType")
-@Api(value = "/api/electricCarType", tags = "ElectricCarTypes")
+@Api(value = "/api/electricCarType", tags = "ElectricCarType")
 public class ElectricCarTypeController extends AbstractController<ElectricCarType, ElectricCarTypeFilter, ElectricCarTypeService> {
 }

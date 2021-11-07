@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.api.electriccar.batteryPercentage;
+package com.adja.evchargerappserver.socket;
 
 public class ChargingStateChange {
     private Long chargingStationId;
