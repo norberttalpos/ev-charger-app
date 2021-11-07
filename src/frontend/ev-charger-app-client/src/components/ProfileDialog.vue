@@ -149,7 +149,7 @@ export default {
         },
         async save() {
             if(!this.passwordsAreSame){
-                this.signUpSnackBar=true;
+                this.SnackBar=true;
                 this.snackbarText="The passwords don't match";
                 return;
             }
@@ -168,6 +168,8 @@ export default {
                     phoneNumber:this.phoneNumber,
                     id:id
                 });
+                this.password="";
+                this.confirm_password="";
                 console.log(response);
 
                 if(response.status===200){
