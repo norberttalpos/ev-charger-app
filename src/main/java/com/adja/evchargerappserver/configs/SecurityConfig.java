@@ -53,8 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/api/token/refresh",
                     "/api/hasRightForPage",
                     "/api/person/register",
-                    "/socket",
-                    "/email/sendmail",
 
                     "/v2/api-docs",
                     "/configuration/ui",
@@ -72,6 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/**").hasAnyAuthority("role_admin");
             http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/**").hasAnyAuthority("role_user");
             http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/**").hasAnyAuthority("role_admin");
+
+            http.authorizeRequests().antMatchers("/email/sendmail").hasAnyAuthority("role_admin");
         }
         else {
             http.cors().and().authorizeRequests().anyRequest().permitAll();

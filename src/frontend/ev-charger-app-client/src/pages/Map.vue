@@ -44,7 +44,7 @@
             </v-scroll-y-reverse-transition>
         </div>
 
-        <charging-station-details v-if="chargingStationDialog" :chargingStationProp="clickedChargingStation"/>
+        <charging-station-details ref="chargingStationDetailsRef" v-if="chargingStationDialog" :charging-station-id="clickedChargingStation.id"/>
     </div>
 </template>
 
@@ -109,14 +109,12 @@ export default {
         async markerClickedHandler(c) {
             this.clickedChargingStation = c;
 
-            await this.geocodeAddress({ lat: c.location.coordinates.latitude, lng: c.location.coordinates.longitude }).then(addr => {
-                const address = addr[0].formatted_address;
-                this.clickedChargingStation = { ...this.clickedChargingStation, address };
-            });
-
             this.chargingStationDialog = !this.chargingStationDialog;
         },
         onClickOutsideDetails() {
+            if(this.chargingStationDialog)
+                this.$refs.chargingStationDetailsRef.disconnect();
+
             this.chargingStationDialog = false;
         },
         toggleFilter() {
@@ -147,19 +145,6 @@ export default {
                 this.chargingStations = resp.data;
             });
         },
-        async geocodeAddress(location) {
-            const geocoder = new this.google.maps.Geocoder();
-
-            let res = null;
-
-            await geocoder.geocode({location: location}, (results, status) => {
-                if (status === 'OK') {
-                    res = results;
-                }
-            });
-
-            return res;
-        }
     },
     created() {
         this.$getLocation({})

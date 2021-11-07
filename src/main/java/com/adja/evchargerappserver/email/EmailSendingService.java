@@ -1,5 +1,6 @@
-package com.adja.evchargerappserver.api.email;
+package com.adja.evchargerappserver.email;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -7,11 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailSendingService {
 
+    @Autowired
     private JavaMailSender javaMailSender;
-
-    public EmailSendingService(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
 
     public void sendMail(String toEmail, String subject, String message) {
 

@@ -14,11 +14,11 @@ public class ChargingStateChangeController {
 
     @MessageMapping("/topic/chargingStationToServer")
     @SendTo("/topic/chargingStationToClient")
-    public BatteryPercentageUpdate sendChargingStationUpdate(BatteryPercentageUpdate update) {
+    public ChargingStateChange sendChargingStationUpdate(ChargingStateChange update) {
         return update;
     }
 
-    public void sendChargingStationUpdateFromJava(BatteryPercentageUpdate update) {
+    public void sendChargingStationUpdateFromJava(ChargingStateChange update) {
         this.template.convertAndSend("/topic/chargingStationToServer", update);
     }
 }

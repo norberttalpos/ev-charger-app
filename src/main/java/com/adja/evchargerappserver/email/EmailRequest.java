@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.api.email;
+package com.adja.evchargerappserver.email;
 
 public class EmailRequest {
 

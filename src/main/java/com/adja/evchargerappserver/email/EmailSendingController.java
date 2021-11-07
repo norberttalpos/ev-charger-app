@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.api.email;
+package com.adja.evchargerappserver.email;
 
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,13 @@ public class EmailSendingController {
 
     @PostMapping(value = "/sendmail")
     public ResponseEntity<String> sendmail(@RequestBody EmailRequest request) {
+        try {
+            emailSendingService.sendMail(request.getTo(), request.getSubject(), request.getText());
 
-        emailSendingService.sendMail(request.getTo(), request.getSubject(), request.getText());
-
-        return new ResponseEntity<>("email sent", HttpStatus.OK);
+            return new ResponseEntity<>("email sent", HttpStatus.OK);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>("email sending failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

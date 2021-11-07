@@ -1,11 +1,10 @@
 package com.adja.evchargerappserver.api.electriccar.mock;
 
 import com.adja.evchargerappserver.EvChargerAppServerApplication;
-import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.chargingstation.ChargingStationService;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarService;
-import com.adja.evchargerappserver.api.electriccar.batteryPercentage.BatteryPercentageUpdate;
+import com.adja.evchargerappserver.api.electriccar.batteryPercentage.ChargingStateChange;
 import com.adja.evchargerappserver.api.electriccar.batteryPercentage.ChargingStateChangeController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -77,7 +76,10 @@ public class MockElectricCarHandler extends Thread {
     private void onBatteryPercentageChanged(ElectricCarRepresentation car) {
         this.electricCarService.persistBatteryPercentageChanges(car.getID(), car.getBatteryPercentage());
 
-        this.websocket.sendChargingStationUpdateFromJava(new BatteryPercentageUpdate(car.getID(), car.getBatteryPercentage()));
+        ElectricCar persistedCar = this.electricCarService.getById(car.getID());
+        if(persistedCar.getCharger() != null) {
+            this.websocket.sendChargingStationUpdateFromJava(new ChargingStateChange(persistedCar.getCharger().getChargingStation().getId()));
+        }
     }
 
     @EventListener(ContextRefreshedEvent.class)

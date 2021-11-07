@@ -16,7 +16,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class EvChargerAppServerApplication {
 
 	public static final boolean jwtEnabled = true;
-	public static final boolean charging = false;
+	public static final boolean charging = true;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EvChargerAppServerApplication.class, args);

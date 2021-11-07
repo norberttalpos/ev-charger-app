@@ -63,7 +63,7 @@
                         <v-tooltip right>
                             <template #activator="{ on, attrs }">
                                 <v-img :class="`my-2 image ${darkTheme ? 'darkChargerIcon' : ''}`" :src="require(`../assets/chargerTypes/${item.chargerType.name}.png`)" max-width="50px"
-                                       @click="showCarDetails" style="border-radius: 5px; border: 1px solid black;" v-bind="attrs" v-on="on"/>
+                                       style="border-radius: 5px; border: 1px solid black;" v-bind="attrs" v-on="on"/>
                             </template>
                             <div style="font-size: 16px;">
                                 <p class="mb-0">{{ `name: ${item.chargerType.name}` }}</p>
@@ -95,7 +95,7 @@
                                                     color="primary"
                                                     striped
                                                     height="20"
-                                                    animate
+                                                    :disabled="true"
                                                 >
                                                     <template v-slot:default="{ value }">
                                                         <strong>{{ Math.ceil(value) }}%</strong>
@@ -135,11 +135,13 @@
 
 <script>
 import {WebsocketClient} from "@/mixins/WebsocketClient";
+import * as VueGoogleMaps from 'vue2-google-maps';
+import {serverprefix} from "@/main";
 
 export default {
     name: "charging-station-details",
     props: {
-        chargingStationProp: {Object, default: {}},
+        chargingStationId: {Number, required: true}
     },
     mixins: [WebsocketClient],
     data() {
@@ -165,6 +167,7 @@ export default {
         }
     },
     computed: {
+        google: VueGoogleMaps.gmapApi,
         darkTheme() {
             return this.$vuetify.theme.dark;
         },
@@ -190,9 +193,50 @@ export default {
             console.log(carId);
             //TODO email ertesites
         },
+        onWebsocketEvent(message) {
+            this.updateChargingStation(message.chargingStationId);
+        },
+
+        async geocodeAddress(location) {
+            const geocoder = new this.google.maps.Geocoder();
+
+            let res = null;
+
+            await geocoder.geocode({location: location}, (results, status) => {
+                if (status === 'OK') {
+                    res = results;
+                }
+            });
+
+            return res;
+        },
+        async addAddressToChargingStation() {
+            await this.geocodeAddress({
+                lat: this.chargingStation.location.coordinates.latitude,
+                lng: this.chargingStation.location.coordinates.longitude
+            }).then(addr => {
+                const address = addr[0].formatted_address;
+                this.chargingStation = { ...this.chargingStation, address: address };
+            });
+        },
+        async getChargingStation(id) {
+            const chargingStationResp = await this.axios.get(`${serverprefix}/api/chargingStation/${id}`);
+            this.chargingStation = chargingStationResp.data;
+
+            await this.addAddressToChargingStation();
+        },
+        async updateChargingStation(id) {
+            const chargingStationResp = await this.axios.get(`${serverprefix}/api/chargingStation/${id}`);
+            this.chargingStation.chargers = chargingStationResp.data.chargers;
+
+            if(this.carDetails) {
+                this.carDetails = this.chargingStation.chargers.map(i => i.currentlyChargingCar).filter(car => car?.id === this.carDetails.id)[0];
+            }
+        }
     },
-    mounted() {
-        this.chargingStation = this.chargingStationProp;
+    async mounted() {
+        await this.getChargingStation(this.chargingStationId);
+        this.connect();
     }
 }
 </script>
