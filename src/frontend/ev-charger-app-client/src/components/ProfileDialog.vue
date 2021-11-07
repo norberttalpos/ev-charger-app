@@ -77,6 +77,21 @@
             </v-col>
 
         </v-row>
+        <v-row>
+            <v-card max-width="100%">
+                <v-card-title>
+                {{ carName }}
+                </v-card-title>
+                <v-img
+
+                />
+            </v-card>
+
+
+        </v-row>
+
+
+
     </dialog-base>
 
 </template>
@@ -96,6 +111,7 @@ export default {
         return {
             username: "",
             password: "",
+            carName:"lofasz",
             confirm_password: "",
             email: "",
             phoneNumber:"",
@@ -145,6 +161,7 @@ export default {
                 this.email=person_response.data.email;
                 this.username=person_response.data.username;
                 this.phoneNumber=person_response.data.phoneNumber;
+                this.carName=person_response.data.car.carType.name;
             }
         },
         async save() {
@@ -160,7 +177,7 @@ export default {
                 const id = this.$store.getters.getId;
                 console.log(id);
 
-                const response = await this.axios.put(`${serverprefix}/api/person/`+id, {
+                const response = await this.axios.put(`${serverprefix}/api/person/${id}`, {
                     password: this.password,
                     username: this.username,
                     name:this.name,
