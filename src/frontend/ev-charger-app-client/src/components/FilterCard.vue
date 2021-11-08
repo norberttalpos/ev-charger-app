@@ -34,7 +34,7 @@
                     <v-layout row wrap justify-start>
                         <v-card-title style="font-size: 20px; margin-right: 10px; margin-bottom: 10px;">charger types:</v-card-title>
                         <v-spacer/>
-                        <v-btn class="mt-2" color="darkgreen" dark @click="toggleAllChargerTypes">
+                        <v-btn class="mt-2" color="darkprimary" dark @click="toggleAllChargerTypes">
                             toggle all
                         </v-btn>
                     </v-layout>
@@ -117,7 +117,7 @@ export default {
         chargerTypeStyle(chargerType) {
             const base = 'display: flex; justify-content: center; align-items: center; height: 160px; min-width: 180px; border-radius: 5px; '
             return this.selectedChargerTypes.includes(chargerType) ?
-                base + 'border: solid 3px green;'
+                base + `border: solid 3px ${this.$vuetify.theme.dark ? "#6A1B9A" : "#2E7D32"};`
                 : base + 'border: solid 3px transparent;';
         },
         toggleAllChargerTypes() {

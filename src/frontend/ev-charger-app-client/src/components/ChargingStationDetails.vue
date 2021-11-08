@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card v-if="minimalDetails" class="minimal-details pa-5 background" max-width="500px">
+        <v-card v-if="minimalDetails" :class="`minimal-details pa-5 ${this.$vuetify.theme.dark ? 'background-purple' : 'background-green'}`" max-width="500px">
             <div>
                 <strong style="font-size: 40px;">
                     {{ chargingStation.ownerCompanyName }}
@@ -31,7 +31,7 @@
             </v-layout>
         </v-card>
 
-        <v-card v-else class="details pa-12 background">
+        <v-card v-else :class="`details pa-12  ${this.$vuetify.theme.dark ? 'background-purple' : 'background-green'}`">
             <div>
                 <strong style="font-size: 40px;">
                     {{ chargingStation.ownerCompanyName }}

@@ -2,7 +2,7 @@
     <v-app>
         <v-app-bar
             app
-            color="darkgreen"
+            color="appbar"
             dark
         >
             <div class="d-flex align-center" style="margin-left: 15px;">
@@ -62,8 +62,12 @@ export default {
     display: none;
 }
 
-.background {
+.background-green {
     background: rgb(106,189,128);
     background: linear-gradient(155deg, rgba(106,189,128,1) 0%, rgba(58,239,255,1) 100%);
+}
+.background-purple {
+    background: rgb(98,0,234);
+    background: linear-gradient(155deg, rgba(98,0,234,1) 0%, rgba(179,136,255,1) 100%);
 }
 </style>

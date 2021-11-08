@@ -1,5 +1,5 @@
 <template>
-    <div class="background" style="position: absolute; height: 100%; width: 100%;">
+    <div :class="`${this.$vuetify.theme.dark ? 'background-purple' : 'background-green'}`" style="position: absolute; height: 100%; width: 100%;">
         <v-container style="overflow-y: scroll; height: 100%;">
             <v-row no-gutters justify="center">
                 <v-col cols="8" >
