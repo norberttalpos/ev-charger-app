@@ -78,15 +78,19 @@
 
         </v-row>
         <v-row>
-            <v-card max-width="100%">
-                <v-card-title>
-                {{ carName }}
-                </v-card-title>
-                <v-img
+            <v-col cols="12">
+                <v-card >
+                    <v-card-title class="mainTitle">
+                        My car
+                    </v-card-title>
+                    <v-card-title>
+                    {{ carType.name }}
+                    <v-img :src="require(`../assets/cars/${carTypeFilename}.png`)" max-width="50px"
+                           style="border-radius: 5px; border: 1px solid black; margin-left: 10px" />
+                    </v-card-title>
 
-                />
-            </v-card>
-
+                </v-card>
+            </v-col>
 
         </v-row>
 
@@ -108,9 +112,10 @@ export default {
     },
     data() {
         return {
+            asd:"tesla",
             username: "",
             password: "",
-            carName:"lofasz",
+            carType:null,
             confirm_password: "",
             email: "",
             phoneNumber:"",
@@ -143,6 +148,12 @@ export default {
         },
         passwordsAreSame(){
             return this.password===this.confirm_password;
+        },
+        carTypeFilename(){
+            if(this.carType){
+                return this.carType.name.split(' ')[0].toLowerCase();
+            }
+            return "car";
         }
     },
     methods: {
@@ -160,7 +171,7 @@ export default {
                 this.email=person_response.data.email;
                 this.username=person_response.data.username;
                 this.phoneNumber=person_response.data.phoneNumber;
-                this.carName=person_response.data.car.carType.name;
+                this.carType=person_response.data.car.carType;
             }
         },
         async save() {
@@ -217,4 +228,8 @@ export default {
 .v-input {
     font-size: 1.6em;
 }
+.mainTitle{
+    font-size:5em;
+}
+
 </style>
