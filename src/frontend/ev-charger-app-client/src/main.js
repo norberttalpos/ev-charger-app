@@ -22,6 +22,7 @@ Vue.directive('blur', {
 Vue.use(VueAxios, axios)
 
 axios.interceptors.request.use(config => {
+	config.baseURL = serverprefix;
 	config.headers.Authorization =  "Bearer " + localStorage.getItem('accessToken');
 	return config;
 });

@@ -53,6 +53,7 @@
             <v-container class="mt-4" style="width: 500px;">
                 <strong style="font-size: 35px;">Chargers</strong>
                 <v-data-table
+                    id="charger-table"
                     :headers="headers"
                     :items="chargingStation.chargers"
                     fixed-header
@@ -137,7 +138,6 @@
 <script>
 import {WebsocketClient} from "@/mixins/WebsocketClient";
 import * as VueGoogleMaps from 'vue2-google-maps';
-import {serverprefix} from "@/main";
 
 export default {
     name: "charging-station-details",
@@ -184,14 +184,14 @@ export default {
         async subscribeForLeaving(car) {
             const carId = car.id;
 
-            const personResp = await this.axios.get(`${serverprefix}/api/person/current-person`);
+            const personResp = await this.axios.get(`/api/person/current-person`);
             const person = personResp.data;
 
             const chargerId = this.chargingStation.chargers.filter(i => i.currentlyChargingCar?.id === carId).map(i => i.id)[0];
 
             console.log(chargerId);
 
-            await this.axios.post(`${serverprefix}/api/notification`, {
+            await this.axios.post(`/api/notification`, {
                 observedChargerId: chargerId,
                 personToNotifyId: person.id
             });
@@ -223,13 +223,13 @@ export default {
             });
         },
         async getChargingStation(id) {
-            const chargingStationResp = await this.axios.get(`${serverprefix}/api/chargingStation/${id}`);
+            const chargingStationResp = await this.axios.get(`/api/chargingStation/${id}`);
             this.chargingStation = chargingStationResp.data;
 
             await this.addAddressToChargingStation();
         },
         async updateChargingStation(id) {
-            const chargingStationResp = await this.axios.get(`${serverprefix}/api/chargingStation/${id}`);
+            const chargingStationResp = await this.axios.get(`/api/chargingStation/${id}`);
             this.chargingStation.chargers = chargingStationResp.data.chargers;
 
             if(this.carDetails) {
@@ -266,4 +266,7 @@ export default {
         filter: invert(100%);
     }
 
+    #charger-table > .v-data-table__wrapper > table > tbody > tr:hover:not(.v-data-table__expanded__content):not(.v-data-table__empty-wrapper) {
+        background: transparent;
+    }
 </style>

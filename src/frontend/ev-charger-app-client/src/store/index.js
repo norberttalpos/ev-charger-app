@@ -3,8 +3,6 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-import {serverprefix} from "@/main";
-
 export default new Vuex.Store({
 	state: {
 		role: 'none',
@@ -12,12 +10,12 @@ export default new Vuex.Store({
 	},
 	actions: {
 		async fetchRole({commit}) {
-			const resp = await Vue.prototype.axios.get(`${serverprefix}/api/role`);
+			const resp = await Vue.prototype.axios.get(`/api/role`);
 
 			commit('SET_ROLE', resp.data);
 		},
 		async fetchId({commit}){
-			const resp = await Vue.prototype.axios.get(`${serverprefix}/api/person/current-person`);
+			const resp = await Vue.prototype.axios.get(`/api/person/current-person`);
 
 			commit('SET_ID', resp.data.id);
 

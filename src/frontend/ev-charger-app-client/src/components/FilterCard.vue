@@ -64,7 +64,6 @@
 
 <script>
 import {DebounceSearch} from "@/mixins/DebounceSearch";
-import {serverprefix} from "@/main";
 
 export default {
     name: "filter-card",
@@ -135,7 +134,7 @@ export default {
         }
     },
     async mounted() {
-        const resp = await this.axios.get(`${serverprefix}/api/person/current-person`);
+        const resp = await this.axios.get(`/api/person/current-person`);
         const person = resp.data;
 
         if(person.car) {

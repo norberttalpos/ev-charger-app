@@ -98,7 +98,6 @@
 
 <script>
 
-import {serverprefix} from "@/main";
 import DialogBase from "@/components/DialogBase.vue";
 
 export default {
@@ -154,7 +153,7 @@ export default {
             this.closeDialog();
         },
         async load_data(){
-            const person_response = await this.axios.get(`${serverprefix}/api/person/current-person`);
+            const person_response = await this.axios.get(`/api/person/current-person`);
             console.log(person_response);
             if(person_response.status===200){
                 this.name=person_response.data.name;
@@ -177,7 +176,7 @@ export default {
                 const id = this.$store.getters.getId;
                 console.log(id);
 
-                const response = await this.axios.put(`${serverprefix}/api/person/${id}`, {
+                const response = await this.axios.put(`/api/person/${id}`, {
                     password: this.password,
                     username: this.username,
                     name:this.name,

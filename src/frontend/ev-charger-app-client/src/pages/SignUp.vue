@@ -140,8 +140,6 @@
 <script>
 
 import router from '../router'
-import {serverprefix} from "@/main";
-
 
 export default {
     name: 'sign-up',
@@ -198,7 +196,7 @@ export default {
 
 
             try {
-                const response = await this.axios.post(`${serverprefix}/api/person/register`, {
+                const response = await this.axios.post(`/api/person/register`, {
                     password: this.password,
                     username: this.username,
                     name:this.name,
@@ -207,7 +205,7 @@ export default {
                 });
 
                 if(response.status===201){
-                    const login_response = await this.axios.post(`${serverprefix}/api/login`,{
+                    const login_response = await this.axios.post(`/api/login`,{
                         password:this.password,
                         username:this.username
                     });

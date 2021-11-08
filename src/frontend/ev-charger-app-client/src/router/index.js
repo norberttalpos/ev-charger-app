@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {serverprefix} from "@/main";
 
 Vue.use(VueRouter)
 
@@ -41,7 +40,7 @@ const router = new VueRouter({
 })
 
 const hasRightForPage = async (to) => {
-	const response = await Vue.prototype.axios.post(`${serverprefix}/api/hasRightForPage`,{
+	const response = await Vue.prototype.axios.post(`/api/hasRightForPage`,{
 		route: to.path
 	});
 

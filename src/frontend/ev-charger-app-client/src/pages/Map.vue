@@ -2,7 +2,7 @@
     <div id="wrapper">
         <v-progress-linear
             indeterminate
-            color="green"
+            color="darkprimary"
             v-show="progressbar"
             height="5px"
             absolute
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import {serverprefix} from "@/main";
 import * as VueGoogleMaps from 'vue2-google-maps';
 import FilterCard from "@/components/FilterCard";
 import ChargingStationDetails from "@/components/ChargingStationDetails";
@@ -141,7 +140,7 @@ export default {
             this.getChargingStations()
         },
         async getChargingStations() {
-            await this.axios.post(`${serverprefix}/api/chargingStation/search`, this.chargingStationFilter).then(resp => {
+            await this.axios.post(`/api/chargingStation/search`, this.chargingStationFilter).then(resp => {
                 this.chargingStations = resp.data;
             });
         },
