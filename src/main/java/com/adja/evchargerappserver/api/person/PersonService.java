@@ -110,7 +110,7 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
         if(this.validateEntity(person)) {
 
             if(person.getPassword()=="")
-                throw new NotValidUpdateException("");
+                person.setPassword(this.getById(id).getPassword());
             if(person.getPassword() != null && person.getPassword()!="") {
                 if(!person.getPassword().equals(this.getById(id).getPassword())) {
                     person.setPassword(this.passwordEncoder.encode(person.getPassword()));
