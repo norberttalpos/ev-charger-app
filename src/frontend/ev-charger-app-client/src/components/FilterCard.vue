@@ -117,7 +117,7 @@ export default {
         chargerTypeStyle(chargerType) {
             const base = 'display: flex; justify-content: center; align-items: center; height: 160px; min-width: 180px; border-radius: 5px; '
             return this.selectedChargerTypes.includes(chargerType) ?
-                base + `border: solid 3px ${this.$vuetify.theme.dark ? "#6A1B9A" : "#2E7D32"};`
+                base + `border: solid 3px ${this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark.darkprimary :  this.$vuetify.theme.themes.light.darkprimary};`
                 : base + 'border: solid 3px transparent;';
         },
         toggleAllChargerTypes() {
