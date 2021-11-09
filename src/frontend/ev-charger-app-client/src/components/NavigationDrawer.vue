@@ -17,9 +17,7 @@
             nav
             dense
         >
-            <v-list-item-group
-                active-class="deep-purple--text text--accent-4"
-            >
+            <v-list-item-group v-model="selection">
                 <v-list-item @click="profile">
                     <v-list-item-action>
                         <v-icon class="mr-2"
@@ -30,8 +28,6 @@
                     <v-list-item-title>Profile</v-list-item-title>
 
                 </v-list-item>
-
-
 
                 <v-list-item @click="log_out">
 
@@ -62,21 +58,33 @@ export default {
     name: "navigation-drawer",
     data(){
         return {
-            dialog:false
+            dialog: false,
+            selection: null,
         }
     },
     methods: {
+        clear() {
+            this.$nextTick(() => {
+                this.selection = null
+            });
+        },
         log_out(){
             localStorage.setItem('accessToken', null);
             router.push('/login');
+
+            this.clear();
         },
         profile() {
             this.dialog = true;
+
+            this.clear();
         }
     }
 }
 </script>
 
 <style scoped>
+    .v-list-item--active {
 
+    }
 </style>
