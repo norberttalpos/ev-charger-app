@@ -205,7 +205,6 @@ export default {
                     email:this.email,
                     phoneNumber:this.phoneNumber
                 });
-                console.log(response);
 
                 if(response.status===201){
                     const login_response = await this.axios.post(`/api/login`,{
