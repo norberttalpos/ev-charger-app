@@ -5,6 +5,7 @@ public class ChargerFilter {
     private String chargerType;
     private Long chargingStation;
     private Boolean reserved;
+    private Boolean observed;
 
     public Long getCurrentlyChargingCar() {
         return currentlyChargingCar;
@@ -36,5 +37,13 @@ public class ChargerFilter {
 
     public void setReserved(Boolean reserved) {
         this.reserved = reserved;
+    }
+
+    public Boolean getObserved() {
+        return observed;
+    }
+
+    public void setObserved(Boolean observed) {
+        this.observed = observed;
     }
 }

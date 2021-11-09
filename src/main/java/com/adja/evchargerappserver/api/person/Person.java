@@ -2,9 +2,12 @@ package com.adja.evchargerappserver.api.person;
 
 
 import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
+import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
+import com.adja.evchargerappserver.api.notification.Notification;
 import com.adja.evchargerappserver.api.role.Role;
 import com.adja.evchargerappserver.api.role.RoleRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -44,6 +47,13 @@ public class Person extends AbstractEntity {
     @OneToOne
     @JoinColumn(name="car_ID", referencedColumnName = "id")
     private ElectricCar car;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "notification",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "charger_id"))
+    private Collection<Charger> observedChargers;
 
     public Person() {}
 
@@ -104,6 +114,14 @@ public class Person extends AbstractEntity {
 
     public void setCar(ElectricCar car) {
         this.car = car;
+    }
+
+    public Collection<Charger> getObservedChargers() {
+        return observedChargers;
+    }
+
+    public void setObservedChargers(Collection<Charger> observedChargers) {
+        this.observedChargers = observedChargers;
     }
 
     @Override

@@ -52,13 +52,24 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
         if(filter.getCar() != null) {
             where.and(person.car.id.eq(filter.getCar()));
         }
+        if(filter.getHasCar() != null) {
+            where.and(person.car.id.isNotNull());
+        }
+        if(filter.getObservingCharger() != null) {
+            if(filter.getObservingCharger()) {
+                where.and(person.observedChargers.size().goe(1));
+            }
+            else {
+                where.and(person.observedChargers.size().eq(0));
+            }
+        }
 
         return (Collection<Person>) this.repository.findAll(where);
     }
 
     @Override
     protected boolean validateEntity(Person person) {
-        return  person.getCar() == null ||electricCarRepository.findById(person.getCar().getId()).isPresent()  ;
+        return person.getCar() == null || electricCarRepository.findById(person.getCar().getId()).isPresent()  ;
     }
 
     public void addRoleToUser(String username, String roleName) throws NotValidUpdateException {

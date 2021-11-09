@@ -7,6 +7,7 @@ import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity(name = "Charger")
@@ -24,6 +25,14 @@ public class Charger extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "station_ID", nullable = true)
     private ChargingStation chargingStation;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "notification",
+            joinColumns = @JoinColumn(name = "charger_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id"))
+    private Collection<Charger> personsToNotify;
 
     public ChargerType getChargerType() {
         return chargerType;
@@ -47,6 +56,14 @@ public class Charger extends AbstractEntity {
 
     public void setCurrentlyChargingCar(ElectricCar currentlyChargingCar) {
         this.currentlyChargingCar = currentlyChargingCar;
+    }
+
+    public Collection<Charger> getPersonsToNotify() {
+        return personsToNotify;
+    }
+
+    public void setPersonsToNotify(Collection<Charger> personsToNotify) {
+        this.personsToNotify = personsToNotify;
     }
 
     @Override

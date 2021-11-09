@@ -20,7 +20,6 @@ public class ChargerTypeService extends AbstractService<ChargerType, ChargerType
         if(chargerTypeFilter.getName()!=null)
             where.and(chargerType.name.contains(chargerTypeFilter.getName()));
 
-
         return (Collection<ChargerType>) this.repository.findAll(where);
     }
 

@@ -45,6 +45,16 @@ public class PersonController extends AbstractController<Person, PersonFilter, P
     }
 
     @Override
+    @PostMapping("/search")
+    public ResponseEntity<Collection<Person>> search(@RequestBody PersonFilter filter) {
+        Collection<Person> collection = this.service.search(filter);
+        collection.forEach(person -> {
+            person.setPassword(null);
+        });
+        return new ResponseEntity<>(collection, HttpStatus.OK);
+    }
+
+    @Override
     @GetMapping("/{id}")
     public ResponseEntity<Person> getById(@PathVariable("id") Long id) {
         try {

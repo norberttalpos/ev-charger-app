@@ -56,6 +56,14 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
         if(filter.getCharger() != null) {
             where.and(electricCar.charger.id.eq(filter.getCharger()));
         }
+        if(filter.getCurrentlyCharging() != null) {
+            if(filter.getCurrentlyCharging()) {
+                where.and(electricCar.charger.id.isNotNull());
+            }
+            else {
+                where.and(electricCar.charger.id.isNull());
+            }
+        }
         if(filter.getCarType() != null) {
             where.and(electricCar.carType.name.contains(filter.getCarType()));
         }

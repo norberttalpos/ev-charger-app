@@ -6,6 +6,7 @@ public class ElectricCarFilter {
     private Integer minBatteryPercentage;
     private Integer maxBatteryPercentage;
     private Long charger;
+    private Boolean currentlyCharging;
     private String carType;
 
     public String getLicensePlate() {
@@ -54,5 +55,13 @@ public class ElectricCarFilter {
 
     public void setMaxBatteryPercentage(Integer maxBatteryPercentage) {
         this.maxBatteryPercentage = maxBatteryPercentage;
+    }
+
+    public Boolean getCurrentlyCharging() {
+        return currentlyCharging;
+    }
+
+    public void setCurrentlyCharging(Boolean currentlyCharging) {
+        this.currentlyCharging = currentlyCharging;
     }
 }

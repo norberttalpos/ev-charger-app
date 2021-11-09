@@ -120,7 +120,7 @@
                                             </v-col>
                                         </v-row>
                                     </v-container>
-                                    <v-btn class="mr-2 mb-2" color="primary" dark @click="subscribeForLeaving(carDetails)">subscribe for leaving</v-btn>
+                                    <v-btn class="mr-2 mb-2" color="primary" dark @click="subscribeForLeaving(carDetails)">{{ "subscribe for leaving" }}</v-btn>
                                 </v-layout>
                             </v-card>
 
@@ -165,6 +165,7 @@ export default {
                 { text: "Available", value: "reserved", width: '20%', sortable: false },
             ],
             carDetails: null,
+            subscriptions: []
         }
     },
     computed: {

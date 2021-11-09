@@ -7,6 +7,8 @@ public class PersonFilter {
     private String phoneNumber;
     private String roleName;
     private Long car;
+    private Boolean hasCar;
+    private Boolean observingCharger;
 
     public String getName() {
         return name;
@@ -54,5 +56,21 @@ public class PersonFilter {
 
     public void setCar(Long car) {
         this.car = car;
+    }
+
+    public Boolean getHasCar() {
+        return hasCar;
+    }
+
+    public void setHasCar(Boolean hasCar) {
+        this.hasCar = hasCar;
+    }
+
+    public Boolean getObservingCharger() {
+        return observingCharger;
+    }
+
+    public void setObservingCharger(Boolean observingCharger) {
+        this.observingCharger = observingCharger;
     }
 }
