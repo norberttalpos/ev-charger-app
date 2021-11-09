@@ -78,7 +78,8 @@ public class PersonController extends AbstractController<Person, PersonFilter, P
     public ResponseEntity<Person> getByJwtToken(@RequestHeader HttpHeaders headers){
         String username = JwtUtil.getUsernameFromJwt(headers.getFirst(headers.AUTHORIZATION));
 
-        Person entityByName= this.service.getByUsername(username);
+        Person entityByName = this.service.getByUsername(username);
+        entityByName.setPassword(null);
 
         return new ResponseEntity<>(entityByName, HttpStatus.OK);
     }

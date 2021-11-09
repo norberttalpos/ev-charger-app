@@ -77,7 +77,7 @@
                         <v-menu :close-on-content-click="false" offset-x right v-if="item.currentlyChargingCar !== null" nudge-right="30">
                             <template #activator="{ on }">
                                 <v-img class="my-2 image" src="@/assets/reserved_carIcon.png" max-width="40px"
-                                       @click="showCarDetails(item.currentlyChargingCar)" v-on="on"></v-img>
+                                       @click="showCarDetails(item.currentlyChargingCar, item.id)" v-on="on"></v-img>
                             </template>
 
                             <v-card v-if="carDetails !== null">
@@ -120,7 +120,9 @@
                                             </v-col>
                                         </v-row>
                                     </v-container>
-                                    <v-btn class="mr-2 mb-2" color="primary" dark @click="subscribeForLeaving(carDetails)">{{ "subscribe for leaving" }}</v-btn>
+                                    <v-btn v-if="showSubscribe" class="mr-2 mb-2" color="primary" dark @click="subscribeForLeaving(carDetails)">
+                                           subscribe for leaving
+                                    </v-btn>
                                 </v-layout>
                             </v-card>
 
@@ -165,7 +167,8 @@ export default {
                 { text: "Available", value: "reserved", width: '20%', sortable: false },
             ],
             carDetails: null,
-            subscriptions: []
+            user: null,
+            currentChargerSelectedId: null,
         }
     },
     computed: {
@@ -173,29 +176,30 @@ export default {
         darkTheme() {
             return this.$vuetify.theme.dark;
         },
+        showSubscribe() {
+            console.log(this.user.observedChargers.map(i => i.id))
+            return !this.user.observedChargers.map(i => i.id).includes(this.currentChargerSelectedId);
+        },
     },
     methods: {
-        showCarDetails(car) {
+        showCarDetails(car, chargerId) {
             this.carDetails = car;
-        },
-        reserveCharger(charger) {
-            console.log(charger);
+            this.currentChargerSelectedId = chargerId
         },
 
         async subscribeForLeaving(car) {
             const carId = car.id;
-
-            const personResp = await this.axios.get(`/api/person/current-person`);
-            const person = personResp.data;
-
             const chargerId = this.chargingStation.chargers.filter(i => i.currentlyChargingCar?.id === carId).map(i => i.id)[0];
 
             console.log(chargerId);
 
             await this.axios.post(`/api/notification`, {
                 observedChargerId: chargerId,
-                personToNotifyId: person.id
+                personToNotifyId: this.user.id
             });
+
+            const personResp = await this.axios.get(`/api/person/current-person`);
+            this.user = personResp.data;
         },
         onWebsocketEvent(message) {
             this.updateChargingStation(message.chargingStationId);
@@ -238,8 +242,11 @@ export default {
             }
         }
     },
-    async mounted() {
+    async created() {
         await this.getChargingStation(this.chargingStationId);
+        const personResp = await this.axios.get(`/api/person/current-person`);
+        this.user = personResp.data;
+
         this.connect(this.chargingStationId);
     }
 }
