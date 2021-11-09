@@ -37,16 +37,17 @@
                     name="username"
                     persistent-placeholder
                 ></v-text-field>
-            </v-col> <v-col cols="6">
-            <v-text-field
-                v-model="phoneNumber"
-                label="Phone Number"
-                :rules="notEmptyRule"
-                outlined
-                name="phoneNumber"
-                persistent-placeholder
-            ></v-text-field>
-        </v-col>
+            </v-col>
+            <v-col cols="6">
+                <v-text-field
+                    v-model="phoneNumber"
+                    label="Phone Number"
+                    :rules="notEmptyRule"
+                    outlined
+                    name="phoneNumber"
+                    persistent-placeholder
+                ></v-text-field>
+            </v-col>
         </v-row>
         <v-row>
             <v-col cols="6">
@@ -79,22 +80,22 @@
         </v-row>
         <v-row>
             <v-col cols="12">
-                <v-card >
+                <v-card>
                     <v-card-title class="mainTitle">
                         MY CAR
                     </v-card-title>
                     <v-divider></v-divider>
                     <v-card-title class="carName">
-                    {{ carType.name }}
-                    <v-img :src="require(`../assets/cars/${carTypeFilename}.png`)" max-width="50px"
-                           style="border-radius: 5px; margin-left: 10px" />
+                        {{ carType.name }}
+                        <v-img :src="require(`../assets/cars/${carTypeFilename}.png`)" max-width="50px"
+                               style="border-radius: 5px; margin-left: 10px"/>
                     </v-card-title>
                     <v-card-text class="carDetails">
-                        License plate: {{car.licensePlate}}<br>
+                        License plate: {{ car.licensePlate }}<br>
                         Current battery:
                         <v-col cols="4" justify-center>
                             <v-progress-linear
-                                v-model="car.batteryPercentage"
+                                :value="car.batteryPercentage"
                                 color="primary"
                                 height="20"
                                 striped
@@ -105,19 +106,29 @@
                                     <strong>{{ Math.ceil(value) }}%</strong>
                                 </template>
                             </v-progress-linear>
+
                         </v-col>
-                            Compatible charger types:
+                        Compatible charger types:
                         <v-layout class="mt-2" justify-start row wrap>
-                            <v-img style="border-radius: 5px; border: 1px solid black;"
-                                   v-for="chargerType in carType.compatibleChargerTypes" :key="chargerType.id"
-                                   :src="require(`../assets/chargerTypes/${chargerType.name}.png`)"
-                                   max-width="50px"/>
-                            <v-layout class="mt-5" row wrap justify-center
-                                      v-for="chargerType in carType.compatibleChargerTypes"
-                                      :key="chargerType.id"
-                            >
-                                <span style="margin-left: 5px;">{{ chargerType.name }}</span>
-                            </v-layout>
+                            <div v-for="chargerType in carType.compatibleChargerTypes"
+                                 :key="chargerType.id" class="ml-3">
+                                <v-col lass="sm12 md12 lg6 xl6 mb-1" >
+                                    <div>
+                                        <v-layout column>
+                                            <v-layout row wrap justify-center>
+                                                <v-img :class="`${darkTheme ? 'darkChargerIcon' : ''}`"
+                                                       style="border-radius: 5px; border: 1px solid black;margin-left: 10px;"
+                                                       :src="require(`../assets/chargerTypes/${chargerType.name}.png`)"
+                                                       max-width="70px"/>
+                                            </v-layout>
+                                            <v-layout class="mt-5" row wrap justify-center>
+                                                <span style="margin-left: 5px;">{{ chargerType.name }}</span>
+                                            </v-layout>
+                                        </v-layout>
+                                    </div>
+                                </v-col>
+
+                            </div>
                         </v-layout>
                     </v-card-text>
 
@@ -127,8 +138,23 @@
         </v-row>
 
 
+        <v-snackbar v-model="snackBar" :timeout="2000" top
+                    height="70px" width="450px" color="error">
+            <span style="font-size: 16px;">{{ snackbarText }}</span>
+            <template #action="{ attrs }">
+                <v-btn
+                    color="blue"
+                    text
+                    v-bind="attrs"
+                    @click="snackBar = false"
+                >
+                    Close
+                </v-btn>
+            </template>
+        </v-snackbar>
 
     </dialog-base>
+
 
 </template>
 
@@ -144,29 +170,29 @@ export default {
     },
     data() {
         return {
-            asd:"tesla",
+            asd: "tesla",
             username: "",
             password: "",
-            car:null,
-            carType:null,
+            car: null,
+            carType: null,
             confirm_password: "",
             email: "",
-            phoneNumber:"",
-            name:"",
+            phoneNumber: "",
+            name: "",
             show: false,
             snackBar: false,
             snackbarText: "",
             emailRules: [
                 v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
             ],
-            passwordRule:[
-                pass => !pass||pass.length>=6 || "Your password is too short"
+            passwordRule: [
+                pass => !pass || pass.length >= 6 || "Your password is too short"
             ],
-            confirmPasswordRule:[
-                pass => !pass||pass.length>=6 || "Your password is too short"
+            confirmPasswordRule: [
+                pass => !pass || pass.length >= 6 || "Your password is too short"
             ],
-            notEmptyRule:[
-                t=> !(t===null || t==="")
+            notEmptyRule: [
+                t => !(t === null || t === "")
             ]
         }
     },
@@ -174,38 +200,41 @@ export default {
         await this.load_data();
     },
     computed: {
+        darkTheme() {
+            return this.$vuetify.theme.dark;
+        },
         emptyFields() {
             return this.username === "" || this.username === null || this.password === "" || this.password === null ||
                 this.confirm_password === "" || this.confirm_password === null || this.email === "" || this.email === null ||
-                this.name === "" || this.name === null || this.phoneNumber==="" || this.phoneNumber===null;
+                this.name === "" || this.name === null || this.phoneNumber === "" || this.phoneNumber === null;
         },
-        passwordsAreSame(){
-            return this.password===this.confirm_password;
+        passwordsAreSame() {
+            return this.password === this.confirm_password;
         },
-        carTypeFilename(){
-            if(this.carType==null)
+        carTypeFilename() {
+            if (this.carType == null)
                 return "car";
-            if(this.carType.name==null)
+            if (this.carType.name == null)
                 return "car";
-            if(this.carType){
+            if (this.carType) {
                 return this.carType.name.split(' ')[0].toLowerCase();
             }
             return "car";
         },
-        chargerTypes(){
-            let chargerTypesString="";
+        chargerTypes() {
+            let chargerTypesString = "";
             console.log(this.carType.compatibleChargerTypes.length);
-            for(let i=0;i<this.carType.compatibleChargerTypes.length;i++){
+            for (let i = 0; i < this.carType.compatibleChargerTypes.length; i++) {
                 console.log(this.carType.compatibleChargerTypes[i].name);
                 console.log(chargerTypesString);
-                chargerTypesString=chargerTypesString.concat(this.carType.compatibleChargerTypes[i].name);
-                if(i!==this.carType.compatibleChargerTypes.length-1)
-                    chargerTypesString=chargerTypesString.concat(", ");
+                chargerTypesString = chargerTypesString.concat(this.carType.compatibleChargerTypes[i].name);
+                if (i !== this.carType.compatibleChargerTypes.length - 1)
+                    chargerTypesString = chargerTypesString.concat(", ");
                 console.log(chargerTypesString);
             }
             console.log(this.carType.compatibleChargerTypes);
             console.log(chargerTypesString);
-            if(this.carType.compatibleChargerTypes && this.carType.compatibleChargerTypes.length>0)
+            if (this.carType.compatibleChargerTypes && this.carType.compatibleChargerTypes.length > 0)
                 return chargerTypesString;
             else return "None";
         }
@@ -217,22 +246,22 @@ export default {
         cancelAction() {
             this.closeDialog();
         },
-        async load_data(){
+        async load_data() {
             const person_response = await this.axios.get(`/api/person/current-person`);
             console.log(person_response);
-            if(person_response.status===200){
-                this.name=person_response.data.name;
-                this.email=person_response.data.email;
-                this.username=person_response.data.username;
-                this.phoneNumber=person_response.data.phoneNumber;
-                this.carType=person_response.data.car.carType;
-                this.car=person_response.data.car;
+            if (person_response.status === 200) {
+                this.name = person_response.data.name;
+                this.email = person_response.data.email;
+                this.username = person_response.data.username;
+                this.phoneNumber = person_response.data.phoneNumber;
+                this.carType = person_response.data.car.carType;
+                this.car = person_response.data.car;
             }
         },
         async save() {
-            if(!this.passwordsAreSame){
-                this.SnackBar=true;
-                this.snackbarText="The passwords don't match";
+            if (!this.passwordsAreSame) {
+                this.snackBar = true;
+                this.snackbarText = "The passwords don't match";
                 return;
             }
 
@@ -245,24 +274,22 @@ export default {
                 const response = await this.axios.put(`/api/person/${id}`, {
                     password: this.password,
                     username: this.username,
-                    name:this.name,
-                    email:this.email,
-                    phoneNumber:this.phoneNumber,
-                    id:id
+                    name: this.name,
+                    email: this.email,
+                    phoneNumber: this.phoneNumber,
+                    id: id
                 });
-                this.password="";
-                this.confirm_password="";
+                this.password = "";
+                this.confirm_password = "";
                 console.log(response);
 
-                if(response.status===200){
+                if (response.status === 200) {
 
-                    this.snackBar=true;
-                    this.snackbarText="Kész";
+                    this.snackBar = true;
+                    this.snackbarText = "Kész";
 
                     this.closeDialog();
-                }
-
-                else{
+                } else {
                     this.snackBar = true;
                     this.snackbarText = 'Not valid data!';
                 }
@@ -283,15 +310,21 @@ export default {
 .v-input {
     font-size: 1.6em;
 }
-.mainTitle{
-    color: #111; font-family: 'Roboto', sans-serif; font-size: 2.5em;
-    letter-spacing: -1px; line-height: 1; text-align: center;
+
+.mainTitle {
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.5em;
+    letter-spacing: -1px;
+    line-height: 1;
+    text-align: center;
 }
-.carName{
-    font-family: 'Roboto'; color: #111111;
+
+.carName {
+    font-family: 'Roboto';
 }
-.carDetails{
-    font-family: 'Roboto'; color: blue;
+
+.carDetails {
+    font-family: 'Roboto';
 }
 
 </style>
