@@ -78,15 +78,51 @@
 
         </v-row>
         <v-row>
-            <v-card max-width="100%">
-                <v-card-title>
-                {{ carName }}
-                </v-card-title>
-                <v-img
+            <v-col cols="12">
+                <v-card >
+                    <v-card-title class="mainTitle">
+                        MY CAR
+                    </v-card-title>
+                    <v-divider></v-divider>
+                    <v-card-title class="carName">
+                    {{ carType.name }}
+                    <v-img :src="require(`../assets/cars/${carTypeFilename}.png`)" max-width="50px"
+                           style="border-radius: 5px; margin-left: 10px" />
+                    </v-card-title>
+                    <v-card-text class="carDetails">
+                        License plate: {{car.licensePlate}}<br>
+                        Current battery:
+                        <v-col cols="4" justify-center>
+                            <v-progress-linear
+                                v-model="car.batteryPercentage"
+                                color="primary"
+                                height="20"
+                                striped
+                                justify-center
 
-                />
-            </v-card>
+                            >
+                                <template v-slot:default="{ value }">
+                                    <strong>{{ Math.ceil(value) }}%</strong>
+                                </template>
+                            </v-progress-linear>
+                        </v-col>
+                            Compatible charger types:
+                        <v-layout class="mt-2" justify-start row wrap>
+                            <v-img style="border-radius: 5px; border: 1px solid black;"
+                                   v-for="chargerType in carType.compatibleChargerTypes" :key="chargerType.id"
+                                   :src="require(`../assets/chargerTypes/${chargerType.name}.png`)"
+                                   max-width="50px"/>
+                            <v-layout class="mt-5" row wrap justify-center
+                                      v-for="chargerType in carType.compatibleChargerTypes"
+                                      :key="chargerType.id"
+                            >
+                                <span style="margin-left: 5px;">{{ chargerType.name }}</span>
+                            </v-layout>
+                        </v-layout>
+                    </v-card-text>
 
+                </v-card>
+            </v-col>
 
         </v-row>
 
@@ -108,9 +144,11 @@ export default {
     },
     data() {
         return {
+            asd:"tesla",
             username: "",
             password: "",
-            carName:"lofasz",
+            car:null,
+            carType:null,
             confirm_password: "",
             email: "",
             phoneNumber:"",
@@ -143,6 +181,33 @@ export default {
         },
         passwordsAreSame(){
             return this.password===this.confirm_password;
+        },
+        carTypeFilename(){
+            if(this.carType==null)
+                return "car";
+            if(this.carType.name==null)
+                return "car";
+            if(this.carType){
+                return this.carType.name.split(' ')[0].toLowerCase();
+            }
+            return "car";
+        },
+        chargerTypes(){
+            let chargerTypesString="";
+            console.log(this.carType.compatibleChargerTypes.length);
+            for(let i=0;i<this.carType.compatibleChargerTypes.length;i++){
+                console.log(this.carType.compatibleChargerTypes[i].name);
+                console.log(chargerTypesString);
+                chargerTypesString=chargerTypesString.concat(this.carType.compatibleChargerTypes[i].name);
+                if(i!==this.carType.compatibleChargerTypes.length-1)
+                    chargerTypesString=chargerTypesString.concat(", ");
+                console.log(chargerTypesString);
+            }
+            console.log(this.carType.compatibleChargerTypes);
+            console.log(chargerTypesString);
+            if(this.carType.compatibleChargerTypes && this.carType.compatibleChargerTypes.length>0)
+                return chargerTypesString;
+            else return "None";
         }
     },
     methods: {
@@ -160,7 +225,8 @@ export default {
                 this.email=person_response.data.email;
                 this.username=person_response.data.username;
                 this.phoneNumber=person_response.data.phoneNumber;
-                this.carName=person_response.data.car.carType.name;
+                this.carType=person_response.data.car.carType;
+                this.car=person_response.data.car;
             }
         },
         async save() {
@@ -217,4 +283,15 @@ export default {
 .v-input {
     font-size: 1.6em;
 }
+.mainTitle{
+    color: #111; font-family: 'Roboto', sans-serif; font-size: 2.5em;
+    letter-spacing: -1px; line-height: 1; text-align: center;
+}
+.carName{
+    font-family: 'Roboto'; color: #111111;
+}
+.carDetails{
+    font-family: 'Roboto'; color: blue;
+}
+
 </style>
