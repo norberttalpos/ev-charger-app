@@ -4,6 +4,17 @@
             {{ title }}
         </v-card-title>
 
+        <v-tabs
+            fixed-tabs
+            v-if="tabs"
+            v-model="tabidx"
+            @change="tabidxChanged"
+        >
+            <v-tab v-for="i in tabItems" :key="i">
+                {{ i }}
+            </v-tab>
+        </v-tabs>
+
         <v-card class="mx-auto my-3  elevation-0" max-width="800">
             <v-card-text>
                 <v-container>
@@ -38,12 +49,28 @@
 
 <script>
 export default {
+    name: "dialog-base",
     props: {
         title: {String, required: true},
         cancelButtonAction: {Function, required: true},
         saveButtonAction: {Function, required: true},
+        tabItems: {Array}
     },
-    name: "dialog-base"
+    data() {
+        return {
+            tabidx: 0,
+        }
+    },
+    computed: {
+        tabs() {
+            return this.tabItems?.size !== 0;
+        }
+    },
+    methods: {
+        tabidxChanged() {
+            this.$emit("tabidxChanged", this.tabidx);
+        }
+    },
 }
 </script>
 

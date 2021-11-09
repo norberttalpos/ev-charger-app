@@ -1,142 +1,148 @@
 <template>
-    <dialog-base :save-button-action="save" :cancel-button-action="cancelAction" title="Profile">
-        <v-row>
-            <v-col cols="12">
-                <v-text-field
-                    v-model="name"
-                    label="Name"
-                    :rules="notEmptyRule"
-                    outlined
-                    name="confirm_password"
-                    persistent-placeholder
-                ></v-text-field>
-            </v-col>
-        </v-row>
+    <dialog-base :save-button-action="save" :cancel-button-action="cancelAction" title="Profile"
+                  :tab-items="['profile', 'car']" @tabidxChanged="tabidxChanged">
+        <v-tabs-items v-model="tabsidx">
+            <v-tab-item>
+                <v-row class="mt-n1">
+                    <v-col cols="12">
+                        <v-text-field
+                            v-model="name"
+                            label="Name"
+                            :rules="notEmptyRule"
+                            outlined
+                            name="confirm_password"
+                            persistent-placeholder
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
 
-        <v-row>
+                <v-row>
 
-            <v-col cols="12">
-                <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="Email address"
-                    outlined
-                    name="email"
-                    persistent-placeholder
-                ></v-text-field>
-            </v-col>
+                    <v-col cols="12">
+                        <v-text-field
+                            v-model="email"
+                            :rules="emailRules"
+                            label="Email address"
+                            outlined
+                            name="email"
+                            persistent-placeholder
+                        ></v-text-field>
+                    </v-col>
 
-        </v-row>
-        <v-row>
-            <v-col cols="6">
-                <v-text-field
-                    v-model="username"
-                    label="Username"
-                    :rules="notEmptyRule"
-                    outlined
-                    name="username"
-                    persistent-placeholder
-                ></v-text-field>
-            </v-col>
-            <v-col cols="6">
-                <v-text-field
-                    v-model="phoneNumber"
-                    label="Phone Number"
-                    :rules="notEmptyRule"
-                    outlined
-                    name="phoneNumber"
-                    persistent-placeholder
-                ></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="6">
-                <v-text-field
-                    v-model="password"
-                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                    label="Password"
-                    outlined
-                    :type="show ? 'text' : 'password'"
-                    :rules="passwordRule"
-                    @click:append="show = !show"
-                    name="password"
-                    persistent-placeholder
-                ></v-text-field>
-            </v-col>
-            <v-col cols="6">
-                <v-text-field
-                    v-model="confirm_password"
-                    :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
-                    label="Confirm password"
-                    outlined
-                    :rules="confirmPasswordRule"
-                    :type="show ? 'text' : 'password'"
-                    @click:append="show = !show"
-                    name="confirm_password"
-                    persistent-placeholder
-                ></v-text-field>
-            </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="6">
+                        <v-text-field
+                            v-model="username"
+                            label="Username"
+                            :rules="notEmptyRule"
+                            outlined
+                            name="username"
+                            persistent-placeholder
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-text-field
+                            v-model="phoneNumber"
+                            label="Phone Number"
+                            :rules="notEmptyRule"
+                            outlined
+                            name="phoneNumber"
+                            persistent-placeholder
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+                <v-row>
+                    <v-col cols="6">
+                        <v-text-field
+                            v-model="password"
+                            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                            label="Password"
+                            outlined
+                            :type="show ? 'text' : 'password'"
+                            :rules="passwordRule"
+                            @click:append="show = !show"
+                            name="password"
+                            persistent-placeholder
+                        ></v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                        <v-text-field
+                            v-model="confirm_password"
+                            :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                            label="Confirm password"
+                            outlined
+                            :rules="confirmPasswordRule"
+                            :type="show ? 'text' : 'password'"
+                            @click:append="show = !show"
+                            name="confirm_password"
+                            persistent-placeholder
+                        ></v-text-field>
+                    </v-col>
 
-        </v-row>
-        <v-row>
-            <v-col cols="12">
-                <v-card>
-                    <v-card-title class="mainTitle">
-                        MY CAR
-                    </v-card-title>
-                    <v-divider></v-divider>
-                    <v-card-title class="carName">
-                        {{ carType.name }}
-                        <v-img :src="require(`../assets/cars/${carTypeFilename}.png`)" max-width="50px"
-                               style="border-radius: 5px; margin-left: 10px"/>
-                    </v-card-title>
-                    <v-card-text class="carDetails">
-                        License plate: {{ car.licensePlate }}<br>
-                        Current battery:
-                        <v-col cols="4" justify-center>
-                            <v-progress-linear
-                                :value="car.batteryPercentage"
-                                color="primary"
-                                height="20"
-                                striped
-                                justify-center
+                </v-row>
+            </v-tab-item>
+            <v-tab-item>
+                <v-row>
+                    <v-col cols="12">
+                        <v-card>
+                            <v-card-title class="mainTitle">
+                                MY CAR
+                            </v-card-title>
+                            <v-divider></v-divider>
+                            <v-card-title class="carName">
+                                {{ carType.name }}
+                                <v-img :src="require(`../assets/cars/${carTypeFilename}.png`)" max-width="50px"
+                                       style="border-radius: 5px; margin-left: 10px"/>
+                            </v-card-title>
+                            <v-card-text class="carDetails">
+                                License plate: {{ car.licensePlate }}<br>
+                                Current battery:
+                                <v-col cols="4" justify-center>
+                                    <v-progress-linear
+                                        :value="car.batteryPercentage"
+                                        color="primary"
+                                        height="20"
+                                        striped
+                                        justify-center
 
-                            >
-                                <template v-slot:default="{ value }">
-                                    <strong>{{ Math.ceil(value) }}%</strong>
-                                </template>
-                            </v-progress-linear>
+                                    >
+                                        <template v-slot:default="{ value }">
+                                            <strong>{{ Math.ceil(value) }}%</strong>
+                                        </template>
+                                    </v-progress-linear>
 
-                        </v-col>
-                        Compatible charger types:
-                        <v-layout class="mt-2" justify-start row wrap>
-                            <div v-for="chargerType in carType.compatibleChargerTypes"
-                                 :key="chargerType.id" class="ml-3">
-                                <v-col lass="sm12 md12 lg6 xl6 mb-1" >
-                                    <div>
-                                        <v-layout column>
-                                            <v-layout row wrap justify-center>
-                                                <v-img :class="`${darkTheme ? 'darkChargerIcon' : ''}`"
-                                                       style="border-radius: 5px; border: 1px solid black;margin-left: 10px;"
-                                                       :src="require(`../assets/chargerTypes/${chargerType.name}.png`)"
-                                                       max-width="70px"/>
-                                            </v-layout>
-                                            <v-layout class="mt-5" row wrap justify-center>
-                                                <span style="margin-left: 5px;">{{ chargerType.name }}</span>
-                                            </v-layout>
-                                        </v-layout>
-                                    </div>
                                 </v-col>
+                                Compatible charger types:
+                                <v-layout class="mt-2" justify-start row wrap>
+                                    <div v-for="chargerType in carType.compatibleChargerTypes"
+                                         :key="chargerType.id" class="ml-3">
+                                        <v-col lass="sm12 md12 lg6 xl6 mb-1" >
+                                            <div>
+                                                <v-layout column>
+                                                    <v-layout row wrap justify-center>
+                                                        <v-img :class="`${darkTheme ? 'darkChargerIcon' : ''}`"
+                                                               style="border-radius: 5px; border: 1px solid black;margin-left: 10px;"
+                                                               :src="require(`../assets/chargerTypes/${chargerType.name}.png`)"
+                                                               max-width="70px"/>
+                                                    </v-layout>
+                                                    <v-layout class="mt-5" row wrap justify-center>
+                                                        <span style="margin-left: 5px;">{{ chargerType.name }}</span>
+                                                    </v-layout>
+                                                </v-layout>
+                                            </div>
+                                        </v-col>
 
-                            </div>
-                        </v-layout>
-                    </v-card-text>
+                                    </div>
+                                </v-layout>
+                            </v-card-text>
 
-                </v-card>
-            </v-col>
+                        </v-card>
+                    </v-col>
 
-        </v-row>
-
+                </v-row>
+            </v-tab-item>
+        </v-tabs-items>
 
         <v-snackbar v-model="snackBar" :timeout="2000" top
                     height="70px" width="450px" color="error">
@@ -182,6 +188,7 @@ export default {
             show: false,
             snackBar: false,
             snackbarText: "",
+            tabsidx: 0,
             emailRules: [
                 v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
             ],
@@ -245,6 +252,9 @@ export default {
         },
         cancelAction() {
             this.closeDialog();
+        },
+        tabidxChanged(idx) {
+            this.tabsidx = idx;
         },
         async load_data() {
             const person_response = await this.axios.get(`/api/person/current-person`);
