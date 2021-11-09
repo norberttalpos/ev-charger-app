@@ -6,6 +6,7 @@ import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
 import com.adja.evchargerappserver.api.role.Role;
 import com.adja.evchargerappserver.security.JwtUtil;
 import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ import java.util.Objects;
 @RequestMapping("/api/person")
 @Api(value = "/api/person", tags = "Person")
 public class PersonController extends AbstractController<Person, PersonFilter, PersonService> {
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @PutMapping("/{id}/addrole")
     public ResponseEntity<Person> addRoleToUser(@RequestParam Long id, @RequestBody Role role) {
@@ -71,6 +75,8 @@ public class PersonController extends AbstractController<Person, PersonFilter, P
     @PostMapping("/register")
     @Override
     public ResponseEntity<?> post(@RequestBody Person entity) {
+        if(personRepository.findByUsername(entity.getUsername()).isPresent())
+            return new ResponseEntity<>(null,HttpStatus.CONFLICT);
         return super.post(entity);
     }
 
