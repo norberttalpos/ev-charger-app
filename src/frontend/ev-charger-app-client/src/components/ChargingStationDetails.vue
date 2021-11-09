@@ -93,7 +93,7 @@
                                                 </span>
                                                 <v-progress-linear
                                                     class="mb-n4"
-                                                    v-model="carDetails.batteryPercentage"
+                                                    :value="carDetails.batteryPercentage"
                                                     color="primary"
                                                     striped
                                                     height="20"
@@ -218,7 +218,7 @@ export default {
                 lat: this.chargingStation.location.coordinates.latitude,
                 lng: this.chargingStation.location.coordinates.longitude
             }).then(addr => {
-                const address = addr[0].formatted_address;
+                const address = addr[1].formatted_address;
                 this.chargingStation = { ...this.chargingStation, address: address };
             });
         },
