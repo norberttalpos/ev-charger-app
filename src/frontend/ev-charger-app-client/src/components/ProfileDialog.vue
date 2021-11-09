@@ -176,11 +176,15 @@ export default {
     },
     data() {
         return {
-            asd: "tesla",
             username: "",
             password: "",
-            car: null,
-            carType: null,
+            carType: {
+                id: null,
+                name: "",
+            },
+            car: {
+                licensePlate: "",
+            },
             confirm_password: "",
             email: "",
             phoneNumber: "",
@@ -203,9 +207,6 @@ export default {
             ]
         }
     },
-    async mounted() {
-        await this.load_data();
-    },
     computed: {
         darkTheme() {
             return this.$vuetify.theme.dark;
@@ -219,32 +220,8 @@ export default {
             return this.password === this.confirm_password;
         },
         carTypeFilename() {
-            if (this.carType == null)
-                return "car";
-            if (this.carType.name == null)
-                return "car";
-            if (this.carType) {
-                return this.carType.name.split(' ')[0].toLowerCase();
-            }
-            return "car";
+            return this.carType.id === null ? "car" : this.carType.name.split(' ')[0].toLowerCase();
         },
-        chargerTypes() {
-            let chargerTypesString = "";
-            console.log(this.carType.compatibleChargerTypes.length);
-            for (let i = 0; i < this.carType.compatibleChargerTypes.length; i++) {
-                console.log(this.carType.compatibleChargerTypes[i].name);
-                console.log(chargerTypesString);
-                chargerTypesString = chargerTypesString.concat(this.carType.compatibleChargerTypes[i].name);
-                if (i !== this.carType.compatibleChargerTypes.length - 1)
-                    chargerTypesString = chargerTypesString.concat(", ");
-                console.log(chargerTypesString);
-            }
-            console.log(this.carType.compatibleChargerTypes);
-            console.log(chargerTypesString);
-            if (this.carType.compatibleChargerTypes && this.carType.compatibleChargerTypes.length > 0)
-                return chargerTypesString;
-            else return "None";
-        }
     },
     methods: {
         closeDialog() {
@@ -312,6 +289,9 @@ export default {
             }
 
         }
+    },
+    async created() {
+        await this.load_data();
     },
 };
 </script>
