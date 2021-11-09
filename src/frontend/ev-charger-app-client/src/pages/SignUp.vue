@@ -233,7 +233,7 @@ export default {
                     return;
                 }
                 this.signUpSnackBar = true;
-                this.snackbarText = 'Not valid dataaa!';
+                this.snackbarText = 'Not valid data!';
             }
 
         }
