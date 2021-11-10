@@ -10,6 +10,7 @@
     >
         <v-dialog
             v-model="dialog"
+            max-width="400px"
         >
             <profile-dialog @close-dialog="dialog=false" />
         </v-dialog>

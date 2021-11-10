@@ -9,7 +9,7 @@
             dark
         ></v-progress-linear>
 
-        <gmap-map id="google-map" class="zoom-out" v-if="chargingStations" :center="userCoordinates" :mapTypeControl="false" :zoom="12"
+        <gmap-map id="google-map" v-if="chargingStations" :center="userCoordinates" :mapTypeControl="false" :zoom="12"
                   ref="mapRef" @click="onClickOutsideDetails">
             <gmap-marker
                 v-for="(c, index) in chargingStations"
