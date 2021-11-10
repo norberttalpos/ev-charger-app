@@ -181,6 +181,7 @@ export default {
         passwordsAreSame(){
             return this.password===this.confirm_password;
         }
+
     },
     methods: {
         async sign_up() {
@@ -191,7 +192,8 @@ export default {
             }
             if(!this.passwordsAreSame){
                 this.signUpSnackBar=true;
-                this.snackbarText="The passwords don't match"
+                this.snackbarText="The passwords don't match";
+                return;
             }
 
 
@@ -219,12 +221,17 @@ export default {
                 }
 
                 else{
-                    this.loginSnackbar = true;
+                    this.signUpSnackBar = true;
                     this.snackbarText = 'Not valid data!';
                 }
 
             } catch (error) {
-                this.loginSnackbar = true;
+                if(error.response.status===409){
+                    this.signUpSnackBar = true;
+                    this.snackbarText = 'This username is already taken! Please choose another one';
+                    return;
+                }
+                this.signUpSnackBar = true;
                 this.snackbarText = 'Not valid data!';
             }
 
