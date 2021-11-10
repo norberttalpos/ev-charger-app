@@ -9,7 +9,7 @@
             dark
         ></v-progress-linear>
 
-        <gmap-map id="google-map" v-if="chargingStations" :center="userCoordinates" :mapTypeControl="false" :zoom="12"
+        <gmap-map id="google-map" class="zoom-out" v-if="chargingStations" :center="userCoordinates" :mapTypeControl="false" :zoom="12"
                   ref="mapRef" @click="onClickOutsideDetails">
             <gmap-marker
                 v-for="(c, index) in chargingStations"
@@ -31,7 +31,7 @@
         </gmap-map>
 
         <div class="over-map" style="top: 30px; left: 30px;">
-            <v-btn fab ripple :color="!$vuetify.theme.dark ? '#ffffff' : '#212121'" @click="toggleFilter" v-blur
+            <v-btn class="zoom-out" fab ripple :color="!$vuetify.theme.dark ? '#ffffff' : '#212121'" @click="toggleFilter" v-blur
                    :dark="$vuetify.theme.dark"
             >
                 <v-icon size="30px">

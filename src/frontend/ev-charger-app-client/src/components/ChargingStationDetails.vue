@@ -1,6 +1,6 @@
 <template>
     <div>
-        <v-card v-if="minimalDetails" :class="`minimal-details pa-5 ${this.$vuetify.theme.dark ? 'background-purple' : 'background-green'}`" max-width="500px">
+        <v-card class="zoom-out" v-if="minimalDetails" :class="`minimal-details pa-5 ${this.$vuetify.theme.dark ? 'background-purple' : 'background-green'}`" max-width="500px">
             <div>
                 <strong style="font-size: 40px;">
                     {{ chargingStation.ownerCompanyName }}
@@ -31,27 +31,29 @@
             </v-layout>
         </v-card>
 
-        <v-card v-else :class="`details pa-12  ${this.$vuetify.theme.dark ? 'background-purple' : 'background-green'}`">
-            <div>
-                <strong style="font-size: 40px;">
-                    {{ chargingStation.ownerCompanyName }}
-                </strong>
+        <v-card v-else :class="`details pa-8  ${this.$vuetify.theme.dark ? 'background-purple' : 'background-green'}`">
+            <div class="zoom-out">
+                <div>
+                    <strong style="font-size: 40px;">
+                        {{ chargingStation.ownerCompanyName }}
+                    </strong>
+                </div>
+
+                <div style="margin-top: -10px;">
+                    <br>
+                    <strong style="font-size: 25px;">{{ "Location: "}}</strong>
+                    <span style="font-size: 20px;">{{ chargingStation.address }}</span>
+                </div>
+
+                <div style="margin-top: -10px;">
+                    <br>
+                    <strong style="font-size: 25px;">{{ "Max number of chargers: "}}</strong>
+                    <span style="font-size: 20px;">{{ chargingStation.maxNumberOfChargers }}</span>
+                </div>
             </div>
 
-            <div style="margin-top: -10px;">
-                <br>
-                <strong style="font-size: 25px;">{{ "Location: "}}</strong>
-                <span style="font-size: 20px;">{{ chargingStation.address }}</span>
-            </div>
-
-            <div style="margin-top: -10px;">
-                <br>
-                <strong style="font-size: 25px;">{{ "Max number of chargers: "}}</strong>
-                <span style="font-size: 20px;">{{ chargingStation.maxNumberOfChargers }}</span>
-            </div>
-
-            <v-container class="mt-4" style="width: 500px;">
-                <strong style="font-size: 35px;">Chargers</strong>
+            <v-container class="mt-4" style="width: 400px;">
+                <strong style="font-size: 28px;">Chargers</strong>
                 <v-data-table
                     id="charger-table"
                     :headers="headers"
@@ -61,7 +63,7 @@
                     class="elevation-1 mt-5"
                 >
                     <template #item.chargerType="{ item }">
-                        <v-tooltip right>
+                        <v-tooltip right max-width="120px">
                             <template #activator="{ on, attrs }">
                                 <v-img :class="`my-2 image ${darkTheme ? 'darkChargerIcon' : ''}`" :src="require(`../assets/chargerTypes/${item.chargerType.name}.png`)" max-width="50px"
                                        style="border-radius: 5px; border: 1px solid black;" v-bind="attrs" v-on="on"/>
@@ -80,7 +82,7 @@
                                        @click="showCarDetails(item.currentlyChargingCar, item.id)" v-on="on"></v-img>
                             </template>
 
-                            <v-card v-if="carDetails !== null">
+                            <v-card v-if="carDetails !== null" class="zoom-out">
                                 <v-card-title class="mb-n4">
                                     Car Details
                                 </v-card-title>
@@ -262,7 +264,7 @@ export default {
     }
     .details {
         position: fixed;
-        top: 350px;
+        top: 300px;
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%);

@@ -3,7 +3,7 @@
         <v-container style="overflow-y: scroll; height: 100%;">
             <v-row no-gutters justify="center">
                 <v-col cols="8" >
-                    <v-card class="mx-auto my-3 rounded-card" max-width="800">
+                    <v-card class="mx-auto my-3 rounded-card zoom-out" max-width="800">
                         <v-card-title class="justify-center py-8">
                             <span style="font-size: 35px;">Sign up</span>
                         </v-card-title>

@@ -1,5 +1,5 @@
 <template>
-    <v-card class="mt-3 pa-5">
+    <v-card class="mt-3 pa-5 zoom-out">
         <v-container>
             <v-row>
                 <v-col cols="12" class="pb-0">

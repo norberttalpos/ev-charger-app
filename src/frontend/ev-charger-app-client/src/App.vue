@@ -4,6 +4,7 @@
             app
             color="appbar"
             dark
+            height="45px"
         >
             <div class="d-flex align-center" style="margin-left: 15px;">
                 <v-img
@@ -12,14 +13,14 @@
                     contain
                     src="../src/assets/woozy.png"
                     transition="scale-transition"
-                    max-width="50"
+                    max-width="35px"
                 />
 
-                <span style="margin-left: 10px; font-size: 40px; font-family: 'Georama', sans-serif !important;">Töltősch</span>
+                <span style="margin-left: 5px; font-size: 30px; font-family: 'Georama', sans-serif !important;">Töltősch</span>
             </div>
             <v-spacer/>
             <dark-mode-toggle></dark-mode-toggle>
-            <v-app-bar-nav-icon v-if="adminNavDrawer" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon class="zoom-out" v-if="adminNavDrawer" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
             <logout-menu v-else></logout-menu>
 
         </v-app-bar>
@@ -57,6 +58,10 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Georama:ital,wght@1,800&display=swap');
+
+.zoom-out {
+    zoom: 75%;
+}
 
 ::-webkit-scrollbar {
     display: none;

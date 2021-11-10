@@ -6,10 +6,10 @@
         floating
         right
         mobile-breakpoint="1264"
+        :width="200"
     >
         <v-dialog
             v-model="dialog"
-            width="500"
         >
             <profile-dialog @close-dialog="dialog=false" />
         </v-dialog>
@@ -17,7 +17,7 @@
             nav
             dense
         >
-            <v-list-item-group v-model="selection">
+            <v-list-item-group v-model="selection" class="zoom-out">
                 <v-list-item @click="profile">
                     <v-list-item-action>
                         <v-icon class="mr-2"

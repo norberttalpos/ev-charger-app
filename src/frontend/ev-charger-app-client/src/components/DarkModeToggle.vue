@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap justify-end>
-        <v-icon class="mr-5" @click="toggleDarkMode" :dark="darkmode">
+        <v-icon class="mr-5 zoom-out" @click="toggleDarkMode" :dark="darkmode">
             {{ !darkmode ? 'mdi-brightness-4' : 'mdi-brightness-7'}}
         </v-icon>
     </v-layout>

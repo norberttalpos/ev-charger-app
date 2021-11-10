@@ -7,16 +7,16 @@
             v-if="logOutAvailable"
         >
             <template v-slot:activator="{ on, attrs }">
-                <v-app-bar-nav-icon v-bind="attrs" v-on="on"></v-app-bar-nav-icon>
+                <v-app-bar-nav-icon class="zoom-out" v-bind="attrs" v-on="on"></v-app-bar-nav-icon>
             </template>
             <v-dialog
                 v-model="dialog"
-                width="500"
+                max-width="400px"
             >
                 <profile-dialog @close-dialog="dialog=false" />
             </v-dialog>
 
-            <v-card>
+            <v-card class="zoom-out">
                 <v-list>
                     <v-list-item @click="profile">
                         <v-list-item-action>

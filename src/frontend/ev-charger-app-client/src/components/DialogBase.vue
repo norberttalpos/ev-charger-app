@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card max-width="400">
         <v-card-title class="text-h5 darkprimary" style="color: white; ">
             {{ title }}
         </v-card-title>
@@ -15,9 +15,9 @@
             </v-tab>
         </v-tabs>
 
-        <v-card class="mx-auto my-3  elevation-0" max-width="800">
+        <v-card class="mx-auto my-3  elevation-0">
             <v-card-text>
-                <v-container>
+                <v-container class="zoom-out">
                     <slot name="default"/>
                 </v-container>
             </v-card-text>

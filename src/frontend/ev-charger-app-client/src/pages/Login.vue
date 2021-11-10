@@ -1,6 +1,6 @@
 <template>
     <div :class="`${this.$vuetify.theme.dark ? 'background-purple' : 'background-green'}`" style="position: absolute; height: 100%; width: 100%;">
-        <v-card class="mx-auto rounded-card" max-width="400" height="480" style="margin-top: 150px;">
+        <v-card class="mx-auto rounded-card zoom-out" max-width="400" height="480" style="margin-top: 150px;">
             <v-card-title class="justify-center py-8">
                 <span style="font-size: 35px;">Login</span>
             </v-card-title>
