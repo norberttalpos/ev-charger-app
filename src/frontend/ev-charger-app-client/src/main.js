@@ -11,7 +11,7 @@ import {googleMapsApiKey} from "../key";
 
 Vue.config.productionTip = false
 
-export const serverprefix = "http://localhost:8080";
+export const serverprefix = window.location.protocol + '//' + window.location.hostname + ":8080/"
 
 Vue.directive('blur', {
 	inserted: function (el) {
