@@ -20,8 +20,11 @@ services:
       - 5432
 
   backend:
-    image: norberttalpos/ev-charger-app-backend
+    image: ev-charger-app-backend
     container_name: ev-charger-app-backend
+    build:
+      context: .
+      dockerfile:  Dockerfile
     environment:
       WAIT_HOSTS: postgres:5432
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/db
@@ -41,8 +44,11 @@ services:
       - backdb
 
   frontend:
-    image: norberttalpos/ev-charger-app-frontend:latest
+    image: ev-charger-app-frontend
     container_name: ev-charger-app-frontend
+    build:
+      context: src/frontend/ev-charger-app-client
+      dockerfile: Dockerfile
     ports:
       - 8081:8080
     depends_on:
