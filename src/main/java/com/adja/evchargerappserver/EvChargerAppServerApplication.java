@@ -43,6 +43,15 @@ public class EvChargerAppServerApplication {
 				e.printStackTrace();
 			}
 
+			try {
+				Person admin=personService.getByUsername("admin");
+				admin.setPassword("admin");
+				personService.put(admin.getId(),admin);
+			}
+			catch(NotValidUpdateException e) {
+				e.printStackTrace();
+			}
+
 
 
 			try {
@@ -61,6 +70,19 @@ public class EvChargerAppServerApplication {
 
 			try {
 				personService.addRoleToUser("norbi", "role_user");
+			}
+			catch(NotValidUpdateException e) {
+				e.printStackTrace();
+			}
+			try {
+				personService.addRoleToUser("admin", "role_admin");
+			}
+			catch(NotValidUpdateException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				personService.addRoleToUser("admin", "role_user");
 			}
 			catch(NotValidUpdateException e) {
 				e.printStackTrace();
