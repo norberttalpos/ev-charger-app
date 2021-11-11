@@ -1,6 +1,6 @@
 package com.adja.evchargerappserver.api.notification;
 
-import com.adja.evchargerappserver.api.abstracts.CustomRepository;
+import com.adja.evchargerappserver.api.abstracts.AbstractRepository;
 
-public interface NotificationRepository extends CustomRepository<Notification> {
+public interface NotificationRepository extends AbstractRepository<Notification> {
 }

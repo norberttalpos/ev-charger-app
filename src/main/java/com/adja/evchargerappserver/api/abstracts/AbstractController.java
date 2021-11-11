@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.api.abstracts;
 
+import com.adja.evchargerappserver.api.NotValidUpdateException;
 import com.adja.evchargerappserver.security.JwtUtil;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-public abstract class AbstractController<ENTITY extends AbstractEntity, FILTER, SERVICE extends AbstractService<ENTITY, FILTER, ? extends CustomRepository<ENTITY>>> {
+public abstract class AbstractController<ENTITY extends AbstractEntity, FILTER, SERVICE extends AbstractService<ENTITY, FILTER, ? extends AbstractRepository<ENTITY>>> {
 
     @Autowired
     protected SERVICE service;

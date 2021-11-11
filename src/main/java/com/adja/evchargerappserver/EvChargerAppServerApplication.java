@@ -1,6 +1,6 @@
 package com.adja.evchargerappserver;
 
-import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
+import com.adja.evchargerappserver.api.NotValidUpdateException;
 import com.adja.evchargerappserver.api.person.Person;
 import com.adja.evchargerappserver.api.person.PersonService;
 import org.springframework.boot.CommandLineRunner;

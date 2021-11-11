@@ -2,7 +2,7 @@ package com.adja.evchargerappserver.api.person;
 
 
 import com.adja.evchargerappserver.api.abstracts.AbstractController;
-import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
+import com.adja.evchargerappserver.api.NotValidUpdateException;
 import com.adja.evchargerappserver.api.role.Role;
 import com.adja.evchargerappserver.security.JwtUtil;
 import io.swagger.annotations.Api;

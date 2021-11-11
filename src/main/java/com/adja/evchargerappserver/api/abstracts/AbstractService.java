@@ -1,5 +1,6 @@
 package com.adja.evchargerappserver.api.abstracts;
 
+import com.adja.evchargerappserver.api.NotValidUpdateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 @Service
-public abstract class AbstractService<ENTITY extends AbstractEntity, FILTER, REPOSITORY extends CustomRepository<ENTITY>> {
+public abstract class AbstractService<ENTITY extends AbstractEntity, FILTER, REPOSITORY extends AbstractRepository<ENTITY>> {
 
     @Autowired
     protected REPOSITORY repository;

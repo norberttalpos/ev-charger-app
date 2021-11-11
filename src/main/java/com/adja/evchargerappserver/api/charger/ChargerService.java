@@ -1,14 +1,12 @@
 package com.adja.evchargerappserver.api.charger;
 
 import com.adja.evchargerappserver.api.abstracts.AbstractService;
-import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
+import com.adja.evchargerappserver.api.NotValidUpdateException;
 import com.adja.evchargerappserver.api.chargertype.ChargerTypeRepository;
-import com.adja.evchargerappserver.api.chargingstation.ChargingStationRepository;
+import com.adja.evchargerappserver.api.chargingstation.repository.ChargingStationRepository;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarRepository;
-import com.adja.evchargerappserver.api.electriccar.ElectricCarService;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

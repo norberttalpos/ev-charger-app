@@ -1,4 +1,4 @@
-package com.adja.evchargerappserver.api.abstracts;
+package com.adja.evchargerappserver.api;
 
 public class NotValidUpdateException extends Exception {
 

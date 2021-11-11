@@ -1,7 +1,7 @@
 package com.adja.evchargerappserver.api.person;
 
 import com.adja.evchargerappserver.api.abstracts.AbstractService;
-import com.adja.evchargerappserver.api.abstracts.NotValidUpdateException;
+import com.adja.evchargerappserver.api.NotValidUpdateException;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarRepository;
 import com.adja.evchargerappserver.api.role.Role;
 import com.adja.evchargerappserver.api.role.RoleRepository;
