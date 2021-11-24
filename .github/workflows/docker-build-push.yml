@@ -46,8 +46,8 @@ jobs:
         id: docker-build-backend
         uses: docker/build-push-action@v2
         with:
-          context: .
-          file: Dockerfile
+          context: ./
+          file: ./Dockerfile
           builder: ${{ steps.backend-builder.outputs.name }}
           push: true
           tags: norberttalpos/ev-charger-app-backend:latest
