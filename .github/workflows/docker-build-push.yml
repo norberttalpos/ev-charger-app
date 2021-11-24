@@ -49,7 +49,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./src/frontend/ev-charger-app-client
-          file: Dockerfile
+          file: ./src/frontend/ev-charger-app-client/Dockerfile
           push: true
           tags: norberttalpos/ev-charger-app-frontend:latest
 
