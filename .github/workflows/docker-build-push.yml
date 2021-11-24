@@ -22,7 +22,8 @@ jobs:
         image: norberttalpos/ev-charger-app-frontend
         tags: latest
         registry: docker.io
-        dockerfile: ./src/frontend/ev-charger-app-client/Dockerfile
+        context: ./src/frontend/ev-charger-app-client
+        dockerfile: Dockerfile
         username: norberttalpos
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         
