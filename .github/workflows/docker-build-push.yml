@@ -9,7 +9,6 @@ on:
 jobs:
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +21,7 @@ jobs:
           java-version: 11
       - name: Build with Maven
         run:
-          mvn clean package --file pom.xml
+          mvn clean install -DskipTests --file pom.xml
 
       - uses: actions/checkout@v1
 
@@ -36,7 +35,7 @@ jobs:
           path: target/
 
   docker:
-
+    needs: [build]
     runs-on: ubuntu-latest
 
     steps:
