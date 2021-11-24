@@ -20,7 +20,7 @@ services:
       - 5432
 
   backend:
-    image: norberttalpos/ev-charger-app-backend
+    image: norberttalpos/ev-charger-app-backend:latest
     container_name: ev-charger-app-backend
     environment:
       WAIT_HOSTS: postgres:5432

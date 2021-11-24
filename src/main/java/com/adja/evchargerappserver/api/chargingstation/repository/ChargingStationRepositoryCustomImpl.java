@@ -2,7 +2,6 @@ package com.adja.evchargerappserver.api.chargingstation.repository;
 
 import com.adja.evchargerappserver.api.chargingstation.ChargingStation;
 import com.adja.evchargerappserver.api.chargingstation.ChargingStationFilter;
-import com.adja.evchargerappserver.api.chargingstation.repository.ChargingStationRepositoryCustom;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
