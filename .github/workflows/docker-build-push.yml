@@ -1,0 +1,37 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      name: Check out code
+
+    - uses: mr-smithers-excellent/docker-build-push@v5
+      name: Build & push frontend image
+      with:
+        image: norberttalpos/ev-charger-app-frontend
+        tags: latest
+        registry: docker.io
+        dockerfile: ./src/frontend/ev-charger-app-client/Dockerfile
+        username: norberttalpos
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+        
+    - uses: mr-smithers-excellent/docker-build-push@v5
+      name: Build & push backend image
+      with:
+        image: norberttalpos/ev-charger-app-backend
+        tags: latest
+        registry: docker.io
+        dockerfile: ./Dockerfile
+        username: norberttalpos
+        password: ${{ secrets.DOCKER_PASSWORD }}
