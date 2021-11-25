@@ -24,11 +24,6 @@ jobs:
         run:
           mvn clean install -DskipTests --file pom.xml
 
-  docker:
-    needs: [build]
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
         with:
