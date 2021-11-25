@@ -46,6 +46,7 @@ jobs:
         id: docker-build-frontend
         uses: docker/build-push-action@v2
         with:
+          context: ./src/frontend/ev-charger-app-client/
           file: ./src/frontend/ev-charger-app-client/Dockerfile
           builder: ${{ steps.frontend-builder.outputs.name }}
           push: true
