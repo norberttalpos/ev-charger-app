@@ -29,11 +29,11 @@ jobs:
 
       - run: mkdir -p target/
 
-      - run: echo hello > target/ev-charger-app-server.jar
+      - run: echo hello > target/de-sy-file.jar
 
       - uses: actions/upload-artifact@v1
         with:
-          name: ev-charger-app-server
+          name: de-sy-file
           path: target/
 
       - name: Log in to Docker Hub
