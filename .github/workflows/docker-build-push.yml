@@ -35,6 +35,9 @@ jobs:
           username: norberttalpos
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      - uses: actions/checkout@v2
+        name: Check out code
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 
