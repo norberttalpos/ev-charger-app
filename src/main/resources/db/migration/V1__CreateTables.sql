@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Person (
       name   varchar(200)  NOT NULL,
       username varchar(200) UNIQUE NOT NULL,
       password varchar(200) ,
-      email   varchar(200)   NOT NULL, --todo API-ba beírni
+      email   varchar(200)   NOT NULL,
       phone_number   varchar(200),
       car_ID   integer,
     CONSTRAINT   pk_Person   PRIMARY KEY (
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS CarTypeJoin   (
 );
 CREATE TABLE IF NOT EXISTS ChargerType   (
       ID   SERIAL    NOT NULL,
-      name varchar(200) NOT NULL, --todo
+      name varchar(200) NOT NULL,
       max_charging_speed   integer   NOT NULL,
     CONSTRAINT   pk_ChargerType   PRIMARY KEY (
           ID
@@ -118,7 +118,7 @@ delete from notification where 1 = 1;
 
 insert into location (coordinates) values ('point(19.0525943 47.5601654)');
 insert into location (coordinates) values ('point(18.9964085 47.5970892)');
-insert into location (coordinates) values ('point(20.6900155 47.8284580');
+insert into location (coordinates) values ('point(20.6900155 47.8284580)');
 
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('BMW i3',19,8,6);
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('Renault Zoe',36,50,5);
