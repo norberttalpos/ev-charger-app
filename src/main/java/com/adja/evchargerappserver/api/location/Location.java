@@ -31,9 +31,4 @@ public class Location extends AbstractEntity {
         Location location = (Location) o;
         return getId() != null && Objects.equals(getId(), location.getId());
     }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

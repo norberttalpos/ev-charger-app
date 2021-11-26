@@ -39,9 +39,4 @@ public class ChargingStation extends AbstractEntity {
         ChargingStation that = (ChargingStation) o;
         return getId() != null && Objects.equals(getId(), that.getId());
     }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

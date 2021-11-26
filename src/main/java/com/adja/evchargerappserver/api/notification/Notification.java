@@ -33,9 +33,4 @@ public class Notification extends AbstractEntity {
         Notification that = (Notification) o;
         return getId() != null && Objects.equals(getId(), that.getId());
     }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

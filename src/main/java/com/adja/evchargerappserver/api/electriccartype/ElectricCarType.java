@@ -47,9 +47,4 @@ public class ElectricCarType extends AbstractEntity {
         ElectricCarType that = (ElectricCarType) o;
         return getId() != null && Objects.equals(getId(), that.getId());
     }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

@@ -67,9 +67,4 @@ public class Person extends AbstractEntity {
         Person person = (Person) o;
         return getId() != null && Objects.equals(getId(), person.getId());
     }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

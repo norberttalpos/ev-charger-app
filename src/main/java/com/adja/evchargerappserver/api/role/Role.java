@@ -29,9 +29,4 @@ public class Role extends AbstractEntity {
         Role role = (Role) o;
         return getId() != null && Objects.equals(getId(), role.getId());
     }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

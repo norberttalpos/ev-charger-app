@@ -51,9 +51,4 @@ public class Charger extends AbstractEntity {
         Charger charger = (Charger) o;
         return getId() != null && Objects.equals(getId(), charger.getId());
     }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }
