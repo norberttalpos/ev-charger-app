@@ -1,4 +1,3 @@
----
 swagger: '2.0'
 info:
   description: ev-charger-app API to perform CRUD opertations
@@ -7,34 +6,40 @@ info:
   termsOfService: Terms of service
   contact:
     name: Adja
+  license:
+    name: License of API
 host: localhost:8080
-basePath: "/"
+basePath: /
 tags:
+  - name: Charger
+    description: Charger Controller
   - name: ChargerType
     description: Charger Type Controller
-  - name: Chargers
-    description: Charger Controller
-  - name: ChargingStations
+  - name: ChargingStation
     description: Charging Station Controller
-  - name: ElectricCarTypes
-    description: Electric Car Type Controller
-  - name: ElectricCars
+  - name: ElectricCar
     description: Electric Car Controller
-  - name: Locations
+  - name: ElectricCarType
+    description: Electric Car Type Controller
+  - name: EmailSending
+    description: Email Sending Controller
+  - name: Location
     description: Location Controller
-  - name: Persons
+  - name: Notification
+    description: Notification Controller
+  - name: Person
     description: Person Controller
   - name: TokenHandler
     description: Token Controller
 paths:
-  "/api/charger":
+  /api/charger:
     get:
       tags:
-        - Chargers
+        - Charger
       summary: getAll
       operationId: getAllUsingGET
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -46,7 +51,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/Charger"
+              $ref: '#/definitions/Charger'
         '401':
           description: Unauthorized
         '403':
@@ -58,13 +63,13 @@ paths:
       deprecated: false
     post:
       tags:
-        - Chargers
+        - Charger
       summary: post
       operationId: postUsingPOST
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -75,7 +80,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/Charger"
+            $ref: '#/definitions/Charger'
       responses:
         '200':
           description: OK
@@ -92,16 +97,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/charger/search":
+  /api/charger/search:
     post:
       tags:
-        - Chargers
+        - Charger
       summary: search
       operationId: searchUsingPOST
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -112,14 +117,14 @@ paths:
           description: filter
           required: true
           schema:
-            "$ref": "#/definitions/ChargerFilter"
+            $ref: '#/definitions/ChargerFilter'
       responses:
         '200':
           description: OK
           schema:
             type: array
             items:
-              "$ref": "#/definitions/Charger"
+              $ref: '#/definitions/Charger'
         '201':
           description: Created
         '401':
@@ -131,14 +136,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/charger/{id}":
+  /api/charger/{id}:
     get:
       tags:
-        - Chargers
+        - Charger
       summary: getById
       operationId: getByIdUsingGET
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -154,7 +159,7 @@ paths:
         '200':
           description: OK
           schema:
-            "$ref": "#/definitions/Charger"
+            $ref: '#/definitions/Charger'
         '401':
           description: Unauthorized
         '403':
@@ -166,13 +171,13 @@ paths:
       deprecated: false
     put:
       tags:
-        - Chargers
+        - Charger
       summary: put
       operationId: putUsingPUT
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -183,7 +188,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/Charger"
+            $ref: '#/definitions/Charger'
         - name: id
           in: path
           description: id
@@ -208,11 +213,11 @@ paths:
       deprecated: false
     delete:
       tags:
-        - Chargers
+        - Charger
       summary: deleteById
       operationId: deleteByIdUsingDELETE
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -238,14 +243,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/chargerType":
+  /api/chargerType:
     get:
       tags:
         - ChargerType
       summary: getAll
       operationId: getAllUsingGET_1
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -257,7 +262,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/ChargerType"
+              $ref: '#/definitions/ChargerType'
         '401':
           description: Unauthorized
         '403':
@@ -275,7 +280,7 @@ paths:
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -286,7 +291,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/ChargerType"
+            $ref: '#/definitions/ChargerType'
       responses:
         '200':
           description: OK
@@ -303,7 +308,7 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/chargerType/search":
+  /api/chargerType/search:
     post:
       tags:
         - ChargerType
@@ -312,7 +317,7 @@ paths:
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -323,14 +328,14 @@ paths:
           description: filter
           required: true
           schema:
-            "$ref": "#/definitions/ChargerTypeFilter"
+            $ref: '#/definitions/ChargerTypeFilter'
       responses:
         '200':
           description: OK
           schema:
             type: array
             items:
-              "$ref": "#/definitions/ChargerType"
+              $ref: '#/definitions/ChargerType'
         '201':
           description: Created
         '401':
@@ -342,14 +347,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/chargerType/{id}":
+  /api/chargerType/{id}:
     get:
       tags:
         - ChargerType
       summary: getById
       operationId: getByIdUsingGET_1
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -365,7 +370,7 @@ paths:
         '200':
           description: OK
           schema:
-            "$ref": "#/definitions/ChargerType"
+            $ref: '#/definitions/ChargerType'
         '401':
           description: Unauthorized
         '403':
@@ -383,7 +388,7 @@ paths:
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -394,7 +399,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/ChargerType"
+            $ref: '#/definitions/ChargerType'
         - name: id
           in: path
           description: id
@@ -423,7 +428,7 @@ paths:
       summary: deleteById
       operationId: deleteByIdUsingDELETE_1
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -449,14 +454,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/chargingStation":
+  /api/chargingStation:
     get:
       tags:
-        - ChargingStations
+        - ChargingStation
       summary: getAll
       operationId: getAllUsingGET_2
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -468,7 +473,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/ChargingStation"
+              $ref: '#/definitions/ChargingStation'
         '401':
           description: Unauthorized
         '403':
@@ -480,13 +485,13 @@ paths:
       deprecated: false
     post:
       tags:
-        - ChargingStations
+        - ChargingStation
       summary: post
       operationId: postUsingPOST_2
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -497,7 +502,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/ChargingStation"
+            $ref: '#/definitions/ChargingStation'
       responses:
         '200':
           description: OK
@@ -514,16 +519,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/chargingStation/search":
+  /api/chargingStation/search:
     post:
       tags:
-        - ChargingStations
+        - ChargingStation
       summary: search
       operationId: searchUsingPOST_2
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -534,14 +539,14 @@ paths:
           description: filter
           required: true
           schema:
-            "$ref": "#/definitions/ChargingStationFilter"
+            $ref: '#/definitions/ChargingStationFilter'
       responses:
         '200':
           description: OK
           schema:
             type: array
             items:
-              "$ref": "#/definitions/ChargingStation"
+              $ref: '#/definitions/ChargingStation'
         '201':
           description: Created
         '401':
@@ -553,14 +558,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/chargingStation/{id}":
+  /api/chargingStation/{id}:
     get:
       tags:
-        - ChargingStations
+        - ChargingStation
       summary: getById
       operationId: getByIdUsingGET_2
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -576,7 +581,7 @@ paths:
         '200':
           description: OK
           schema:
-            "$ref": "#/definitions/ChargingStation"
+            $ref: '#/definitions/ChargingStation'
         '401':
           description: Unauthorized
         '403':
@@ -588,13 +593,13 @@ paths:
       deprecated: false
     put:
       tags:
-        - ChargingStations
+        - ChargingStation
       summary: put
       operationId: putUsingPUT_2
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -605,7 +610,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/ChargingStation"
+            $ref: '#/definitions/ChargingStation'
         - name: id
           in: path
           description: id
@@ -630,11 +635,11 @@ paths:
       deprecated: false
     delete:
       tags:
-        - ChargingStations
+        - ChargingStation
       summary: deleteById
       operationId: deleteByIdUsingDELETE_2
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -660,14 +665,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/electricCar":
+  /api/electricCar:
     get:
       tags:
-        - ElectricCars
+        - ElectricCar
       summary: getAll
       operationId: getAllUsingGET_3
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -679,7 +684,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/ElectricCar"
+              $ref: '#/definitions/ElectricCar'
         '401':
           description: Unauthorized
         '403':
@@ -691,13 +696,13 @@ paths:
       deprecated: false
     post:
       tags:
-        - ElectricCars
+        - ElectricCar
       summary: post
       operationId: postUsingPOST_3
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -708,7 +713,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/ElectricCar"
+            $ref: '#/definitions/ElectricCar'
       responses:
         '200':
           description: OK
@@ -725,16 +730,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/electricCar/search":
+  /api/electricCar/search:
     post:
       tags:
-        - ElectricCars
+        - ElectricCar
       summary: search
       operationId: searchUsingPOST_3
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -745,14 +750,14 @@ paths:
           description: filter
           required: true
           schema:
-            "$ref": "#/definitions/ElectricCarFilter"
+            $ref: '#/definitions/ElectricCarFilter'
       responses:
         '200':
           description: OK
           schema:
             type: array
             items:
-              "$ref": "#/definitions/ElectricCar"
+              $ref: '#/definitions/ElectricCar'
         '201':
           description: Created
         '401':
@@ -764,14 +769,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/electricCar/{id}":
+  /api/electricCar/{id}:
     get:
       tags:
-        - ElectricCars
+        - ElectricCar
       summary: getById
       operationId: getByIdUsingGET_3
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -787,7 +792,7 @@ paths:
         '200':
           description: OK
           schema:
-            "$ref": "#/definitions/ElectricCar"
+            $ref: '#/definitions/ElectricCar'
         '401':
           description: Unauthorized
         '403':
@@ -799,13 +804,13 @@ paths:
       deprecated: false
     put:
       tags:
-        - ElectricCars
+        - ElectricCar
       summary: put
       operationId: putUsingPUT_3
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -816,7 +821,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/ElectricCar"
+            $ref: '#/definitions/ElectricCar'
         - name: id
           in: path
           description: id
@@ -841,11 +846,11 @@ paths:
       deprecated: false
     delete:
       tags:
-        - ElectricCars
+        - ElectricCar
       summary: deleteById
       operationId: deleteByIdUsingDELETE_3
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -871,16 +876,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/electricCar/{id}/endCharging":
+  /api/electricCar/{id}/endCharging:
     post:
       tags:
-        - ElectricCars
+        - ElectricCar
       summary: endCharging
       operationId: endChargingUsingPOST
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -908,16 +913,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/electricCar/{id}/startCharging":
+  /api/electricCar/{id}/startCharging:
     post:
       tags:
-        - ElectricCars
+        - ElectricCar
       summary: startCharging
       operationId: startChargingUsingPOST
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -934,7 +939,7 @@ paths:
           description: requestBody
           required: true
           schema:
-            "$ref": "#/definitions/StartChargingRequest"
+            $ref: '#/definitions/StartChargingRequest'
       responses:
         '200':
           description: OK
@@ -951,14 +956,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/electricCarType":
+  /api/electricCarType:
     get:
       tags:
-        - ElectricCarTypes
+        - ElectricCarType
       summary: getAll
       operationId: getAllUsingGET_4
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -970,7 +975,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/ElectricCarType"
+              $ref: '#/definitions/ElectricCarType'
         '401':
           description: Unauthorized
         '403':
@@ -982,13 +987,13 @@ paths:
       deprecated: false
     post:
       tags:
-        - ElectricCarTypes
+        - ElectricCarType
       summary: post
       operationId: postUsingPOST_4
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -999,7 +1004,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/ElectricCarType"
+            $ref: '#/definitions/ElectricCarType'
       responses:
         '200':
           description: OK
@@ -1016,16 +1021,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/electricCarType/search":
+  /api/electricCarType/search:
     post:
       tags:
-        - ElectricCarTypes
+        - ElectricCarType
       summary: search
       operationId: searchUsingPOST_4
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1036,14 +1041,14 @@ paths:
           description: filter
           required: true
           schema:
-            "$ref": "#/definitions/ElectricCarTypeFilter"
+            $ref: '#/definitions/ElectricCarTypeFilter'
       responses:
         '200':
           description: OK
           schema:
             type: array
             items:
-              "$ref": "#/definitions/ElectricCarType"
+              $ref: '#/definitions/ElectricCarType'
         '201':
           description: Created
         '401':
@@ -1055,14 +1060,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/electricCarType/{id}":
+  /api/electricCarType/{id}:
     get:
       tags:
-        - ElectricCarTypes
+        - ElectricCarType
       summary: getById
       operationId: getByIdUsingGET_4
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1078,7 +1083,7 @@ paths:
         '200':
           description: OK
           schema:
-            "$ref": "#/definitions/ElectricCarType"
+            $ref: '#/definitions/ElectricCarType'
         '401':
           description: Unauthorized
         '403':
@@ -1090,13 +1095,13 @@ paths:
       deprecated: false
     put:
       tags:
-        - ElectricCarTypes
+        - ElectricCarType
       summary: put
       operationId: putUsingPUT_4
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1107,7 +1112,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/ElectricCarType"
+            $ref: '#/definitions/ElectricCarType'
         - name: id
           in: path
           description: id
@@ -1132,11 +1137,11 @@ paths:
       deprecated: false
     delete:
       tags:
-        - ElectricCarTypes
+        - ElectricCarType
       summary: deleteById
       operationId: deleteByIdUsingDELETE_4
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1162,16 +1167,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/hasRightForPage":
+  /api/hasRightForPage:
     post:
       tags:
         - TokenHandler
       summary: AuthChecking
-      operationId: postUsingPOST_7
+      operationId: postUsingPOST_8
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1182,7 +1187,7 @@ paths:
           description: body
           required: true
           schema:
-            "$ref": "#/definitions/RouteAuthoriztationRequest"
+            $ref: '#/definitions/PageAuthorizationRequest'
       responses:
         '200':
           description: OK
@@ -1201,14 +1206,14 @@ paths:
         '404':
           description: Not Found
       deprecated: false
-  "/api/location":
+  /api/location:
     get:
       tags:
-        - Locations
+        - Location
       summary: getAll
       operationId: getAllUsingGET_5
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1220,7 +1225,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/Location"
+              $ref: '#/definitions/Location'
         '401':
           description: Unauthorized
         '403':
@@ -1232,13 +1237,13 @@ paths:
       deprecated: false
     post:
       tags:
-        - Locations
+        - Location
       summary: post
       operationId: postUsingPOST_5
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1249,7 +1254,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/Location"
+            $ref: '#/definitions/Location'
       responses:
         '200':
           description: OK
@@ -1266,16 +1271,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/location/search":
+  /api/location/search:
     post:
       tags:
-        - Locations
+        - Location
       summary: search
       operationId: searchUsingPOST_5
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1286,14 +1291,14 @@ paths:
           description: filter
           required: true
           schema:
-            "$ref": "#/definitions/LocationFilter"
+            $ref: '#/definitions/LocationFilter'
       responses:
         '200':
           description: OK
           schema:
             type: array
             items:
-              "$ref": "#/definitions/Location"
+              $ref: '#/definitions/Location'
         '201':
           description: Created
         '401':
@@ -1305,14 +1310,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/location/{id}":
+  /api/location/{id}:
     get:
       tags:
-        - Locations
+        - Location
       summary: getById
       operationId: getByIdUsingGET_5
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1328,7 +1333,7 @@ paths:
         '200':
           description: OK
           schema:
-            "$ref": "#/definitions/Location"
+            $ref: '#/definitions/Location'
         '401':
           description: Unauthorized
         '403':
@@ -1340,13 +1345,13 @@ paths:
       deprecated: false
     put:
       tags:
-        - Locations
+        - Location
       summary: put
       operationId: putUsingPUT_5
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1357,7 +1362,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/Location"
+            $ref: '#/definitions/Location'
         - name: id
           in: path
           description: id
@@ -1382,11 +1387,11 @@ paths:
       deprecated: false
     delete:
       tags:
-        - Locations
+        - Location
       summary: deleteById
       operationId: deleteByIdUsingDELETE_5
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1412,7 +1417,7 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/login":
+  /api/login:
     post:
       tags:
         - TokenHandler
@@ -1421,7 +1426,7 @@ paths:
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1432,7 +1437,7 @@ paths:
           description: body
           required: true
           schema:
-            "$ref": "#/definitions/AuthenticationRequest"
+            $ref: '#/definitions/AuthenticationRequest'
       responses:
         '200':
           description: OK
@@ -1445,14 +1450,14 @@ paths:
         '404':
           description: Not Found
       deprecated: false
-  "/api/person":
+  /api/notification:
     get:
       tags:
-        - Persons
+        - Notification
       summary: getAll
       operationId: getAllUsingGET_6
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1464,7 +1469,7 @@ paths:
           schema:
             type: array
             items:
-              "$ref": "#/definitions/Person"
+              $ref: '#/definitions/Notification'
         '401':
           description: Unauthorized
         '403':
@@ -1474,16 +1479,15 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/person/register":
     post:
       tags:
-        - Persons
+        - Notification
       summary: post
       operationId: postUsingPOST_6
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1494,7 +1498,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/Person"
+            $ref: '#/definitions/Notification'
       responses:
         '200':
           description: OK
@@ -1511,16 +1515,16 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/person/search":
+  /api/notification/search:
     post:
       tags:
-        - Persons
+        - Notification
       summary: search
       operationId: searchUsingPOST_6
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1531,14 +1535,14 @@ paths:
           description: filter
           required: true
           schema:
-            "$ref": "#/definitions/PersonFilter"
+            $ref: '#/definitions/NotificationFilter'
       responses:
         '200':
           description: OK
           schema:
             type: array
             items:
-              "$ref": "#/definitions/Person"
+              $ref: '#/definitions/Notification'
         '201':
           description: Created
         '401':
@@ -1550,14 +1554,14 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/person/{id}":
+  /api/notification/{id}:
     get:
       tags:
-        - Persons
+        - Notification
       summary: getById
       operationId: getByIdUsingGET_6
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1573,7 +1577,7 @@ paths:
         '200':
           description: OK
           schema:
-            "$ref": "#/definitions/Person"
+            $ref: '#/definitions/Notification'
         '401':
           description: Unauthorized
         '403':
@@ -1585,13 +1589,13 @@ paths:
       deprecated: false
     put:
       tags:
-        - Persons
+        - Notification
       summary: put
       operationId: putUsingPUT_6
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1602,7 +1606,7 @@ paths:
           description: entity
           required: true
           schema:
-            "$ref": "#/definitions/Person"
+            $ref: '#/definitions/Notification'
         - name: id
           in: path
           description: id
@@ -1627,11 +1631,11 @@ paths:
       deprecated: false
     delete:
       tags:
-        - Persons
+        - Notification
       summary: deleteById
       operationId: deleteByIdUsingDELETE_6
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1657,16 +1661,255 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/person/{id}/addrole":
+  /api/person:
+    get:
+      tags:
+        - Person
+      summary: getAll
+      operationId: getAllUsingGET_7
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Person'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
+  /api/person/current-person:
+    get:
+      tags:
+        - Person
+      summary: getByJwtToken
+      operationId: getByJwtTokenUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Person'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
+  /api/person/register:
+    post:
+      tags:
+        - Person
+      summary: post
+      operationId: postUsingPOST_7
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - in: body
+          name: entity
+          description: entity
+          required: true
+          schema:
+            $ref: '#/definitions/Person'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
+  /api/person/search:
+    post:
+      tags:
+        - Person
+      summary: search
+      operationId: searchUsingPOST_7
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - in: body
+          name: filter
+          description: filter
+          required: true
+          schema:
+            $ref: '#/definitions/PersonFilter'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Person'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
+  /api/person/{id}:
+    get:
+      tags:
+        - Person
+      summary: getById
+      operationId: getByIdUsingGET_7
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Person'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
     put:
       tags:
-        - Persons
+        - Person
+      summary: put
+      operationId: putUsingPUT_7
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - in: body
+          name: entity
+          description: entity
+          required: true
+          schema:
+            $ref: '#/definitions/Person'
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
+    delete:
+      tags:
+        - Person
+      summary: deleteById
+      operationId: deleteByIdUsingDELETE_7
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+        - Bearer: []
+      deprecated: false
+  /api/person/{id}/addrole:
+    put:
+      tags:
+        - Person
       summary: addRoleToUser
       operationId: addRoleToUserUsingPUT
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1682,12 +1925,12 @@ paths:
           description: role
           required: true
           schema:
-            "$ref": "#/definitions/Role"
+            $ref: '#/definitions/Role'
       responses:
         '200':
           description: OK
           schema:
-            "$ref": "#/definitions/Person"
+            $ref: '#/definitions/Person'
         '201':
           description: Created
         '401':
@@ -1699,7 +1942,38 @@ paths:
       security:
         - Bearer: []
       deprecated: false
-  "/api/token/refresh":
+  /api/role:
+    get:
+      tags:
+        - TokenHandler
+      summary: RoleChecking
+      operationId: getRoleUsingGET
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+            enum:
+              - user
+              - admin
+              - none
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
+  /api/token/refresh:
     post:
       tags:
         - TokenHandler
@@ -1708,7 +1982,7 @@ paths:
       consumes:
         - application/json
       produces:
-        - "*/*"
+        - '*/*'
       parameters:
         - name: Authorization
           in: header
@@ -1725,6 +1999,43 @@ paths:
           description: Forbidden
         '404':
           description: Not Found
+      deprecated: false
+  /email/sendmail:
+    post:
+      tags:
+        - EmailSending
+      summary: sendmail
+      operationId: sendmailUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - in: body
+          name: request
+          description: request
+          required: true
+          schema:
+            $ref: '#/definitions/EmailRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
       deprecated: false
 securityDefinitions:
   Bearer:
@@ -1744,9 +2055,9 @@ definitions:
     type: object
     properties:
       chargerType:
-        "$ref": "#/definitions/ChargerType"
+        $ref: '#/definitions/ChargerType'
       currentlyChargingCar:
-        "$ref": "#/definitions/ElectricCar"
+        $ref: '#/definitions/ElectricCar'
       id:
         type: integer
         format: int64
@@ -1762,6 +2073,8 @@ definitions:
       currentlyChargingCar:
         type: integer
         format: int64
+      observed:
+        type: boolean
       reserved:
         type: boolean
     title: ChargerFilter
@@ -1792,12 +2105,12 @@ definitions:
       chargers:
         type: array
         items:
-          "$ref": "#/definitions/Charger"
+          $ref: '#/definitions/Charger'
       id:
         type: integer
         format: int64
       location:
-        "$ref": "#/definitions/Location"
+        $ref: '#/definitions/Location'
       maxNumberOfChargers:
         type: integer
         format: int32
@@ -1817,7 +2130,7 @@ definitions:
       ownerCompanyName:
         type: string
       point:
-        "$ref": "#/definitions/LongitudeLatitude"
+        $ref: '#/definitions/LongitudeLatitude'
       radius:
         type: number
         format: double
@@ -1829,7 +2142,7 @@ definitions:
         type: integer
         format: int32
       carType:
-        "$ref": "#/definitions/ElectricCarType"
+        $ref: '#/definitions/ElectricCarType'
       id:
         type: integer
         format: int64
@@ -1844,6 +2157,8 @@ definitions:
       charger:
         type: integer
         format: int64
+      currentlyCharging:
+        type: boolean
       driver:
         type: integer
         format: int64
@@ -1865,7 +2180,7 @@ definitions:
       compatibleChargerTypes:
         type: array
         items:
-          "$ref": "#/definitions/ChargerType"
+          $ref: '#/definitions/ChargerType'
       dischargingSpeed:
         type: integer
         format: int32
@@ -1884,11 +2199,21 @@ definitions:
       name:
         type: string
     title: ElectricCarTypeFilter
+  EmailRequest:
+    type: object
+    properties:
+      subject:
+        type: string
+      text:
+        type: string
+      to:
+        type: string
+    title: EmailRequest
   Location:
     type: object
     properties:
       coordinates:
-        "$ref": "#/definitions/LongitudeLatitude"
+        $ref: '#/definitions/LongitudeLatitude'
       id:
         type: integer
         format: int64
@@ -1897,7 +2222,7 @@ definitions:
     type: object
     properties:
       point:
-        "$ref": "#/definitions/LongitudeLatitude"
+        $ref: '#/definitions/LongitudeLatitude'
       radius:
         type: number
         format: double
@@ -1912,11 +2237,40 @@ definitions:
         type: number
         format: double
     title: LongitudeLatitude
+  Notification:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      observedChargerId:
+        type: integer
+        format: int64
+      personToNotifyId:
+        type: integer
+        format: int64
+    title: Notification
+  NotificationFilter:
+    type: object
+    properties:
+      chargerId:
+        type: integer
+        format: int64
+      personId:
+        type: integer
+        format: int64
+    title: NotificationFilter
+  PageAuthorizationRequest:
+    type: object
+    properties:
+      route:
+        type: string
+    title: PageAuthorizationRequest
   Person:
     type: object
     properties:
       car:
-        "$ref": "#/definitions/ElectricCar"
+        $ref: '#/definitions/ElectricCar'
       email:
         type: string
       id:
@@ -1924,6 +2278,10 @@ definitions:
         format: int64
       name:
         type: string
+      observedChargers:
+        type: array
+        items:
+          $ref: '#/definitions/Charger'
       password:
         type: string
       phoneNumber:
@@ -1931,7 +2289,7 @@ definitions:
       roles:
         type: array
         items:
-          "$ref": "#/definitions/Role"
+          $ref: '#/definitions/Role'
       username:
         type: string
     title: Person
@@ -1943,8 +2301,12 @@ definitions:
         format: int64
       email:
         type: string
+      hasCar:
+        type: boolean
       name:
         type: string
+      observingCharger:
+        type: boolean
       phoneNumber:
         type: string
       roleName:
@@ -1961,12 +2323,6 @@ definitions:
       name:
         type: string
     title: Role
-  RouteAuthoriztationRequest:
-    type: object
-    properties:
-      route:
-        type: string
-    title: RouteAuthoriztationRequest
   StartChargingRequest:
     type: object
     properties:
