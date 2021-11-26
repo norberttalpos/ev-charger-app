@@ -20,13 +20,15 @@ jobs:
         env:
           SPRING_APPLICATION_PROPERTIES: ${{ secrets.SPRING_APPLICATION_PROPERTIES }}
         run: |
-          echo $SPRING_APPLICATION_PROPERTIES > $RUNNER_TEMP/src/main/resources/application.properties
+          touch ./src/main/resources/application.properties
+          echo $SPRING_APPLICATION_PROPERTIES > ./src/main/resources/application.properties
 
       - name: Add google maps api key secret js file
         env:
           GOOGLE_MAPS_API_KEY_JS: ${{ secrets.GOOGLE_MAPS_API_KEY_JS }}
         run: |
-          echo $GOOGLE_MAPS_API_KEY_JS > $RUNNER_TEMP/src/frontend/ev-charger-app-client/key.js
+          touch ./src/main/resources/application.properties
+          echo $GOOGLE_MAPS_API_KEY_JS > ./src/frontend/ev-charger-app-client/key.js
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
