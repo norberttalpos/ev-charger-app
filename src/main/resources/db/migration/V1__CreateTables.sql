@@ -118,6 +118,7 @@ delete from notification where 1 = 1;
 
 insert into location (coordinates) values ('point(19.0525943 47.5601654)');
 insert into location (coordinates) values ('point(18.9964085 47.5970892)');
+insert into location (coordinates) values ('point(20.6900155 47.8284580');
 
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('BMW i3',19,8,6);
 insert into electriccartype (name, battery_size, max_charging_speed,discharging_speed) VALUES ('Renault Zoe',36,50,5);
@@ -129,6 +130,7 @@ insert into chargertype (name, max_charging_speed) values ('Type 3',100);
 
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (30,'Mobility',1);
 insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (10,'Mobility',2);
+insert into chargingstation (max_number_of_chargers, owner_company_name, location_id) values (20,'Mobility',3);
 
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Talpos Norbert','norbi','proba','norberttalpos@gmail.com','123',1);
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám','edemsz','proba','viragadam100@gmail.com','123',2);
