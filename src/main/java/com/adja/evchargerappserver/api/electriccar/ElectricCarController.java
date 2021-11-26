@@ -64,6 +64,6 @@ public class ElectricCarController extends AbstractController<ElectricCar, Elect
 
         Person personByName = this.personService.getByUsername(username);
 
-        return Objects.equals(car.getDriver().getId(), personByName.getId());
+        return Objects.equals(car.getId(), personByName.getCar().getId());
     }
 }

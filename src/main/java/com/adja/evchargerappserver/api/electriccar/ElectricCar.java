@@ -20,7 +20,7 @@ public class ElectricCar extends AbstractEntity {
     private String licensePlate;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "car")
+    @OneToOne(mappedBy = "car", optional = false)
     private Person driver;
 
     @Column(name = "battery_percentage", nullable = false)
