@@ -5,12 +5,21 @@ import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarType;
 import com.adja.evchargerappserver.api.person.Person;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity(name = "ElectricCar")
 @Table(name = "electriccar")
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class ElectricCar extends AbstractEntity {
 
     @Column(name = "license_plate", nullable = false)
@@ -31,56 +40,16 @@ public class ElectricCar extends AbstractEntity {
     @JoinColumn(name="car_type_id",nullable = false)
     private ElectricCarType carType;
 
-    public String getLicensePlate() {
-        return licensePlate;
-    }
-
-    public void setLicensePlate(String licensePlate) {
-        this.licensePlate = licensePlate;
-    }
-
-    public int getBatteryPercentage() {
-        return batteryPercentage;
-    }
-
-    public void setBatteryPercentage(int batteryPercentage) {
-        this.batteryPercentage = batteryPercentage;
-    }
-
-    public Person getDriver() {
-        return driver;
-    }
-
-    public void setDriver(Person driver) {
-        this.driver = driver;
-    }
-
-    public ElectricCarType getCarType() {
-        return carType;
-    }
-
-    public void setCarType(ElectricCarType carType) {
-        this.carType = carType;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ElectricCar)) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         ElectricCar that = (ElectricCar) o;
-        return getBatteryPercentage() == that.getBatteryPercentage() && getId().equals(that.getId()) && getLicensePlate().equals(that.getLicensePlate()) && getDriver().equals(that.getDriver()) && getCarType().equals(that.getCarType());
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getLicensePlate(), getBatteryPercentage(), getCarType());
-    }
-
-    public Charger getCharger() {
-        return charger;
-    }
-
-    public void setCharger(Charger charger) {
-        this.charger = charger;
+        return 0;
     }
 }

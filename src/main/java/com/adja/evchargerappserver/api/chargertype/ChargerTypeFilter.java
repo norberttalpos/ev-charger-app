@@ -1,22 +1,9 @@
 package com.adja.evchargerappserver.api.chargertype;
 
+import lombok.Data;
+
+@Data
 public class ChargerTypeFilter {
     private String name;
     private Integer maxChargingSpeed;
-
-    public Integer getMaxChargingSpeed() {
-        return maxChargingSpeed;
-    }
-
-    public void setMaxChargingSpeed(Integer maxChargingSpeed) {
-        this.maxChargingSpeed = maxChargingSpeed;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -1,15 +1,15 @@
 package com.adja.evchargerappserver.api.person;
 
-
 import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
 import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
-import com.adja.evchargerappserver.api.notification.Notification;
 import com.adja.evchargerappserver.api.role.Role;
-import com.adja.evchargerappserver.api.role.RoleRepository;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -17,6 +17,10 @@ import java.util.Objects;
 
 @Entity(name = "Person")
 @Table(name = "person")
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class Person extends AbstractEntity {
 
     @NotNull
@@ -53,87 +57,19 @@ public class Person extends AbstractEntity {
             name = "notification",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "charger_id"))
+    @ToString.Exclude
     private Collection<Charger> observedChargers;
-
-    public Person() {}
-
-    public Person(String name, String username, String password, String email) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
-
-    public String getName() {return name;}
-
-    public void setName(String name) { this.name = name; }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public ElectricCar getCar() {
-        return car;
-    }
-
-    public void setCar(ElectricCar car) {
-        this.car = car;
-    }
-
-    public Collection<Charger> getObservedChargers() {
-        return observedChargers;
-    }
-
-    public void setObservedChargers(Collection<Charger> observedChargers) {
-        this.observedChargers = observedChargers;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Person)) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Person person = (Person) o;
-        return getId().equals(person.getId()) && getName().equals(person.getName()) && getUsername().equals(person.getUsername()) && getPassword().equals(person.getPassword()) && getEmail().equals(person.getEmail()) && Objects.equals(getPhoneNumber(), person.getPhoneNumber()) && Objects.equals(getRoles(), person.getRoles()) && getCar().equals(person.getCar());
+        return getId() != null && Objects.equals(getId(), person.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getUsername(), getPassword(), getEmail(), getPhoneNumber(), getRoles(), getCar());
+        return 0;
     }
 }

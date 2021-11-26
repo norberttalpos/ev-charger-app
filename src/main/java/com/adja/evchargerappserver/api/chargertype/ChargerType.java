@@ -1,12 +1,20 @@
 package com.adja.evchargerappserver.api.chargertype;
 
 import com.adja.evchargerappserver.api.abstracts.AbstractEntity;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity(name = "ChargerType")
 @Table(name = "chargertype")
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class ChargerType extends AbstractEntity {
     @Column(name = "name", nullable = false)
     private String name;
@@ -14,32 +22,16 @@ public class ChargerType extends AbstractEntity {
     @Column(name="max_charging_speed", nullable = false)
     private int maxChargingSpeed;
 
-    public int getMaxChargingSpeed() {
-        return maxChargingSpeed;
-    }
-
-    public void setMaxChargingSpeed(int maxChargingSpeed) {
-        this.maxChargingSpeed = maxChargingSpeed;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ChargerType)) return false;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         ChargerType that = (ChargerType) o;
-        return getMaxChargingSpeed() == that.getMaxChargingSpeed() && getId().equals(that.getId()) && getName().equals(that.getName());
+        return getId() != null && Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getMaxChargingSpeed());
+        return 0;
     }
 }
