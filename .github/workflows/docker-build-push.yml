@@ -21,6 +21,7 @@ jobs:
         run: |
           touch ./src/main/resources/application.properties
           echo $SPRING_APPLICATION_PROPERTIES > ./src/main/resources/application.properties
+          cat $SPRING_APPLICATION_PROPERTIES
 
       - name: Add google maps api key secret js file
         env:
