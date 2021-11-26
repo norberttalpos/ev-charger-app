@@ -28,6 +28,7 @@ jobs:
         run: |
           touch ./src/frontend/ev-charger-app-client/key.js
           echo $GOOGLE_MAPS_API_KEY_JS > ./src/frontend/ev-charger-app-client/key.js
+          cat ./src/main/resources/application-prod.properties
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
