@@ -12,23 +12,10 @@ import java.util.Objects;
 @MappedSuperclass
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @EqualsAndHashCode.Include
     private Long id;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        AbstractEntity that = (AbstractEntity) o;
-        return id != null && Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 }

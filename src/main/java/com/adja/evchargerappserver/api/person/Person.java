@@ -6,21 +6,15 @@ import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.role.Role;
 import com.sun.istack.NotNull;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Objects;
 
 @Entity(name = "Person")
 @Table(name = "person")
 @Getter
 @Setter
-@ToString
-@RequiredArgsConstructor
 public class Person extends AbstractEntity {
 
     @NotNull
@@ -37,7 +31,6 @@ public class Person extends AbstractEntity {
     @Column(name = "email", nullable = false)
     private String email;
 
-
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -49,7 +42,7 @@ public class Person extends AbstractEntity {
     private Collection<Role> roles;
 
     @OneToOne
-    @JoinColumn(name="car_ID", referencedColumnName = "id")
+    @JoinColumn(name="car_id", referencedColumnName = "id")
     private ElectricCar car;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -57,14 +50,5 @@ public class Person extends AbstractEntity {
             name = "notification",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "charger_id"))
-    @ToString.Exclude
     private Collection<Charger> observedChargers;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Person person = (Person) o;
-        return getId() != null && Objects.equals(getId(), person.getId());
-    }
 }
