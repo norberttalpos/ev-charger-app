@@ -1,17 +1,17 @@
 package com.adja.evchargerappserver.api.electriccar;
 
-import com.adja.evchargerappserver.api.abstracts.AbstractService;
 import com.adja.evchargerappserver.api.NotValidUpdateException;
+import com.adja.evchargerappserver.api.abstracts.AbstractService;
 import com.adja.evchargerappserver.api.charger.Charger;
 import com.adja.evchargerappserver.api.charger.ChargerService;
-import com.adja.evchargerappserver.api.charger.QCharger;
 import com.adja.evchargerappserver.api.electriccar.mock.MockElectricCarHandler;
 import com.adja.evchargerappserver.api.electriccartype.ElectricCarTypeRepository;
 import com.adja.evchargerappserver.api.notification.NotificationService;
-import com.adja.evchargerappserver.api.person.PersonRepository;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -20,9 +20,6 @@ import java.util.Optional;
 public class ElectricCarService extends AbstractService<ElectricCar, ElectricCarFilter, ElectricCarRepository> {
     @Autowired
     private ElectricCarTypeRepository electricCarTypeRepository;
-
-    @Autowired
-    private PersonRepository personRepository;
 
     @Autowired
     private MockElectricCarHandler mockElectricCarHandler;
@@ -37,7 +34,6 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
     @Override
     public Collection<ElectricCar> search(ElectricCarFilter filter) {
         QElectricCar electricCar = QElectricCar.electricCar;
-        QCharger charger = QCharger.charger;
         BooleanBuilder where = new BooleanBuilder();
 
         if(filter.getLicensePlate() != null) {
@@ -72,10 +68,10 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
 
     @Override
     protected boolean validateEntity(ElectricCar electricCar) {
-        return electricCarTypeRepository.findById(electricCar.getCarType().getId()).isPresent() &&
-                ( personRepository.findById(electricCar.getDriver().getId()).isPresent() || electricCar.getDriver()==null);
+        return electricCarTypeRepository.findById(electricCar.getCarType().getId()).isPresent();
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = NotValidUpdateException.class)
     public boolean startCharging(Long carId, Long chargerId) throws NotValidUpdateException {
         Optional<ElectricCar> carById = this.repository.findById(carId);
         if(carById.isEmpty()) {
@@ -94,6 +90,7 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
         return successfulAttempt;
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = NotValidUpdateException.class)
     public boolean endCharging(Long carId) throws NotValidUpdateException {
         Optional<ElectricCar> carById = this.repository.findById(carId);
         if(carById.isEmpty()) {
@@ -118,6 +115,7 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
         return true;
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void persistBatteryPercentageChanges(Long carId, Integer batteryPercentage) {
         Optional<ElectricCar> electricCar = this.repository.findById(carId);
         electricCar.get().setBatteryPercentage(batteryPercentage);

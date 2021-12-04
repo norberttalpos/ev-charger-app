@@ -17,7 +17,7 @@ public class EvChargerAppServerApplication {
 
 	public static final boolean jwtEnabled = true;
 	public static final boolean charging = true;
-	public static final boolean sendMails = true;
+	public static final boolean sendMails = false;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EvChargerAppServerApplication.class, args);

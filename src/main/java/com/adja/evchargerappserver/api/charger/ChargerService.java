@@ -9,6 +9,8 @@ import com.adja.evchargerappserver.api.electriccar.ElectricCarRepository;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -68,6 +70,7 @@ public class ChargerService extends AbstractService<Charger, ChargerFilter, Char
                 (charger.getChargingStation() == null || this.chargingStationRepository.findById(charger.getChargingStation().getId()).isPresent());
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = NotValidUpdateException.class)
     public boolean carAttemptsCharging(Long chargerId, Long carId) throws NotValidUpdateException {
         Optional<Charger> chargerById = this.repository.findById(chargerId);
         if(chargerById.isEmpty()) {

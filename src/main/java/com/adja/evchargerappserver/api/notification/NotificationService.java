@@ -10,6 +10,8 @@ import com.adja.evchargerappserver.email.EmailSendingService;
 import com.querydsl.core.BooleanBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
@@ -62,6 +64,7 @@ public class NotificationService extends AbstractService<Notification, Notificat
         }
     }
 
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void chargingEnded(Long chargerId) {
         NotificationFilter filter = new NotificationFilter();
         filter.setChargerId(chargerId);

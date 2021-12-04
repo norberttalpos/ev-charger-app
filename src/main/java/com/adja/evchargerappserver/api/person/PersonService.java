@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
@@ -135,10 +137,10 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
         }
         else
             throw new NotValidUpdateException("");
-
     }
 
     @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Person> personByUsername = this.repository.findByUsername(username);
 

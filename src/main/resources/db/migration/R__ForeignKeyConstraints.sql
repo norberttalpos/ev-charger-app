@@ -1,5 +1,3 @@
-
-
 ALTER TABLE   Person   ADD CONSTRAINT fk_Person_car_ID   FOREIGN KEY(  car_ID  )
     REFERENCES   ElectricCar   (  ID  );
 ALTER TABLE   ElectricCar   ADD CONSTRAINT fk_ElectricCar_car_type_ID   FOREIGN KEY(  car_type_ID  )
