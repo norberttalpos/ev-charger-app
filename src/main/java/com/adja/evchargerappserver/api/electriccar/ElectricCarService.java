@@ -68,7 +68,25 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
 
     @Override
     protected boolean validateEntity(ElectricCar electricCar) {
-        return electricCarTypeRepository.findById(electricCar.getCarType().getId()).isPresent();
+        if(electricCarTypeRepository.findById(electricCar.getCarType().getId()).isPresent()) {
+
+            ElectricCarFilter filter = new ElectricCarFilter();
+            filter.setLicensePlate(electricCar.getLicensePlate());
+
+            return this.search(filter).size() == 0;
+        }
+        else
+            return false;
+    }
+
+    @Override
+    protected ElectricCar mapToEntity(ElectricCar persisted, ElectricCar dto) {
+        dto.setCharger(persisted.getCharger());
+        dto.setDriver(persisted.getDriver());
+        dto.setBatteryPercentage(persisted.getBatteryPercentage());
+        dto.setLicensePlate(persisted.getLicensePlate());
+
+        return dto;
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = NotValidUpdateException.class)

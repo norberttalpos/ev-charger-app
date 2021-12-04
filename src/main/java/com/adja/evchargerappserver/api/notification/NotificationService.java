@@ -64,6 +64,11 @@ public class NotificationService extends AbstractService<Notification, Notificat
         }
     }
 
+    @Override
+    protected Notification mapToEntity(Notification persisted, Notification dto) {
+        return persisted;
+    }
+
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void chargingEnded(Long chargerId) {
         NotificationFilter filter = new NotificationFilter();

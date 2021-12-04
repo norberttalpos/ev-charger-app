@@ -2,7 +2,11 @@ package com.adja.evchargerappserver.api.person;
 
 import com.adja.evchargerappserver.api.abstracts.AbstractService;
 import com.adja.evchargerappserver.api.NotValidUpdateException;
+import com.adja.evchargerappserver.api.charger.Charger;
+import com.adja.evchargerappserver.api.chargingstation.ChargingStation;
+import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarRepository;
+import com.adja.evchargerappserver.api.electriccar.ElectricCarService;
 import com.adja.evchargerappserver.api.role.Role;
 import com.adja.evchargerappserver.api.role.RoleRepository;
 import com.querydsl.core.BooleanBuilder;
@@ -24,6 +28,9 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
 
     @Autowired
     private ElectricCarRepository electricCarRepository;
+
+    @Autowired
+    private ElectricCarService electricCarService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -122,7 +129,7 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
     public Person put(Long id, Person person) throws NotValidUpdateException {
         if(this.validateEntity(person)) {
 
-            if(person.getPassword()=="")
+            if(Objects.equals(person.getPassword(), ""))
                 person.setPassword(this.getById(id).getPassword());
             if(person.getPassword() != null && person.getPassword()!="") {
                 if(!person.getPassword().equals(this.getById(id).getPassword())) {
@@ -137,6 +144,36 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
         }
         else
             throw new NotValidUpdateException("");
+    }
+
+    @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = NotValidUpdateException.class)
+    public void setCarToPerson(Long id, Long carId) throws NotValidUpdateException {
+        try {
+            Person person = this.getById(id);
+            ElectricCar car = this.electricCarService.getById(carId);
+
+            if(car.getDriver() != null)
+                throw new NotValidUpdateException("");
+
+            if(person.getCar() != null) {
+                person.getCar().setDriver(null);
+            }
+
+            car.setDriver(person);
+            person.setCar(car);
+
+            this.put(id, person);
+        }
+        catch(EntityNotFoundException e) {
+            throw new NotValidUpdateException("");
+        }
+    }
+
+    @Override
+    protected Person mapToEntity(Person persisted, Person dto) {
+        dto.setRoles(persisted.getRoles());
+
+        return dto;
     }
 
     @Override

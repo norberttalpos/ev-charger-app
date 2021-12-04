@@ -22,4 +22,9 @@ public class LocationService extends AbstractService<Location, LocationFilter, L
     protected boolean validateEntity(Location location) {
         return true;
     }
+
+    @Override
+    protected Location mapToEntity(Location persisted, Location dto) {
+        return persisted;
+    }
 }

@@ -29,4 +29,9 @@ public class ChargerTypeService extends AbstractService<ChargerType, ChargerType
 
         return true;
     }
+
+    @Override
+    protected ChargerType mapToEntity(ChargerType persisted, ChargerType dto) {
+        return persisted;
+    }
 }

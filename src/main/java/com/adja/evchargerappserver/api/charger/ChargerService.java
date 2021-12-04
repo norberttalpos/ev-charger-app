@@ -70,6 +70,15 @@ public class ChargerService extends AbstractService<Charger, ChargerFilter, Char
                 (charger.getChargingStation() == null || this.chargingStationRepository.findById(charger.getChargingStation().getId()).isPresent());
     }
 
+    @Override
+    protected Charger mapToEntity(Charger persisted, Charger dto) {
+        dto.setChargingStation(persisted.getChargingStation());
+        dto.setPersonsToNotify(persisted.getPersonsToNotify());
+        dto.setCurrentlyChargingCar(persisted.getCurrentlyChargingCar());
+
+        return dto;
+    }
+
     @Transactional(isolation = Isolation.REPEATABLE_READ, rollbackFor = NotValidUpdateException.class)
     public boolean carAttemptsCharging(Long chargerId, Long carId) throws NotValidUpdateException {
         Optional<Charger> chargerById = this.repository.findById(chargerId);

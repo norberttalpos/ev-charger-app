@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS Charger   (
       ID    SERIAL    NOT NULL,
       currently_charging_car_ID   integer UNIQUE,
       charger_type_ID   integer    NOT NULL,
-      station_ID   integer    NOT NULL,
+      station_ID   integer,
     CONSTRAINT   pk_Charger   PRIMARY KEY (
           ID
      )

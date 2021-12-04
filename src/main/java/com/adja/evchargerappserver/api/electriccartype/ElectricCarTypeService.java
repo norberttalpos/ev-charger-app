@@ -34,4 +34,9 @@ public class ElectricCarTypeService extends AbstractService<ElectricCarType, Ele
         }
         return true;
     }
+
+    @Override
+    protected ElectricCarType mapToEntity(ElectricCarType persisted, ElectricCarType dto) {
+        return persisted;
+    }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -32,28 +33,42 @@ public abstract class AbstractService<ENTITY extends AbstractEntity, FILTER, REP
 
     protected abstract boolean validateEntity(ENTITY entity);
 
-    private boolean validatePutRequest(Long id, ENTITY entity) {
-        if(this.repository.findById(id).isEmpty())
-            return false;
-
-        return this.validateEntity(entity);
-    }
-
     public ENTITY post(ENTITY entity) throws NotValidUpdateException {
         if(this.validateEntity(entity)) {
             entity.setId(null);
 
-            return this.repository.save(entity);
+            Long id = this.repository.save(entity).getId();
+
+            return this.getById(id);
         }
         else
             throw new NotValidUpdateException("");
     }
 
     public ENTITY put(Long id, ENTITY entity) throws NotValidUpdateException {
-        if(this.validatePutRequest(id, entity))
-            return this.repository.save(entity);
-        else
+
+        Optional<ENTITY> persistedEntity = this.repository.findById(id);
+
+        if(persistedEntity.isEmpty()) {
             throw new NotValidUpdateException("");
+        }
+        else {
+            if(!Objects.equals(entity.getId(), id)) {
+                throw new NotValidUpdateException("");
+            }
+            else {
+                ENTITY persisted = persistedEntity.get();
+
+                ENTITY entityToPersist = this.mapToEntity(persisted, entity);
+
+                if(this.validateEntity(entityToPersist)) {
+                    return this.repository.save(entityToPersist);
+                }
+                else {
+                    throw new NotValidUpdateException("");
+                }
+            }
+        }
     }
 
     public void deleteById(Long id) throws EntityNotFoundException {
@@ -62,4 +77,6 @@ public abstract class AbstractService<ENTITY extends AbstractEntity, FILTER, REP
         else
             this.repository.deleteById(id);
     }
+
+    protected abstract ENTITY mapToEntity(ENTITY persisted, ENTITY dto);
 }

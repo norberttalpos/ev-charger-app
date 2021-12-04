@@ -72,6 +72,18 @@ public class PersonController extends AbstractController<Person, PersonFilter, P
         }
     }
 
+    @PutMapping("/{id}/setCar")
+    public ResponseEntity<Person> setCar(@PathVariable Long id, @RequestBody PersonCar body) {
+        try {
+            this.service.setCarToPerson(id, body.getCarId());
+
+            return new ResponseEntity<>(this.service.getById(id), HttpStatus.OK);
+        }
+        catch(NotValidUpdateException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PostMapping("/register")
     @Override
     public ResponseEntity<?> post(@RequestBody Person entity) {
