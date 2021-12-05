@@ -43,29 +43,53 @@ export default {
         return {
             carType:"",
             licensePlate: "",
-            types:[]
+            types:[],
+            typeData:[]
         }
     },
 
-
+    async created(){
+        await this.loadTypes();
+    },
     methods:{
-        async created(){
-            console.log("alma");
-            await this.loadTypes();
-        },
+
         async loadTypes(){
-            console.log("alma");
             const types_response = await this.axios.get(`/api/electricCarType`);
+            this.typeData=types_response.data;
+
             console.log(types_response);
-            for (let i = 0; i < types_response.data.length(); i++) {
+            for (let i = 0; i < types_response.data.length; i++) {
                 console.log(types_response.data[i].name);
-                this.types.append(types_response.data[i].name);
+                this.types.push(types_response.data[i].name);
             }
         },
 
-        save(){
+        async save(){
+            let type=this.typeData[0];
+            for (let i = 0; i < this.typeData.length; i++) {
+                if(this.typeData[i].name===this.carType)
+                    type=this.typeData[i]
+            }
 
-        },
+            try{
+                const response = await this.axios.post(`/api/electricCar/`, {
+                    licensePlate: this.licensePlate,
+                    batteryPercentage: 100,
+                    type: type
+                });
+                if (response.status === 200) {
+                    this.closeDialog();
+                }
+
+            }
+            catch(error){
+                console.log(error);
+
+            }
+
+
+
+            },
         closeDialog() {
             this.$emit('close-dialog');
         },
