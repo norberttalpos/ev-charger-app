@@ -14,8 +14,6 @@ public class WebsocketSecurityConfig extends AbstractSecurityWebSocketMessageBro
                 .simpTypeMatchers(SimpMessageType.CONNECT, SimpMessageType.HEARTBEAT, SimpMessageType.UNSUBSCRIBE, SimpMessageType.DISCONNECT).permitAll()
                 .anyMessage().permitAll()
                 .simpDestMatchers("/**").permitAll();
-
-        //TODO websocketre is auth
     }
 
     @Override

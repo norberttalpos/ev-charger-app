@@ -16,9 +16,6 @@ public class PageAuthorizationChecker {
             return true;
         }
         else {
-            //TODO route alapjan eldönteni van-e joga role_user
-            //TODO ha be van lépve, akkor legyen letiltva login, sign-up?
-
             Collection<String> routes = new HashSet<>();
             routes.add("/map");
             routes.add("/");

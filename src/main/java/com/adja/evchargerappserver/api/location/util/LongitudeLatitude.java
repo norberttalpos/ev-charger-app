@@ -8,6 +8,6 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 public class LongitudeLatitude implements Serializable {
-    private double latitude;
     private double longitude;
+    private double latitude;
 }

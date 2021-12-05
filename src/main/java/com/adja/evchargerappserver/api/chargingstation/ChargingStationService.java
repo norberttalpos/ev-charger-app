@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 public class ChargingStationService extends AbstractService<ChargingStation, ChargingStationFilter, ChargingStationRepository> {
 
     @Autowired
-    private ChargingStationRepository chargingStationRepository;
-
-    @Autowired
     private LocationRepository locationRepository;
 
     @Autowired
@@ -29,7 +26,7 @@ public class ChargingStationService extends AbstractService<ChargingStation, Cha
 
     @Override
     public Collection<ChargingStation> search(ChargingStationFilter chargingStationFilter) {
-        return this.chargingStationRepository.filterEntities(chargingStationFilter);
+        return this.repository.filterEntities(chargingStationFilter);
     }
 
     @Override
