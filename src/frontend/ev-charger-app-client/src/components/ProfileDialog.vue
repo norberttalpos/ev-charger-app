@@ -1,4 +1,5 @@
 <template>
+    <div>
     <dialog-base :save-button-action="save" :cancel-button-action="cancelAction" title="Profile"
                   :tab-items="['profile', 'car']" @tabidxChanged="tabidxChanged">
         <v-tabs-items v-model="tabsidx">
@@ -89,6 +90,13 @@
                             <v-card-title class="mainTitle">
                                 MY CAR
                             </v-card-title>
+                            <v-card-title>
+
+                            <v-btn @click="addNewCar">
+                                Add a new car
+                            </v-btn>
+                            </v-card-title>
+
                             <v-divider></v-divider>
                             <v-card-title class="carName">
                                 {{ carType.name }}
@@ -160,17 +168,26 @@
         </v-snackbar>
 
     </dialog-base>
+    <v-dialog
+        v-model="new_car_dialog"
+        max-width="400px"
+    >
 
+        <new-car-dialog @close-dialog="new_car_dialog=false"/>
+
+    </v-dialog>
+    </div>
 
 </template>
 
 <script>
 
 import DialogBase from "@/components/DialogBase.vue";
+import NewCarDialog from "@/components/NewCarDialog";
 
 export default {
     name: 'profile-dialog',
-    components: {DialogBase},
+    components: {DialogBase,NewCarDialog},
     props: {
         redirectionReason: {String, default: null}
     },
@@ -189,6 +206,7 @@ export default {
             email: "",
             phoneNumber: "",
             name: "",
+            new_car_dialog:false,
             show: false,
             snackBar: false,
             snackbarText: "",
@@ -224,6 +242,9 @@ export default {
         },
     },
     methods: {
+        addNewCar(){
+            this.new_car_dialog=true;
+        },
         closeDialog() {
             this.$emit('close-dialog');
         },
@@ -235,7 +256,6 @@ export default {
         },
         async load_data() {
             const person_response = await this.axios.get(`/api/person/current-person`);
-            console.log(person_response);
             if (person_response.status === 200) {
                 this.name = person_response.data.name;
                 this.email = person_response.data.email;
