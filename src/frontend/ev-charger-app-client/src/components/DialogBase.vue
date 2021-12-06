@@ -17,7 +17,7 @@
 
         <v-card class="mx-auto my-3  elevation-0">
             <v-card-text>
-                <v-container class="zoom-out">
+                <v-container>
                     <slot name="default"/>
                 </v-container>
             </v-card-text>

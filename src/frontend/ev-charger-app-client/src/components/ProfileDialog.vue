@@ -87,15 +87,14 @@
                 <v-row>
                     <v-col cols="12">
                         <v-card>
-                            <v-card-title class="mainTitle">
-                                MY CAR
-                            </v-card-title>
-                            <v-card-title>
-
-                            <v-btn @click="addNewCar">
-                                Add a new car
-                            </v-btn>
-                            </v-card-title>
+                            <v-layout row wrap justify-space-between>
+                                <v-card-title class="mainTitle">
+                                    MY CAR
+                                </v-card-title>
+                                <v-btn @click="addNewCar" class="mt-3 mr-6" color="secondary">
+                                    Add a new car
+                                </v-btn>
+                            </v-layout>
 
                             <v-divider></v-divider>
                             <v-card-title class="carName">
@@ -171,10 +170,9 @@
     <v-dialog
         v-model="new_car_dialog"
         max-width="400px"
+        persistent
     >
-
-        <new-car-dialog @close-dialog="new_car_dialog=false"/>
-
+        <new-car-dialog @close-dialog="newCarDialogClosed"/>
     </v-dialog>
     </div>
 
@@ -245,6 +243,10 @@ export default {
         addNewCar(){
             this.new_car_dialog=true;
         },
+        newCarDialogClosed() {
+            this.new_car_dialog = false;
+            this.load_data();
+        },
         closeDialog() {
             this.$emit('close-dialog');
         },
@@ -276,7 +278,6 @@ export default {
                 await this.$store.dispatch("fetchId");
 
                 const id = this.$store.getters.getId;
-                console.log(id);
 
                 const response = await this.axios.put(`/api/person/${id}`, {
                     password: this.password,
@@ -288,7 +289,6 @@ export default {
                 });
                 this.password = "";
                 this.confirm_password = "";
-                console.log(response);
 
                 if (response.status === 200) {
 
@@ -304,7 +304,6 @@ export default {
             } catch (error) {
                 this.snackBar = true;
                 this.snackbarText = 'Not valid data!';
-                console.log("catch error")
                 console.log(error)
             }
 

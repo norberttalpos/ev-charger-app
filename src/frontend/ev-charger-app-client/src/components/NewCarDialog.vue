@@ -23,7 +23,6 @@
                     name="carType"
                     persistent-placeholder
                     return-object
-
                 ></v-select>
             </v-col>
         </v-row>
@@ -57,11 +56,7 @@ export default {
             const types_response = await this.axios.get(`/api/electricCarType`);
             this.typeData=types_response.data;
 
-            console.log(types_response);
-            for (let i = 0; i < types_response.data.length; i++) {
-                console.log(types_response.data[i].name);
-                this.types.push(types_response.data[i].name);
-            }
+            this.types = this.typeData.map(i => i.name);
         },
 
         async save(){
@@ -71,7 +66,15 @@ export default {
                     batteryPercentage: 100,
                     carType: this.typeData.filter(i => i.name === this.carType).map(f => ({ id: f.id }))[0]
                 });
-                if (response.status === 200) {
+                if (response.status === 201) {
+                    const newCarId = response.data.id;
+
+                    await this.$store.dispatch("fetchId");
+                    const id = this.$store.getters.getId;
+
+                    await this.axios.put(`/api/person/${id}/setCar`, {
+                        carId: newCarId,
+                    });
                     this.closeDialog();
                 }
             }
