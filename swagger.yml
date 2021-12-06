@@ -6,8 +6,6 @@ info:
   termsOfService: Terms of service
   contact:
     name: Adja
-  license:
-    name: License of API
 host: localhost:8080
 basePath: /
 tags:
@@ -662,6 +660,92 @@ paths:
           description: Unauthorized
         '403':
           description: Forbidden
+      security:
+        - Bearer: []
+      deprecated: false
+  /api/chargingStation/{id}/addCharger:
+    put:
+      tags:
+        - ChargingStation
+      summary: addChargerToChargingStation
+      operationId: addChargerToChargingStationUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - in: body
+          name: body
+          description: body
+          required: true
+          schema:
+            $ref: '#/definitions/ChargerChargingStation'
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ChargingStation'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
+  /api/chargingStation/{id}/removeCharger:
+    put:
+      tags:
+        - ChargingStation
+      summary: removeChargerFromChargingStation
+      operationId: removeChargerFromChargingStationUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - in: body
+          name: body
+          description: body
+          required: true
+          schema:
+            $ref: '#/definitions/ChargerChargingStation'
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ChargingStation'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
       security:
         - Bearer: []
       deprecated: false
@@ -1942,6 +2026,49 @@ paths:
       security:
         - Bearer: []
       deprecated: false
+  /api/person/{id}/setCar:
+    put:
+      tags:
+        - Person
+      summary: setCar
+      operationId: setCarUsingPUT
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          type: string
+        - in: body
+          name: body
+          description: body
+          required: true
+          schema:
+            $ref: '#/definitions/PersonCar'
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Person'
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+        - Bearer: []
+      deprecated: false
   /api/role:
     get:
       tags:
@@ -2062,6 +2189,13 @@ definitions:
         type: integer
         format: int64
     title: Charger
+  ChargerChargingStation:
+    type: object
+    properties:
+      chargerId:
+        type: integer
+        format: int64
+    title: ChargerChargingStation
   ChargerFilter:
     type: object
     properties:
@@ -2293,6 +2427,13 @@ definitions:
       username:
         type: string
     title: Person
+  PersonCar:
+    type: object
+    properties:
+      carId:
+        type: integer
+        format: int64
+    title: PersonCar
   PersonFilter:
     type: object
     properties:
