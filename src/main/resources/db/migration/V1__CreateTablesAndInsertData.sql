@@ -149,8 +149,21 @@ insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-17',55,2);
 
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (1,3,2);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,2,2);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,1,2);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,1,2);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,2,1);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,3,1);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,1,1);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,2,1);
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (2,1,2);
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (3,2,1);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,1,3);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,2,3);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,3,3);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,3,3);
+insert into charger (currently_charging_car_id,charger_type_id,station_id) values (null,3,3);
+
 
 insert into cartypejoin (car_type_id,charger_type_id) values(1,3);
 insert into cartypejoin (car_type_id,charger_type_id) values(2,1);
