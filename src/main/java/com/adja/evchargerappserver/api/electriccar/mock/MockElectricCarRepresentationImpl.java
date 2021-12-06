@@ -62,7 +62,7 @@ public class MockElectricCarRepresentationImpl implements MockElectricCarReprese
 
         if(changed) {
             this.lastChange = LocalDateTime.now();
-            System.out.println(this.id + ": interval: " + timeElapsedMillis + ", percentage: " + this.batteryPercentage);
+            // System.out.println(this.id + ": interval: " + timeElapsedMillis + ", percentage: " + this.batteryPercentage);
         }
         return changed;
     }

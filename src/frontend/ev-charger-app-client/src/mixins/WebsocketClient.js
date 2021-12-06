@@ -9,9 +9,8 @@ export const WebsocketClient = {
 			this.stompClient = Stomp.over(this.socket);
 
 			this.stompClient.connect({Authorization: "Bearer " + localStorage.getItem('accessToken')},
-				frame => {
+				() => {
 					this.connected = true;
-					console.log(frame);
 
 					this.stompClient.subscribe(`/topic/${type}/${room}`, tick => {
 						const receivedMessageBody = JSON.parse(tick.body);
@@ -19,8 +18,7 @@ export const WebsocketClient = {
 					});
 				},
 
-				error => {
-					console.log(error);
+				() => {
 					this.connected = false;
 				}
 			);
