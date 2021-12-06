@@ -65,31 +65,20 @@ export default {
         },
 
         async save(){
-            let type=this.typeData[0];
-            for (let i = 0; i < this.typeData.length; i++) {
-                if(this.typeData[i].name===this.carType)
-                    type=this.typeData[i]
-            }
-
             try{
                 const response = await this.axios.post(`/api/electricCar/`, {
                     licensePlate: this.licensePlate,
                     batteryPercentage: 100,
-                    carType: type
+                    carType: this.typeData.filter(i => i.name === this.carType).map(f => ({ id: f.id }))[0]
                 });
                 if (response.status === 200) {
                     this.closeDialog();
                 }
-
             }
             catch(error){
                 console.log(error);
-
             }
-
-
-
-            },
+        },
         closeDialog() {
             this.$emit('close-dialog');
         },
