@@ -136,11 +136,17 @@ insert into person (name, username, password, email, phone_number, car_id) VALUE
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám','edemsz','proba','viragadam100@gmail.com','123',2);
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Virág Ádám2','edemsz2','proba','virag.adam100@gmail.com','123',3);
 insert into person (name, username, password, email, phone_number, car_id) VALUES ('Admin','admin','proba','virag.ad.am100@gmail.com','123',4);
+insert into person (name, username, password, email, phone_number, car_id) VALUES ('Admin','admin2','proba','virag.ad.am100@gmail.com','123',5);
+insert into person (name, username, password, email, phone_number, car_id) VALUES ('Proba','user','proba','vira.g.ad.am100@gmail.com','123',6);
+insert into person (name, username, password, email, phone_number, car_id) VALUES ('Proba Proba','user2','proba','virag.ad.am100@gmail.com','123',7);
 
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ABC-123',50,1);
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-12',40,3);
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-14',40,3);
 insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-13',60,3);
+insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-15',35,2);
+insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-16',25,3);
+insert into electriccar ( license_plate, battery_percentage, car_type_id) VALUES ('ADJA-17',55,2);
 
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (1,3,2);
 insert into charger (currently_charging_car_id,charger_type_id,station_id) values (2,1,2);

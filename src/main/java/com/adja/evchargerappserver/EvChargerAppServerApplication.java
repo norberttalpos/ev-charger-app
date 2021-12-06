@@ -23,70 +23,34 @@ public class EvChargerAppServerApplication {
 		SpringApplication.run(EvChargerAppServerApplication.class, args);
 	}
 
+
 	@Bean
 	CommandLineRunner run(PersonService personService) {
 		return args -> {
-			try {
-				Person norbi=personService.getByUsername("norbi");
-				norbi.setPassword("1234");
-				personService.put(norbi.getId(),norbi);
-			}
-			catch(NotValidUpdateException e) {
-				e.printStackTrace();
-			}
-			try {
-				Person edemsz=personService.getByUsername("edemsz");
-				edemsz.setPassword("woozyface");
-				personService.put(edemsz.getId(),edemsz);
-			}
-			catch(NotValidUpdateException e) {
-				e.printStackTrace();
-			}
+			personService.addInitialPerson("norbi","1234");
+			personService.addInitialPerson("edemsz","woozyface");
+			personService.addInitialPerson("admin","admin");
+			personService.addInitialPerson("admin2","admin");
+			personService.addInitialPerson("user","user");
+			personService.addInitialPerson("user2","user");
 
-			try {
-				Person admin=personService.getByUsername("admin");
-				admin.setPassword("admin");
-				personService.put(admin.getId(),admin);
-			}
-			catch(NotValidUpdateException e) {
-				e.printStackTrace();
-			}
+			personService.setInitialRole("edemsz","role_user");
+			personService.setInitialRole("norbi","role_admin");
+			personService.setInitialRole("norbi","role_user");
+			personService.setInitialRole("admin","role_admin");
+			personService.setInitialRole("admin","role_user");
+			personService.setInitialRole("admin2","role_admin");
+			personService.setInitialRole("admin2","role_user");
+			personService.setInitialRole("user","role_user");
+			personService.setInitialRole("user2","role_user");
 
 
 
-			try {
-				personService.addRoleToUser("edemsz", "role_user");
-			}
-			catch(NotValidUpdateException e) {
-				e.printStackTrace();
-			}
 
-			try {
-				personService.addRoleToUser("norbi", "role_admin");
-			}
-			catch(NotValidUpdateException e) {
-				e.printStackTrace();
-			}
 
-			try {
-				personService.addRoleToUser("norbi", "role_user");
-			}
-			catch(NotValidUpdateException e) {
-				e.printStackTrace();
-			}
-			try {
-				personService.addRoleToUser("admin", "role_admin");
-			}
-			catch(NotValidUpdateException e) {
-				e.printStackTrace();
-			}
 
-			try {
-				personService.addRoleToUser("admin", "role_user");
-			}
-			catch(NotValidUpdateException e) {
-				e.printStackTrace();
-			}
+
+
 		};
 	}
 }

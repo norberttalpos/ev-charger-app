@@ -179,7 +179,6 @@ export default {
             return this.$vuetify.theme.dark;
         },
         showSubscribe() {
-            console.log(this.user.observedChargers.map(i => i.id))
             return !this.user.observedChargers.map(i => i.id).includes(this.currentChargerSelectedId);
         },
     },
@@ -192,8 +191,6 @@ export default {
         async subscribeForLeaving(car) {
             const carId = car.id;
             const chargerId = this.chargingStation.chargers.filter(i => i.currentlyChargingCar?.id === carId).map(i => i.id)[0];
-
-            console.log(chargerId);
 
             await this.axios.post(`/api/notification`, {
                 observedChargerId: chargerId,

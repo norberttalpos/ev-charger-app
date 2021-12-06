@@ -206,4 +206,23 @@ public class PersonService extends AbstractService<Person, PersonFilter, PersonR
             throw new EntityNotFoundException();
         }
     }
+    public void addInitialPerson(String username, String password){
+        try {
+            Person p=this.getByUsername(username);
+            p.setPassword(password);
+            this.put(p.getId(),p);
+        }
+        catch(NotValidUpdateException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setInitialRole(String username,String roleName){
+        try {
+            this.addRoleToUser(username, roleName);
+        }
+        catch(NotValidUpdateException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -14,14 +14,6 @@
         >
             <profile-dialog @close-dialog="dialog=false" />
         </v-dialog>
-        <v-dialog
-            v-model="new_car_dialog"
-            max-width="400px"
-        >
-
-            <new-car-dialog @close-dialog="new_car_dialog=false"/>
-
-        </v-dialog>
         <v-list
             nav
             dense
@@ -58,18 +50,16 @@
 <script>
 import router from "@/router";
 import ProfileDialog from "@/components/ProfileDialog";
-import NewCarDialog from "@/components/NewCarDialog";
 
 export default {
     props: {
         value: {Boolean, default: false}
     },
-    components: {NewCarDialog, ProfileDialog},
+    components: {ProfileDialog},
     name: "navigation-drawer",
     data(){
         return {
             dialog: false,
-            new_car_dialog:false,
             selection: null,
         }
     },
