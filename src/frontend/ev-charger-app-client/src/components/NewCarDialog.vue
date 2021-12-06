@@ -64,7 +64,7 @@ export default {
                 const response = await this.axios.post(`/api/electricCar/`, {
                     licensePlate: this.licensePlate,
                     batteryPercentage: 100,
-                    carType: this.typeData.filter(i => i.name === this.carType).map(f => ({ id: f.id }))[0]
+                    carType: this.typeData.filter(i => i.name === this.carType)[0]
                 });
                 if (response.status === 201) {
                     const newCarId = response.data.id;
