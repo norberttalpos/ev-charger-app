@@ -112,7 +112,6 @@
                                         height="20"
                                         striped
                                         justify-center
-
                                     >
                                         <template v-slot:default="{ value }">
                                             <strong>{{ Math.ceil(value) }}%</strong>
@@ -182,6 +181,7 @@
 
 import DialogBase from "@/components/DialogBase.vue";
 import NewCarDialog from "@/components/NewCarDialog";
+import {WebsocketClient} from "@/mixins/WebsocketClient";
 
 export default {
     name: 'profile-dialog',
@@ -189,6 +189,7 @@ export default {
     props: {
         redirectionReason: {String, default: null}
     },
+    mixins: [WebsocketClient],
     data() {
         return {
             username: "",
@@ -243,18 +244,27 @@ export default {
         addNewCar(){
             this.new_car_dialog=true;
         },
-        newCarDialogClosed() {
+        async newCarDialogClosed() {
             this.new_car_dialog = false;
-            this.load_data();
+            await this.load_data();
+            this.disconnect();
+            this.connect("carBatteryChange", this.car.id);
         },
         closeDialog() {
             this.$emit('close-dialog');
+            this.disconnect();
         },
         cancelAction() {
             this.closeDialog();
         },
         tabidxChanged(idx) {
             this.tabsidx = idx;
+        },
+        updateBatteryPercentage(batteryPercentage) {
+            this.car.batteryPercentage = batteryPercentage;
+        },
+        onWebsocketEvent(message) {
+            this.updateBatteryPercentage(message.batteryPercentage);
         },
         async load_data() {
             const person_response = await this.axios.get(`/api/person/current-person`);
@@ -309,8 +319,9 @@ export default {
 
         }
     },
-    async created() {
+    async mounted() {
         await this.load_data();
+        this.connect("carBatteryChange", this.car.id);
     },
 };
 </script>

@@ -88,6 +88,8 @@ public class NotificationService extends AbstractService<Notification, Notificat
     }
 
     public void carReached80PercentBattery(ElectricCar car) {
-        this.emailSendingService.sendCarReached80PercentBatteryNotificationMail(car);
+        if(car.getDriver() != null) {
+            this.emailSendingService.sendCarReached80PercentBatteryNotificationMail(car);
+        }
     }
 }

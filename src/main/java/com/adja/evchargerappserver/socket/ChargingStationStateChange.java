@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ChargingStateChange {
+public class ChargingStationStateChange {
     private Long chargingStationId;
 }

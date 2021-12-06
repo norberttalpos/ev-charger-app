@@ -3,7 +3,8 @@ package com.adja.evchargerappserver.api.electriccar.mock;
 import com.adja.evchargerappserver.EvChargerAppServerApplication;
 import com.adja.evchargerappserver.api.electriccar.ElectricCar;
 import com.adja.evchargerappserver.api.electriccar.ElectricCarService;
-import com.adja.evchargerappserver.socket.ChargingStateChange;
+import com.adja.evchargerappserver.socket.CarBatteryStateChange;
+import com.adja.evchargerappserver.socket.ChargingStationStateChange;
 import com.adja.evchargerappserver.socket.ChargingStateChangeController;
 import com.adja.evchargerappserver.api.notification.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class MockElectricCarHandler extends Thread {
 
     private List<MockElectricCarRepresentation> cars;
 
+    private final Object lockObj = new Object();
+
     private final int pollInterval = 400;
 
     @PostConstruct
@@ -49,13 +52,21 @@ public class MockElectricCarHandler extends Thread {
                     e.printStackTrace();
                 }
 
-                this.cars.forEach(car -> {
-                    boolean batteryPercentageChanged = car.adjustBatteryPercentage();
-                    if(batteryPercentageChanged) {
-                        this.onBatteryPercentageChanged(car);
-                    }
-                });
+                synchronized (lockObj) {
+                    this.cars.forEach(car -> {
+                        boolean batteryPercentageChanged = car.adjustBatteryPercentage();
+                        if(batteryPercentageChanged) {
+                            this.onBatteryPercentageChanged(car);
+                        }
+                    });
+                }
             }
+        }
+    }
+
+    public void newCar(ElectricCar newCar) {
+        synchronized (lockObj) {
+            this.cars.add(new MockElectricCarRepresentationImpl(newCar));
         }
     }
 
@@ -79,12 +90,14 @@ public class MockElectricCarHandler extends Thread {
 
         ElectricCar persistedCar = this.electricCarService.getById(car.getID());
         if(persistedCar.getCharger() != null) {
-            this.websocket.sendChargingStationUpdateFromJava(new ChargingStateChange(persistedCar.getCharger().getChargingStation().getId()));
+            this.websocket.sendChargingStationUpdateFromJava(new ChargingStationStateChange(persistedCar.getCharger().getChargingStation().getId()));
 
             if(persistedCar.getBatteryPercentage() == 80) {
                 this.notificationService.carReached80PercentBattery(persistedCar);
             }
         }
+
+        this.websocket.sendCarBatteryPercentageUpdateFromJava(new CarBatteryStateChange(persistedCar.getId(), (long) persistedCar.getBatteryPercentage()));
     }
 
     @EventListener(ContextRefreshedEvent.class)

@@ -67,6 +67,15 @@ public class ElectricCarService extends AbstractService<ElectricCar, ElectricCar
     }
 
     @Override
+    public ElectricCar post(ElectricCar entity) throws NotValidUpdateException {
+        ElectricCar car = super.post(entity);
+
+        mockElectricCarHandler.newCar(car);
+
+        return car;
+    }
+
+    @Override
     protected boolean validateEntity(ElectricCar electricCar) {
         if(electricCarTypeRepository.findById(electricCar.getCarType().getId()).isPresent()) {
 

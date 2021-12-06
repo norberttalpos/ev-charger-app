@@ -15,11 +15,21 @@ public class ChargingStateChangeController {
 
     @MessageMapping("/topic/changes/{room}")
     @SendTo("/topic/changes/{room}")
-    public ChargingStateChange sendChargingStationUpdate(@DestinationVariable String room, ChargingStateChange update) {
+    public ChargingStationStateChange sendChargingStationUpdate(@DestinationVariable String room, ChargingStationStateChange update) {
         return update;
     }
 
-    public void sendChargingStationUpdateFromJava(ChargingStateChange update) {
+    @MessageMapping("/topic/carBatteryChange/{room}")
+    @SendTo("/topic/carBatteryChange/{room}")
+    public CarBatteryStateChange sendCarBatteryPercentageUpdate(@DestinationVariable String room, CarBatteryStateChange update) {
+        return update;
+    }
+
+    public void sendChargingStationUpdateFromJava(ChargingStationStateChange update) {
         this.template.convertAndSend(String.format("/topic/changes/%s",update.getChargingStationId()), update);
+    }
+
+    public void sendCarBatteryPercentageUpdateFromJava(CarBatteryStateChange update) {
+        this.template.convertAndSend(String.format("/topic/carBatteryChange/%s",update.getCarId()), update);
     }
 }

@@ -246,7 +246,7 @@ export default {
         const personResp = await this.axios.get(`/api/person/current-person`);
         this.user = personResp.data;
 
-        this.connect(this.chargingStationId);
+        this.connect("changes", this.chargingStationId);
     }
 }
 </script>
