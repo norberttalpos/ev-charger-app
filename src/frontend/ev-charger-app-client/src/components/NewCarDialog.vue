@@ -75,7 +75,7 @@ export default {
                 const response = await this.axios.post(`/api/electricCar/`, {
                     licensePlate: this.licensePlate,
                     batteryPercentage: 100,
-                    type: type
+                    carType: type
                 });
                 if (response.status === 200) {
                     this.closeDialog();
