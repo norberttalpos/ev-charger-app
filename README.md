@@ -9,7 +9,7 @@ The goal was to make a clone of an app which helps electric vehicle users find a
 * Swagger API documentation
 * User authentication using Spring Security and JWT tokens
 * Google maps integration
-* PostgreSql database with a geospatial extension, which makes possible to query the nearest chargers from the user's current locations
+* PostgreSql database with a geospatial extension (PostGIS), which makes it possible to query the nearest chargers from the user's current location
 * Live updates of battery percentages using websocket
 * Dockerized frontend, backend and database, which makes it possible to launch the app everywhere without versions problems, using just one command
 * Github Actions (CI/CD) pipeline building these docker images on every push to the master
@@ -20,8 +20,13 @@ using docker: `docker-compose up -d`
 
 ## Screenshots
 
+#### Login page
 ![](images/login_page.png)
+#### Filter
 ![](images/filter.png)
+#### Chargin stations details
 ![](images/charging_station.png)
+#### Swagger API documentation
 ![](images/swagger.png)
+#### Database schema
 ![](images/db_schema.png)
