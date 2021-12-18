@@ -18,13 +18,18 @@ The goal was to make a clone of an app which helps electric vehicle users find a
 
 using docker: `docker-compose up -d`
 
+## Try it out
+
+* app: `localhost:8081`
+* swagger: `localhost:8080/swagger-ui.html`
+
 ## Screenshots
 
 #### Login page
 ![](images/login_page.png)
 #### Filter
 ![](images/filter.png)
-#### Chargin stations details
+#### Charging station details
 ![](images/charging_station.png)
 #### Swagger API documentation
 ![](images/swagger.png)
